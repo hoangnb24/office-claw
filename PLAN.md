@@ -64,6 +64,31 @@ These flows match the approved storyboard set (Flows 1–8).
   - Performs actual “agentic work” (tools, reasoning, outputs)
   - Returns structured results that become in-world artifacts/events
 
+### 2.1 OpenClaw integration mode (how our server “messages” agents)
+
+OpenClaw already has multi-agent + channel routing (Discord/WhatsApp/etc). For OfficeClaw v0, **we do not use Discord as the transport**.
+
+Instead, the **World Server talks to the OpenClaw Gateway as an internal API**, and we *simulate* “channels” by choosing stable OpenClaw session keys per project.
+
+**Recommended v0 transport**
+- Use OpenClaw Gateway’s **OpenAI-compatible** `POST /v1/chat/completions` endpoint (SSE streaming supported).
+- Target which OpenClaw agent runs via `x-openclaw-agent-id`.
+- Keep agent memory per project by always setting `x-openclaw-session-key`.
+
+**Session key scheme (project = “channel”)**
+- Per agent, per project:
+  - `agent:${agent_id}:officeclaw:channel:${project_id}`
+- This matches OpenClaw’s group/channel session key format and keeps sessions isolated.
+
+**Agent-to-agent collaboration**
+- Allow session tools (`sessions_send`, `sessions_history`, etc.) for agents that need to consult each other.
+- When BD needs Research input, BD calls `sessions_send` to the Research agent’s session key for the same project.
+
+**Why this matches our director model**
+- The Director remains authoritative for tasks + artifacts.
+- OpenClaw is “just” the worker runtime that produces structured outputs.
+- Streaming tokens can be forwarded to clients as `agent_stream` to visualize “thinking” (optional v0 polish).
+
 ### Key principle
 - **Server = “director”**
 - **Client = “renderer + input + interpolation”**
@@ -400,6 +425,29 @@ Events like “Kickoff Meeting” temporarily override normal task execution:
 3) When meeting ends:
    - override removed
    - agents return to their tasks
+
+### 11.4 When the Director calls OpenClaw (work execution)
+
+The FSM is *visual + deterministic*, but the actual “brain work” happens in OpenClaw.
+
+**Trigger**
+- When a task becomes `in_progress` and the agent reaches its work POI (`WorkingAtPOI(poi_id, task_id)`), the server starts an OpenClaw run for that agent.
+
+**Request contents (minimum)**
+- `project_id`, `task_id`, role + constraints
+- A short project summary (or pointer to prior artifacts)
+- Required output schema (what artifact type(s) to produce)
+- Session routing: agent id + session key (see 2.1)
+
+**Streaming + visualization (optional, but enables “thinking” VFX)**
+- While OpenClaw streams tokens, the server forwards deltas to the client as `agent_stream` messages.
+- Client uses these deltas for in-world “thought streaming” / holographic terminal effects.
+
+**Completion**
+- Server converts the structured OpenClaw result into:
+  - `artifact_created` (or `artifact_versioned`)
+  - task status updates
+  - `decision_created` if user input is needed
 
 ---
 

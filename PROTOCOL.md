@@ -37,7 +37,7 @@ All messages MUST include:
 
 ```json
 {
-  "type": "event | snapshot | agent_goal | chat | command | ack | error | hello | hello_ack | ping | pong",
+  "type": "event | snapshot | agent_goal | agent_stream | chat | command | ack | error | hello | hello_ack | ping | pong",
   "id": "unique_message_id",
   "ts": 1739500000,
   "v": 1,
@@ -261,6 +261,36 @@ Snapshots are low-rate authoritative state. Start at 2–5 Hz (tunable).
   }
 }
 ```
+
+### 5.5 `agent_stream` (optional): token/thought streaming from OpenClaw
+Use this when you want to **visualize OpenClaw latency** (typing, “thinking” VFX, holographic terminals) instead of hiding it behind a single looping animation.
+
+**Server → Client**
+
+```json
+{
+  "type": "agent_stream",
+  "id": "msg_901",
+  "ts": 1739500123,
+  "v": 1,
+  "payload": {
+    "stream_id": "oc_run_abc123",
+    "agent_id": "agent_eng",
+    "project_id": "proj_123",
+    "task_id": "task_7",
+    "kind": "token | thought | code",
+    "seq": 17,
+    "delta": "...partial text...",
+    "done": false
+  }
+}
+```
+
+**Notes**
+- `stream_id` lets the client group deltas into one visual effect.
+- `seq` is monotonically increasing per `stream_id` (helps reordering).
+- `kind` is purely a rendering hint (you can render `code` as terminal text, `thought` as floating nodes).
+- When `done=true`, the client should finalize/flush that stream.
 
 ---
 
