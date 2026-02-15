@@ -1,0 +1,9 @@
+{
+  "name": "@officeclaw/repository",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node test/repository.test.mjs"
+  }
+}
