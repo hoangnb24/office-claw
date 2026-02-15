@@ -27,6 +27,7 @@ A **scene manifest** provides that mapping without forcing complex DCC workflows
 - `assets/scenes/<scene_id>.scene.json` — the main scene manifest
 - `assets/scenes/<scene_id>.nav.json` — optional separate nav grid file (if large)
 - `assets/scenes/<scene_id>.README.md` — human notes / diagram links
+- Example valid manifest in-repo: `assets/scenes/cozy_office_v0.scene.json`
 
 ---
 
@@ -34,10 +35,13 @@ A **scene manifest** provides that mapping without forcing complex DCC workflows
 - World is 3D: XZ plane is floor, Y is up.
 - Scale: **1 unit = 1 meter**.
 - Rotations are radians in `[x,y,z]` order (or specify if you use degrees; pick one).
+- Canonical ID naming and regex contracts come from `DOMAIN_MODEL.md` and `contracts/schemas/identifiers.schema.json`.
 
 ---
 
 ## 4) Scene manifest schema (v0)
+
+Validation contract implementation: `contracts/schemas/scene-manifest.schema.json`.
 
 ### 4.1 Top-level structure
 ```json
@@ -81,7 +85,7 @@ POIs are semantic anchors for:
 ```
 
 **Fields**
-- `poi_id` (string, unique)
+- `poi_id` (string, unique, must match `^poi_[a-z][a-z0-9]*(?:_[a-z0-9]+)*$`)
 - `type` (enum-like string): inbox | task_board | meeting_table | research_desk | dev_desk | delivery_shelf | lounge
 - `nav_anchors[]`: where an agent stands to use the POI (multiple seats allowed)
 - `interaction_radius_m` (number, optional): how close the player must be for the POI interaction to trigger (enables “walk-to-interact”)

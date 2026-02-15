@@ -37,7 +37,7 @@ All messages MUST include:
 
 ```json
 {
-  "type": "event | snapshot | agent_goal | agent_stream | chat | command | ack | error | hello | hello_ack | ping | pong",
+  "type": "hello | hello_ack | subscribe | event | snapshot | agent_goal | agent_stream | chat | command | ack | error | ping | pong",
   "id": "unique_message_id",
   "ts": 1739500000,
   "v": 1,
@@ -49,17 +49,20 @@ All messages MUST include:
 - `id`: UUID/ULID recommended; used for de-duplication.
 - `ts`: Unix seconds or milliseconds (choose one and keep consistent).
 - `v`: protocol version (start at 1).
+- Runtime schema contract: `contracts/schemas/protocol-envelope.schema.json`.
 
 ---
 
 ## 3) Entity identifiers and coordinates
 
 ### 3.1 IDs
-- `agent_id`: `agent_bd`, `agent_research_1`, `agent_eng_1`
-- `project_id`: `proj_...`
-- `task_id`: `task_...`
-- `artifact_id`: `art_...`
-- `poi_id`: `poi_meeting_table`, etc.
+- Canonical source of truth: `DOMAIN_MODEL.md` and `contracts/schemas/identifiers.schema.json`.
+- `agent_id`: `^agent_[a-z][a-z0-9]*(?:_[a-z0-9]+)*$` (example: `agent_research_1`)
+- `project_id`: `^proj_[a-z][a-z0-9]*(?:_[a-z0-9]+)*$` (example: `proj_abc`)
+- `task_id`: `^task_[a-z][a-z0-9]*(?:_[a-z0-9]+)*$` (example: `task_1`)
+- `artifact_id`: `^art_[a-z][a-z0-9]*(?:_[a-z0-9]+)*$` (example: `art_1`)
+- `decision_id`: `^dec_[a-z][a-z0-9]*(?:_[a-z0-9]+)*$` (example: `dec_1`)
+- `poi_id`: `^poi_[a-z][a-z0-9]*(?:_[a-z0-9]+)*$` (example: `poi_meeting_table`)
 
 ### 3.2 Coordinates
 - World coordinates are 3D: `[x, y, z]`
@@ -84,7 +87,8 @@ All messages MUST include:
       "events": true,
       "snapshots": true,
       "goals": true,
-      "chat": true
+      "chat": true,
+      "agent_stream": false
     }
   }
 }
@@ -93,6 +97,7 @@ All messages MUST include:
 ### 4.2 Server behavior
 - Server should start by sending an initial `snapshot` (full state) after subscription.
 - If the client subscribes to `goals`, server sends `agent_goal` on intent changes.
+- If the client subscribes to `agent_stream`, server may send OpenClaw stream deltas (`type="agent_stream"`).
 
 ---
 
@@ -308,13 +313,18 @@ Use this when you want to **visualize OpenClaw latency** (typing, “thinking”
       "name": "officeclaw-web",
       "build": "dev",
       "platform": "web"
-    }
+    },
+    "supported_versions": [1]
   }
 }
 ```
 
+`supported_versions` is optional for v1 clients and enables deterministic version negotiation when multiple protocol majors are deployed.
+
 ### 6.2 `command`
 Commands represent user intent. Server validates and replies with `ack` (success) or `error`.
+
+Canonical command payload/response contracts live in `contracts/schemas/commands.schema.json`.
 
 #### 6.2.1 Submit a request
 ```json
@@ -500,6 +510,8 @@ You can send it as a lightweight optional command (server may ignore if unused):
 - `NOT_ALLOWED`
 - `INTERNAL`
 
+For deterministic command/error handling policy and UI-safe recovery mappings, see `COMMAND_TAXONOMY.md`.
+
 ---
 
 ## 8) Flow sequencing (canonical examples)
@@ -525,18 +537,140 @@ You can send it as a lightweight optional command (server may ignore if unused):
 
 ---
 
-## 9) Versioning and compatibility
-- `v` in every message is protocol version.
-- Backwards-compatible additions:
-  - New fields are optional.
-  - New event names are allowed.
-- Breaking changes require:
-  - increment protocol version
-  - server rejects incompatible `hello`
+## 9) Reconnect/Resync Extension (v1-compatible)
+
+This section defines how clients recover from disconnects without forcing a cold restart every time.
+
+### 9.1 Client reconnect policy
+- Client attempts reconnect with bounded exponential backoff:
+  - attempt 1: 1s
+  - attempt 2: 2s
+  - attempt 3: 4s
+  - attempt 4+: cap at 8s + jitter (0–500ms)
+- While disconnected, client enters a stale-state UX mode:
+  - freeze new commands
+  - keep last rendered state visible
+  - show reconnect status + retry count
+- After reconnect success, client sends `hello` followed by `subscribe` as normal.
+
+### 9.2 Resume cursor in `hello` (optional fields)
+Clients that support replay add a `resume` block:
+
+```json
+{
+  "type": "hello",
+  "id": "hello_reconnect_001",
+  "ts": 1739501000,
+  "v": 1,
+  "payload": {
+    "client": {
+      "name": "officeclaw-web",
+      "build": "dev",
+      "platform": "web"
+    },
+    "resume": {
+      "last_seq": 4242,
+      "last_snapshot_id": "snap_888",
+      "scene_id": "cozy_office_v0"
+    }
+  }
+}
+```
+
+`resume.last_seq` is the last fully-processed server sequence number (events/goals/snapshots stream).
+
+### 9.3 `hello_ack` resume outcomes
+Server returns resume disposition in `hello_ack.payload.resume`:
+
+```json
+{
+  "type": "hello_ack",
+  "id": "hello_ack_901",
+  "ts": 1739501001,
+  "v": 1,
+  "payload": {
+    "session_id": "sess_abc",
+    "protocol_version": 1,
+    "resume": {
+      "status": "resumed | snapshot_required | unsupported",
+      "reason": "CURSOR_OK | CURSOR_STALE | CURSOR_UNKNOWN | REPLAY_UNAVAILABLE | SERVER_RESTARTED",
+      "replay_from_seq": 4243
+    }
+  }
+}
+```
+
+### 9.4 Server responsibilities
+- If `status=resumed`:
+  - replay missed messages from `replay_from_seq`
+  - preserve ordering guarantees
+  - finish with a fresh `snapshot` checkpoint
+- If `status=snapshot_required`:
+  - skip replay
+  - send full authoritative `snapshot` immediately after `subscribe`
+- If `status=unsupported`:
+  - proceed as baseline v1 without replay
+  - client must treat it as cold reconnect
+
+### 9.5 Failure modes and deterministic handling
+- `CURSOR_STALE`: cursor older than replay retention window -> send full snapshot.
+- `CURSOR_UNKNOWN`: sequence not recognized -> send full snapshot.
+- `REPLAY_UNAVAILABLE`: replay store degraded/unavailable -> send full snapshot.
+- `SERVER_RESTARTED`: in-memory cursor history lost -> send full snapshot.
+
+The server should emit an informational `event` for observability when fallback occurs:
+- `resync_fallback_snapshot` with `reason` and optional `last_seq`.
+
+### 9.6 Replay boundaries and snapshot fallback rules
+- Replay is best-effort and bounded by retention policy.
+- Snapshot is always the final authority after any replay burst.
+- Client must discard speculative local state if a snapshot disagrees.
+- If replay stream is interrupted again, client restarts reconnect from latest acked `last_seq`.
+
+### 9.7 Rollout and compatibility strategy
+- All new `resume` fields are optional and additive under protocol `v:1`.
+- Legacy clients omit `resume` and continue to work unchanged.
+- Servers may gate replay behind a feature flag while still supporting snapshot fallback.
+- No existing message type is removed or redefined by this extension.
 
 ---
 
-## 10) Security and abuse considerations (v0)
+## 10) Versioning and compatibility
+- `v` in every envelope is the protocol major version.
+- Canonical policy reference: `docs/protocol-compatibility-policy.md`.
+
+### 10.1 Change classes
+- Additive-compatible change (same `v`):
+  - optional fields added to existing payloads
+  - new event names added without changing old semantics
+  - new command names added (unknown commands remain deterministic `error`)
+- Breaking change (requires `v+1`):
+  - required field added to existing message type
+  - meaning/type of existing field changed incompatibly
+  - message ordering guarantees changed
+  - message type removed or renamed
+
+### 10.2 Handshake behavior for incompatible versions
+- Client sends `hello.payload.supported_versions` (optional, recommended) with descending preference.
+- Server chooses highest mutually supported version and returns it in `hello_ack.payload.protocol_version`.
+- If no overlap exists:
+  - server returns `error` with:
+    - `code`: `PROTOCOL_VERSION_UNSUPPORTED`
+    - `message`: human-readable upgrade guidance
+    - `payload.supported_versions`: server-supported list
+  - server closes the socket with a protocol-incompatible reason.
+
+### 10.3 Compatibility matrix rules
+- Client older than server (same major):
+  - server must preserve old required fields and tolerate missing new optional fields.
+- Client newer than server (same major):
+  - client must ignore unknown fields and avoid sending feature-gated commands unless negotiated.
+- Different major versions:
+  - negotiation via `supported_versions` if possible, otherwise fail fast with deterministic error.
+
+---
+
+## 11) Security and abuse considerations (v0)
 - All commands must be validated server-side.
 - Rate limit commands (especially chat and submit_request).
 - Sanitize any text displayed in UI.
