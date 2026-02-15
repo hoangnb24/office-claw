@@ -1,0 +1,58 @@
+{
+  "queries": [
+    {
+      "name": "blocked_visibility",
+      "description": "Blocked work visibility (requires state:blocked label convention)",
+      "created_at": "2026-02-14T11:43:27.172149+00:00",
+      "filters": {
+        "status": [
+          "open"
+        ],
+        "label": [
+          "state:blocked"
+        ],
+        "sort": "priority"
+      }
+    },
+    {
+      "name": "by_epic_open",
+      "description": "Open epics for roll-up tracking",
+      "created_at": "2026-02-14T11:43:27.155620+00:00",
+      "filters": {
+        "status": [
+          "open"
+        ],
+        "type_": [
+          "epic"
+        ],
+        "sort": "priority"
+      }
+    },
+    {
+      "name": "milestone_gates",
+      "description": "Milestone and gate tracking view",
+      "created_at": "2026-02-14T11:43:27.164204+00:00",
+      "filters": {
+        "status": [
+          "open"
+        ],
+        "title_contains": "Milestone",
+        "sort": "priority"
+      }
+    },
+    {
+      "name": "ready_daily",
+      "description": "Daily execution: open, high-priority active queue",
+      "created_at": "2026-02-14T11:43:27.146239+00:00",
+      "filters": {
+        "status": [
+          "open"
+        ],
+        "priority_min": 0,
+        "priority_max": 2,
+        "sort": "priority"
+      }
+    }
+  ],
+  "count": 4
+}
