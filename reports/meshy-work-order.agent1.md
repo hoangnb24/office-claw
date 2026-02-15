@@ -1,0 +1,90 @@
+# Meshy GLB Work Order
+
+Generated: 2026-02-14T15:41:49Z
+Project root: `/Users/themrb/Documents/personal/officeclaw`
+Asset ID: `agent1`
+
+## Inputs
+
+### Image References
+- `/Users/themrb/Documents/personal/officeclaw/images/agent_front.jpeg`
+- `/Users/themrb/Documents/personal/officeclaw/images/agent_back.jpeg`
+
+### Contract Sources
+- Plan: `/Users/themrb/Documents/personal/officeclaw/PLAN.md`
+- Scene manifest: `/Users/themrb/Documents/personal/officeclaw/assets/scenes/cozy_office_v0.scene.json`
+- Renderer: `/Users/themrb/Documents/personal/officeclaw/apps/client-web/src/scene/agents/AgentRenderer.tsx`
+
+## Runtime Animation Contract
+
+Required:
+- `Idle`
+- `Walk`
+- `Work_Typing`
+- `Think`
+
+Optional:
+- `Carry`
+
+Renderer required clips: `['Idle', 'Walk', 'Work_Typing', 'Think']` (matches required plan contract)
+
+## Meshy Generation Brief
+
+Use the provided images to keep silhouette, proportions, and outfit direction consistent across all outputs.
+
+1. Generate/iterate base character GLB from image references.
+2. Rig the same character identity.
+3. Generate animation clips aligned to canonical contract.
+4. Export GLB assets into `assets/glb/`.
+
+Suggested Meshy action intent by canonical clip:
+- `Idle`: Idle / standing-breathing
+- `Walk`: Walking / casual walk
+- `Work_Typing`: Seated work loop (typing-like stand-in if true typing is unavailable)
+- `Think`: Thoughtful idle (head-scratch/pondering style)
+- `Carry`: Carry object walk (optional)
+
+## Scene Alignment Snapshot
+
+POIs (first 10):
+- `poi_reception_inbox`
+- `poi_task_board`
+- `poi_delivery_shelf`
+
+Highlight nodes referenced in scene manifest (first 20):
+- `Head`
+- `Hips`
+- `LeftHand`
+- `RightHand`
+- `Spine`
+
+## Post-Export Normalization
+
+Canonical naming aliases used in this project:
+- `Idle` <- `Idle_3`, `Standing`
+- `Walk` <- `Walking`, `Running`
+- `Work_Typing` <- `Sitting_Answering_Questions`, `Sitting`
+- `Think` <- `Sitting_Clap`, `Standing`, `No`, `Yes`
+- `Carry` <- `Carry_Heavy_Object_Walk`
+
+Normalize:
+```bash
+node tools/glb-normalize-clips.mjs --in assets/glb/agent1_animations.glb
+```
+
+Preflight:
+```bash
+node tools/glb-preflight.mjs \
+  --scene /Users/themrb/Documents/personal/officeclaw/assets/scenes/cozy_office_v0.scene.json \
+  --asset-root assets/glb \
+  --report reports/glb-preflight-report.md
+```
+
+## Acceptance Checklist
+
+- [ ] Required clips exist with canonical names: Idle, Walk, Work_Typing, Think
+- [ ] Optional clips reviewed: Carry
+- [ ] Character scale/pivot warnings reviewed and corrected if needed
+- [ ] Scene manifest GLB references resolve under `assets/glb`
+- [ ] Preflight report has no `ERROR` entries
+- [ ] Runtime smoke test confirms state-to-clip playback

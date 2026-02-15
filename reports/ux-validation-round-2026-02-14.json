@@ -1,0 +1,84 @@
+{
+  "generated_at": "2026-02-14T15:59:04.094Z",
+  "bead_id": "bd-243",
+  "evidence": {
+    "fixtures": [
+      "contracts/fixtures/golden-flow-submit-kickoff.fixture.json",
+      "contracts/fixtures/golden-flow-blocked-decision.fixture.json",
+      "contracts/fixtures/golden-flow-artifact-approve.fixture.json"
+    ],
+    "commands": [
+      "tools/qa/run-visual-qa.sh --mode both --validate",
+      "npm --prefix contracts run validate"
+    ]
+  },
+  "metrics": {
+    "scenario_a_first_visible_progress": {
+      "request_accepted_to_kickoff_started_s": 1,
+      "request_accepted_to_tasks_created_s": 2,
+      "threshold_target_s": 240,
+      "status": "target",
+      "note": "Fixtures expose kickoff/tasks-created timing but not a same-flow task_started event; tasks_created used as first-visible-progress proxy."
+    },
+    "scenario_b_blocker_resolution": {
+      "decision_requested_to_decision_resolved_s": 3,
+      "decision_requested_to_task_started_s": 4,
+      "threshold_target_s": 120,
+      "status": "target"
+    },
+    "scenario_c_review_confidence": {
+      "artifact_delivered_to_review_approved_s": 3,
+      "review_approved_to_task_done_s": 1,
+      "stable_approval_ratio": 1,
+      "threshold_target_ratio": 0.85,
+      "status": "target",
+      "note": "Canonical approval flow contains approval with no follow-up changes request in the scenario."
+    }
+  },
+  "qualitative_findings": [
+    {
+      "id": "F-01",
+      "severity": "medium",
+      "area": "manual-run coverage",
+      "finding": "QA launcher provides deterministic scenario order, but execution still depends on manual operator walkthrough.",
+      "impact": "Weekly UX rounds can drift in rigor unless run artifacts are captured consistently.",
+      "recommendation": "Capture scenario outcome rows (VQA-01..VQA-06) in a per-run report and require pass/fail notes per scenario."
+    },
+    {
+      "id": "F-02",
+      "severity": "medium",
+      "area": "bundle performance",
+      "finding": "Client build warns about a large JS chunk (~1.1MB minified).",
+      "impact": "Large bundles increase first-load latency and can degrade first-run UX confidence.",
+      "recommendation": "Schedule chunk-splitting/perf follow-up before M8 demo-readiness gate."
+    },
+    {
+      "id": "F-03",
+      "severity": "low",
+      "area": "metric completeness",
+      "finding": "Likert-based perceived-control/approval-confidence metrics are not derivable from fixtures alone.",
+      "impact": "Cohort-level trust metrics remain unknown until moderated sessions are run.",
+      "recommendation": "Run human cohort rounds per docs/ux-outcome-metrics-and-research-protocol.md and store anonymized scores in report JSON."
+    }
+  ],
+  "backlog_deltas": [
+    {
+      "priority_rank": 1,
+      "action": "Track and complete active blocker-loop UX work",
+      "bead_id": "bd-787",
+      "rationale": "Direct dependency for milestone M7 gate (bd-291) and interaction trust outcomes."
+    },
+    {
+      "priority_rank": 2,
+      "action": "Complete client override controls UX",
+      "bead_id": "bd-2ng",
+      "rationale": "Improves perceived control metric and reduces abandonment in corrective workflows."
+    },
+    {
+      "priority_rank": 3,
+      "action": "Create follow-up bead for client bundle chunking/perf",
+      "bead_id": null,
+      "rationale": "Build warning indicates likely first-run latency risk for UX polish/demo readiness."
+    }
+  ]
+}

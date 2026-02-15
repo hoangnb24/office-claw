@@ -1,0 +1,238 @@
+{
+  "generated_at": "2026-02-14T16:00:40.049Z",
+  "clients": 5,
+  "settle_ms": 3000,
+  "aggregate": {
+    "commands_sent": 30,
+    "ack": 26,
+    "error": 4,
+    "events": 155,
+    "snapshots": 240,
+    "pings_sent": 40,
+    "pongs": 40
+  },
+  "per_client": [
+    {
+      "name": "load-client-1",
+      "commands_sent": 6,
+      "ack": 6,
+      "error": 0,
+      "events": 31,
+      "snapshots": 48,
+      "pings_sent": 8,
+      "pongs": 8,
+      "errors_by_code": {}
+    },
+    {
+      "name": "load-client-2",
+      "commands_sent": 6,
+      "ack": 5,
+      "error": 1,
+      "events": 31,
+      "snapshots": 48,
+      "pings_sent": 8,
+      "pongs": 8,
+      "errors_by_code": {
+        "CONFLICT": 1
+      }
+    },
+    {
+      "name": "load-client-3",
+      "commands_sent": 6,
+      "ack": 5,
+      "error": 1,
+      "events": 31,
+      "snapshots": 48,
+      "pings_sent": 8,
+      "pongs": 8,
+      "errors_by_code": {
+        "CONFLICT": 1
+      }
+    },
+    {
+      "name": "load-client-4",
+      "commands_sent": 6,
+      "ack": 5,
+      "error": 1,
+      "events": 31,
+      "snapshots": 48,
+      "pings_sent": 8,
+      "pongs": 8,
+      "errors_by_code": {
+        "CONFLICT": 1
+      }
+    },
+    {
+      "name": "load-client-5",
+      "commands_sent": 6,
+      "ack": 5,
+      "error": 1,
+      "events": 31,
+      "snapshots": 48,
+      "pings_sent": 8,
+      "pongs": 8,
+      "errors_by_code": {
+        "CONFLICT": 1
+      }
+    }
+  ],
+  "health_summary": {
+    "command_security": {
+      "rate_limited": 0,
+      "validation_failed": 0,
+      "sanitized_text_fields": 0,
+      "rate_limit": {
+        "max_commands": 12,
+        "window_ms": 5000
+      }
+    },
+    "observability": {
+      "started_ts": 1771084830491,
+      "inbound_messages": {
+        "hello": 5,
+        "subscribe": 5,
+        "command": 30,
+        "ping": 40
+      },
+      "outbound_messages": {
+        "hello_ack": 5,
+        "snapshot": 240,
+        "ack": 26,
+        "event": 155,
+        "pong": 40,
+        "error": 4
+      },
+      "command": {
+        "attempted": 30,
+        "ok": 26,
+        "failed": 4,
+        "rate_limited": 0,
+        "blocked_by_restoration": 0
+      },
+      "sessions": {
+        "connected": 5,
+        "disconnected": 0,
+        "socket_errors": 0
+      },
+      "pipeline": {
+        "snapshots_published": 235,
+        "events_published": 155,
+        "agent_stream_published": 0
+      },
+      "performance": {
+        "last_tick_duration_ms": 0,
+        "queue_latency_p95_ms": 0
+      },
+      "errors_by_code": {
+        "CONFLICT": 4
+      },
+      "last_error": {
+        "ts": 1771084836073,
+        "code": "CONFLICT",
+        "message": "decision is not open",
+        "in_reply_to": "resolve_decision_4_5",
+        "session_id": "sess_c75d2c01cca8"
+      },
+      "alerts_emitted": 0,
+      "recent_errors": [
+        {
+          "ts": 1771084835586,
+          "code": "CONFLICT",
+          "message": "decision is not open",
+          "in_reply_to": "resolve_decision_1_5",
+          "session_id": "sess_734ee4cc85c6"
+        },
+        {
+          "ts": 1771084835746,
+          "code": "CONFLICT",
+          "message": "decision is not open",
+          "in_reply_to": "resolve_decision_2_5",
+          "session_id": "sess_ae42c82c539c"
+        },
+        {
+          "ts": 1771084835908,
+          "code": "CONFLICT",
+          "message": "decision is not open",
+          "in_reply_to": "resolve_decision_3_5",
+          "session_id": "sess_86871caac2f1"
+        },
+        {
+          "ts": 1771084836073,
+          "code": "CONFLICT",
+          "message": "decision is not open",
+          "in_reply_to": "resolve_decision_4_5",
+          "session_id": "sess_c75d2c01cca8"
+        }
+      ],
+      "retention": {
+        "max_entries": 2000,
+        "max_age_ms": 86400000
+      },
+      "alert_thresholds": {
+        "validation_failed": 10,
+        "rate_limited": 10,
+        "socket_errors": 3,
+        "restoration_blocked": 5,
+        "slow_tick_ms": 30,
+        "queue_latency_ms": 120
+      }
+    },
+    "error_dashboard": {
+      "status": "healthy",
+      "alerts": [],
+      "last_error": {
+        "ts": 1771084836073,
+        "code": "CONFLICT",
+        "message": "decision is not open",
+        "in_reply_to": "resolve_decision_4_5",
+        "session_id": "sess_c75d2c01cca8"
+      }
+    },
+    "simulation": {
+      "is_running": true,
+      "tick_rate_hz": 20,
+      "tick_interval_ms": 50,
+      "tick_count": 183,
+      "seq": 183,
+      "clock_ms": 9150,
+      "started_ts": 1771084830499,
+      "last_tick_ts": 1771084840025,
+      "uptime_ms": 9547,
+      "queue_depth": {
+        "commands": 0,
+        "events": 0
+      },
+      "tick_timing_ms": {
+        "samples": 183,
+        "last": 0,
+        "avg": 0.16,
+        "p95": 1,
+        "max": 3,
+        "last_tick_duration_ms": 0
+      },
+      "queue_latency_ms": {
+        "commands": {
+          "samples": 0,
+          "last": 0,
+          "avg": 0,
+          "p95": 0,
+          "max": 0
+        },
+        "events": {
+          "samples": 0,
+          "last": 0,
+          "avg": 0,
+          "p95": 0,
+          "max": 0
+        }
+      },
+      "openclaw_runs": {
+        "total": 2,
+        "active": 2,
+        "by_status": {
+          "started": 2
+        }
+      }
+    }
+  }
+}

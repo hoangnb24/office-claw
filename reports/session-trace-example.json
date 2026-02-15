@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "exported_at_ts": 1771081690250,
+  "include_sensitive": false,
+  "max_events": 5000,
+  "max_commands": 5000,
+  "sources": {
+    "events_path": "/tmp/officeclaw-missing-events.jsonl",
+    "commands_path": "/tmp/officeclaw-missing-commands.jsonl"
+  },
+  "events": [],
+  "commands": []
+}
