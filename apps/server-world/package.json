@@ -1,0 +1,12 @@
+{
+  "name": "@officeclaw/server-world",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node test/eventTimeline.test.mjs && node test/nav.test.mjs && node test/simulation.test.mjs && node test/commandRouter.test.mjs && node test/privacyControls.test.mjs && node test/worldServer.test.mjs"
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  }
+}
