@@ -1,0 +1,26 @@
+{
+  "project": {
+    "project_id": "proj-abc",
+    "title": "Bad ID project",
+    "status": "executing"
+  },
+  "task": {
+    "task_id": "task-1",
+    "project_id": "proj-abc",
+    "title": "Invalid ID should fail",
+    "status": "planned",
+    "assignee": "Agent_One"
+  },
+  "message": {
+    "type": "event",
+    "id": "evt-001",
+    "ts": 1739500010,
+    "v": 1,
+    "payload": {
+      "name": "task_started",
+      "project_id": "proj-abc",
+      "task_id": "task-1",
+      "agent_id": "Agent_One"
+    }
+  }
+}

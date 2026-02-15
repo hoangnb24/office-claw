@@ -1,0 +1,370 @@
+{
+  "commands": [
+    {
+      "type": "command",
+      "id": "cmd_submit_001",
+      "ts": 1739510001,
+      "v": 1,
+      "payload": {
+        "name": "submit_request",
+        "data": {
+          "text": "Create a launch plan for OfficeClaw.",
+          "constraints": {
+            "tone": "concise"
+          },
+          "attachments": []
+        }
+      }
+    },
+    {
+      "type": "command",
+      "id": "cmd_assign_001",
+      "ts": 1739510002,
+      "v": 1,
+      "payload": {
+        "name": "assign_task",
+        "data": {
+          "task_id": "task_copy",
+          "agent_id": "agent_eng_1"
+        }
+      }
+    },
+    {
+      "type": "command",
+      "id": "cmd_autoassign_001",
+      "ts": 1739510003,
+      "v": 1,
+      "payload": {
+        "name": "auto_assign",
+        "data": {
+          "project_id": "proj_abc"
+        }
+      }
+    },
+    {
+      "type": "command",
+      "id": "cmd_decision_001",
+      "ts": 1739510004,
+      "v": 1,
+      "payload": {
+        "name": "resolve_decision",
+        "data": {
+          "decision_id": "dec_audience",
+          "choice": "Tech users",
+          "note": "Primary: developer teams."
+        }
+      }
+    },
+    {
+      "type": "command",
+      "id": "cmd_approve_001",
+      "ts": 1739510005,
+      "v": 1,
+      "payload": {
+        "name": "approve_artifact",
+        "data": {
+          "artifact_id": "art_research_report_v1"
+        }
+      }
+    },
+    {
+      "type": "command",
+      "id": "cmd_changes_001",
+      "ts": 1739510006,
+      "v": 1,
+      "payload": {
+        "name": "request_changes",
+        "data": {
+          "artifact_id": "art_research_report_v1",
+          "instructions": "Add two additional CTA variants."
+        }
+      }
+    },
+    {
+      "type": "command",
+      "id": "cmd_split_001",
+      "ts": 1739510007,
+      "v": 1,
+      "payload": {
+        "name": "split_into_tasks",
+        "data": {
+          "artifact_id": "art_research_report_v1",
+          "task_titles": ["Draft 3 headlines", "Draft 2 CTA lines"]
+        }
+      }
+    },
+    {
+      "type": "command",
+      "id": "cmd_playerpos_001",
+      "ts": 1739510008,
+      "v": 1,
+      "payload": {
+        "name": "player_pos",
+        "data": {
+          "pos": [0.1, 0, 0.2],
+          "facing": [0, 0, 1]
+        }
+      }
+    },
+    {
+      "type": "command",
+      "id": "cmd_moveplayer_001",
+      "ts": 1739510009,
+      "v": 1,
+      "payload": {
+        "name": "move_player_to",
+        "data": {
+          "pos": [1.3, 0, 1.1],
+          "arrival_radius": 0.25
+        }
+      }
+    },
+    {
+      "type": "command",
+      "id": "cmd_kickoff_001",
+      "ts": 1739510010,
+      "v": 1,
+      "payload": {
+        "name": "start_kickoff",
+        "data": {
+          "project_id": "proj_abc"
+        }
+      }
+    },
+    {
+      "type": "command",
+      "id": "cmd_reassign_001",
+      "ts": 1739510011,
+      "v": 1,
+      "payload": {
+        "name": "reassign_task",
+        "data": {
+          "task_id": "task_copy",
+          "from_agent_id": "agent_research_1",
+          "to_agent_id": "agent_eng_1",
+          "reason": "skill match",
+          "expected_task_status": "planned"
+        }
+      }
+    },
+    {
+      "type": "command",
+      "id": "cmd_cancel_001",
+      "ts": 1739510012,
+      "v": 1,
+      "payload": {
+        "name": "cancel_task",
+        "data": {
+          "task_id": "task_copy",
+          "confirm": true,
+          "reason": "scope changed",
+          "expected_task_status": "planned"
+        }
+      }
+    },
+    {
+      "type": "command",
+      "id": "cmd_pause_001",
+      "ts": 1739510013,
+      "v": 1,
+      "payload": {
+        "name": "pause_project",
+        "data": {
+          "project_id": "proj_abc",
+          "reason": "awaiting decision",
+          "scope": "dispatch_only",
+          "expected_project_status": "executing"
+        }
+      }
+    },
+    {
+      "type": "command",
+      "id": "cmd_resume_001",
+      "ts": 1739510014,
+      "v": 1,
+      "payload": {
+        "name": "resume_project",
+        "data": {
+          "project_id": "proj_abc",
+          "reason": "decision resolved",
+          "expected_project_status": "blocked"
+        }
+      }
+    },
+    {
+      "type": "command",
+      "id": "cmd_rerun_001",
+      "ts": 1739510015,
+      "v": 1,
+      "payload": {
+        "name": "rerun_task",
+        "data": {
+          "source_task_id": "task_copy",
+          "mode": "clone_as_new",
+          "reason": "requirements changed",
+          "constraints_patch": {
+            "tone": "shorter"
+          }
+        }
+      }
+    }
+  ],
+  "responses": [
+    {
+      "type": "ack",
+      "id": "ack_submit_001",
+      "ts": 1739510101,
+      "v": 1,
+      "payload": {
+        "in_reply_to": "cmd_submit_001",
+        "status": "ok"
+      }
+    },
+    {
+      "type": "ack",
+      "id": "ack_assign_001",
+      "ts": 1739510102,
+      "v": 1,
+      "payload": {
+        "in_reply_to": "cmd_assign_001",
+        "status": "ok"
+      }
+    },
+    {
+      "type": "error",
+      "id": "err_autoassign_001",
+      "ts": 1739510103,
+      "v": 1,
+      "payload": {
+        "in_reply_to": "cmd_autoassign_001",
+        "code": "CONFLICT",
+        "message": "Auto-assign skipped while kickoff is in progress."
+      }
+    },
+    {
+      "type": "ack",
+      "id": "ack_decision_001",
+      "ts": 1739510104,
+      "v": 1,
+      "payload": {
+        "in_reply_to": "cmd_decision_001",
+        "status": "ok"
+      }
+    },
+    {
+      "type": "ack",
+      "id": "ack_approve_001",
+      "ts": 1739510105,
+      "v": 1,
+      "payload": {
+        "in_reply_to": "cmd_approve_001",
+        "status": "ok"
+      }
+    },
+    {
+      "type": "error",
+      "id": "err_changes_001",
+      "ts": 1739510106,
+      "v": 1,
+      "payload": {
+        "in_reply_to": "cmd_changes_001",
+        "code": "VALIDATION_FAILED",
+        "message": "Change request instructions exceeded max length."
+      }
+    },
+    {
+      "type": "error",
+      "id": "err_split_001",
+      "ts": 1739510107,
+      "v": 1,
+      "payload": {
+        "in_reply_to": "cmd_split_001",
+        "code": "NOT_FOUND",
+        "message": "Artifact is no longer available for split."
+      }
+    },
+    {
+      "type": "error",
+      "id": "err_playerpos_001",
+      "ts": 1739510108,
+      "v": 1,
+      "payload": {
+        "in_reply_to": "cmd_playerpos_001",
+        "code": "RATE_LIMITED",
+        "message": "Player position updates are temporarily throttled."
+      }
+    },
+    {
+      "type": "error",
+      "id": "err_moveplayer_001",
+      "ts": 1739510109,
+      "v": 1,
+      "payload": {
+        "in_reply_to": "cmd_moveplayer_001",
+        "code": "NOT_ALLOWED",
+        "message": "Player movement is client-authoritative in this mode."
+      }
+    },
+    {
+      "type": "error",
+      "id": "err_kickoff_001",
+      "ts": 1739510110,
+      "v": 1,
+      "payload": {
+        "in_reply_to": "cmd_kickoff_001",
+        "code": "INTERNAL",
+        "message": "Kickoff orchestration worker failed."
+      }
+    },
+    {
+      "type": "ack",
+      "id": "ack_reassign_001",
+      "ts": 1739510111,
+      "v": 1,
+      "payload": {
+        "in_reply_to": "cmd_reassign_001",
+        "status": "ok"
+      }
+    },
+    {
+      "type": "ack",
+      "id": "ack_cancel_001",
+      "ts": 1739510112,
+      "v": 1,
+      "payload": {
+        "in_reply_to": "cmd_cancel_001",
+        "status": "ok"
+      }
+    },
+    {
+      "type": "ack",
+      "id": "ack_pause_001",
+      "ts": 1739510113,
+      "v": 1,
+      "payload": {
+        "in_reply_to": "cmd_pause_001",
+        "status": "ok"
+      }
+    },
+    {
+      "type": "ack",
+      "id": "ack_resume_001",
+      "ts": 1739510114,
+      "v": 1,
+      "payload": {
+        "in_reply_to": "cmd_resume_001",
+        "status": "ok"
+      }
+    },
+    {
+      "type": "ack",
+      "id": "ack_rerun_001",
+      "ts": 1739510115,
+      "v": 1,
+      "payload": {
+        "in_reply_to": "cmd_rerun_001",
+        "status": "ok"
+      }
+    }
+  ]
+}

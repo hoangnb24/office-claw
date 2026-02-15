@@ -1,0 +1,45 @@
+{
+  "messages": [
+    {
+      "type": "subscribe",
+      "id": "sub_200",
+      "ts": 1739531000,
+      "v": 1,
+      "payload": {
+        "scene_id": "cozy_office_v0",
+        "channels": {
+          "events": true,
+          "snapshots": true,
+          "goals": true,
+          "chat": false
+        }
+      }
+    },
+    {
+      "type": "snapshot",
+      "id": "snap_200",
+      "ts": 1739531001,
+      "v": 1,
+      "payload": {
+        "scene_id": "cozy_office_v0",
+        "agents": [
+          {
+            "agent_id": "agent_bd",
+            "state": "IdleAtHome",
+            "pos": [0.6, 0, 0.2]
+          }
+        ],
+        "projects": [
+          {
+            "project_id": "proj_boot",
+            "title": "Bootstrap",
+            "status": "planning"
+          }
+        ],
+        "tasks": [],
+        "artifacts": [],
+        "decisions": []
+      }
+    }
+  ]
+}

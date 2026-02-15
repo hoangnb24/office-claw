@@ -1,0 +1,80 @@
+{
+  "flow_id": "flow_submit_request_to_tasks_created",
+  "messages": [
+    {
+      "type": "command",
+      "id": "cmd_submit_100",
+      "ts": 1739520000,
+      "v": 1,
+      "payload": {
+        "name": "submit_request",
+        "data": {
+          "text": "Create a landing page plan + copy + design brief",
+          "constraints": {
+            "tone": "friendly",
+            "length": "short"
+          },
+          "attachments": []
+        }
+      }
+    },
+    {
+      "type": "ack",
+      "id": "ack_submit_100",
+      "ts": 1739520001,
+      "v": 1,
+      "payload": {
+        "in_reply_to": "cmd_submit_100",
+        "status": "ok"
+      }
+    },
+    {
+      "type": "event",
+      "id": "evt_req_submitted_100",
+      "ts": 1739520002,
+      "v": 1,
+      "payload": {
+        "name": "request_submitted",
+        "project_id": "proj_flow_100",
+        "poi_id": "poi_reception_inbox"
+      }
+    },
+    {
+      "type": "event",
+      "id": "evt_req_accepted_100",
+      "ts": 1739520003,
+      "v": 1,
+      "payload": {
+        "name": "request_accepted",
+        "project_id": "proj_flow_100",
+        "poi_id": "poi_reception_inbox"
+      }
+    },
+    {
+      "type": "event",
+      "id": "evt_kickoff_started_100",
+      "ts": 1739520004,
+      "v": 1,
+      "payload": {
+        "name": "kickoff_started",
+        "project_id": "proj_flow_100",
+        "poi_id": "poi_meeting_table",
+        "participants": ["agent_bd", "agent_research_1", "agent_eng_1"]
+      }
+    },
+    {
+      "type": "event",
+      "id": "evt_tasks_created_100",
+      "ts": 1739520005,
+      "v": 1,
+      "payload": {
+        "name": "tasks_created",
+        "project_id": "proj_flow_100",
+        "poi_id": "poi_task_board",
+        "meta": {
+          "task_ids": ["task_research_100", "task_copy_100", "task_design_100"]
+        }
+      }
+    }
+  ]
+}

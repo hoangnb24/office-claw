@@ -1,0 +1,64 @@
+{
+  "success": {
+    "messages": [
+      {
+        "type": "hello",
+        "id": "hello_hs_001",
+        "ts": 1739530000,
+        "v": 1,
+        "payload": {
+          "client": {
+            "name": "officeclaw-web",
+            "build": "dev",
+            "platform": "web"
+          },
+          "supported_versions": [1]
+        }
+      },
+      {
+        "type": "hello_ack",
+        "id": "helloack_hs_001",
+        "ts": 1739530001,
+        "v": 1,
+        "payload": {
+          "session_id": "sess_hs_001",
+          "protocol_v": 1,
+          "protocol_version": 1,
+          "resume": {
+            "status": "snapshot_required",
+            "reason": "CURSOR_UNKNOWN"
+          }
+        }
+      }
+    ]
+  },
+  "incompatible": {
+    "messages": [
+      {
+        "type": "hello",
+        "id": "hello_hs_002",
+        "ts": 1739530010,
+        "v": 2,
+        "payload": {
+          "client": {
+            "name": "officeclaw-web",
+            "build": "dev",
+            "platform": "web"
+          },
+          "supported_versions": [2]
+        }
+      },
+      {
+        "type": "error",
+        "id": "err_hs_002",
+        "ts": 1739530011,
+        "v": 1,
+        "payload": {
+          "in_reply_to": "hello_hs_002",
+          "code": "NOT_ALLOWED",
+          "message": "PROTOCOL_VERSION_UNSUPPORTED"
+        }
+      }
+    ]
+  }
+}

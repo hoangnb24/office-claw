@@ -1,0 +1,202 @@
+{
+  "cases": [
+    {
+      "name": "box collider with non-positive size",
+      "expected_error_contains": "/objects/0/collider/size/0",
+      "manifest": {
+        "scene_id": "bad_scene_a",
+        "version": 1,
+        "office_shell": {
+          "url": "/cdn/office_shell.glb",
+          "transform": {
+            "pos": [0, 0, 0],
+            "rot": [0, 0, 0],
+            "scale": [1, 1, 1]
+          },
+          "collision": {
+            "mode": "manifest"
+          }
+        },
+        "pois": [
+          {
+            "poi_id": "poi_task_board",
+            "type": "task_board",
+            "nav_anchors": [
+              {
+                "id": "stand",
+                "pos": [1.2, 0, 2.0],
+                "facing": [0, 0, -1]
+              }
+            ],
+            "interaction_radius_m": 1.25,
+            "capacity": 1,
+            "highlight_nodes": ["TaskBoardWall"],
+            "interaction": {
+              "type": "open_panel",
+              "panel": "task_board"
+            }
+          }
+        ],
+        "objects": [
+          {
+            "id": "board",
+            "url": "/cdn/props/board.glb",
+            "transform": {
+              "pos": [1, 0, 2],
+              "rot": [0, 0, 0],
+              "scale": [1, 1, 1]
+            },
+            "tags": ["interactive"],
+            "collider": {
+              "type": "box",
+              "size": [-1, 1, 1],
+              "offset": [0, 0.5, 0]
+            },
+            "poi_id": "poi_task_board"
+          }
+        ],
+        "navigation": {
+          "grid": {
+            "origin": [0, 0],
+            "cell_size": 0.25,
+            "width": 2,
+            "height": 2,
+            "walkable": [1, 1, 1, 1]
+          }
+        }
+      }
+    },
+    {
+      "name": "object references missing poi",
+      "expected_error_contains": "objects[0].poi_id references missing POI",
+      "manifest": {
+        "scene_id": "bad_scene_b",
+        "version": 1,
+        "office_shell": {
+          "url": "/cdn/office_shell.glb",
+          "transform": {
+            "pos": [0, 0, 0],
+            "rot": [0, 0, 0],
+            "scale": [1, 1, 1]
+          },
+          "collision": {
+            "mode": "manifest"
+          }
+        },
+        "pois": [
+          {
+            "poi_id": "poi_task_board",
+            "type": "task_board",
+            "nav_anchors": [
+              {
+                "id": "stand",
+                "pos": [1.2, 0, 2.0],
+                "facing": [0, 0, -1]
+              }
+            ],
+            "interaction_radius_m": 1.25,
+            "capacity": 1,
+            "highlight_nodes": ["TaskBoardWall"],
+            "interaction": {
+              "type": "open_panel",
+              "panel": "task_board"
+            }
+          }
+        ],
+        "objects": [
+          {
+            "id": "board",
+            "url": "/cdn/props/board.glb",
+            "transform": {
+              "pos": [1, 0, 2],
+              "rot": [0, 0, 0],
+              "scale": [1, 1, 1]
+            },
+            "tags": ["interactive"],
+            "collider": {
+              "type": "box",
+              "size": [1, 1, 1],
+              "offset": [0, 0.5, 0]
+            },
+            "poi_id": "poi_missing"
+          }
+        ],
+        "navigation": {
+          "grid": {
+            "origin": [0, 0],
+            "cell_size": 0.25,
+            "width": 2,
+            "height": 2,
+            "walkable": [1, 1, 1, 1]
+          }
+        }
+      }
+    },
+    {
+      "name": "walkable grid length mismatch",
+      "expected_error_contains": "navigation.grid.walkable length",
+      "manifest": {
+        "scene_id": "bad_scene_c",
+        "version": 1,
+        "office_shell": {
+          "url": "/cdn/office_shell.glb",
+          "transform": {
+            "pos": [0, 0, 0],
+            "rot": [0, 0, 0],
+            "scale": [1, 1, 1]
+          },
+          "collision": {
+            "mode": "manifest"
+          }
+        },
+        "pois": [
+          {
+            "poi_id": "poi_task_board",
+            "type": "task_board",
+            "nav_anchors": [
+              {
+                "id": "stand",
+                "pos": [1.2, 0, 2.0],
+                "facing": [0, 0, -1]
+              }
+            ],
+            "interaction_radius_m": 1.25,
+            "capacity": 1,
+            "highlight_nodes": ["TaskBoardWall"],
+            "interaction": {
+              "type": "open_panel",
+              "panel": "task_board"
+            }
+          }
+        ],
+        "objects": [
+          {
+            "id": "board",
+            "url": "/cdn/props/board.glb",
+            "transform": {
+              "pos": [1, 0, 2],
+              "rot": [0, 0, 0],
+              "scale": [1, 1, 1]
+            },
+            "tags": ["interactive"],
+            "collider": {
+              "type": "box",
+              "size": [1, 1, 1],
+              "offset": [0, 0.5, 0]
+            },
+            "poi_id": "poi_task_board"
+          }
+        ],
+        "navigation": {
+          "grid": {
+            "origin": [0, 0],
+            "cell_size": 0.25,
+            "width": 2,
+            "height": 2,
+            "walkable": [1, 1, 1]
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,182 @@
+{
+  "cases": [
+    {
+      "name": "hello_ack missing protocol_v",
+      "expected_error_class": "ERR_HELLO_ACK_PAYLOAD",
+      "message": {
+        "type": "hello_ack",
+        "id": "helloack_required_001",
+        "ts": 1739520001,
+        "v": 1,
+        "payload": {
+          "session_id": "session_001"
+        }
+      }
+    },
+    {
+      "name": "subscribe missing channels",
+      "expected_error_class": "ERR_SUBSCRIBE_PAYLOAD",
+      "message": {
+        "type": "subscribe",
+        "id": "sub_required_001",
+        "ts": 1739520002,
+        "v": 1,
+        "payload": {
+          "scene_id": "cozy_office_v0"
+        }
+      }
+    },
+    {
+      "name": "event missing project_id",
+      "expected_error_class": "ERR_EVENT_PAYLOAD",
+      "message": {
+        "type": "event",
+        "id": "evt_required_001",
+        "ts": 1739520003,
+        "v": 1,
+        "payload": {
+          "name": "task_started"
+        }
+      }
+    },
+    {
+      "name": "snapshot missing tasks",
+      "expected_error_class": "ERR_SNAPSHOT_PAYLOAD",
+      "message": {
+        "type": "snapshot",
+        "id": "snap_required_001",
+        "ts": 1739520004,
+        "v": 1,
+        "payload": {
+          "scene_id": "cozy_office_v0",
+          "agents": [],
+          "projects": [],
+          "artifacts": [],
+          "decisions": []
+        }
+      }
+    },
+    {
+      "name": "agent_goal missing path",
+      "expected_error_class": "ERR_AGENT_GOAL_PAYLOAD",
+      "message": {
+        "type": "agent_goal",
+        "id": "goal_required_001",
+        "ts": 1739520005,
+        "v": 1,
+        "payload": {
+          "agent_id": "agent_runner_1",
+          "goal": {
+            "kind": "go_to_poi",
+            "poi_id": "poi_desk_1"
+          },
+          "speed_mps": 1.2,
+          "arrival_radius": 0.4
+        }
+      }
+    },
+    {
+      "name": "agent_stream missing done",
+      "expected_error_class": "ERR_AGENT_STREAM_PAYLOAD",
+      "message": {
+        "type": "agent_stream",
+        "id": "stream_required_001",
+        "ts": 1739520006,
+        "v": 1,
+        "payload": {
+          "stream_id": "stream_copy_1",
+          "agent_id": "agent_writer_1",
+          "project_id": "proj_alpha",
+          "task_id": "task_write_1",
+          "kind": "token",
+          "seq": 1,
+          "delta": "Hello"
+        }
+      }
+    },
+    {
+      "name": "chat missing text",
+      "expected_error_class": "ERR_CHAT_PAYLOAD",
+      "message": {
+        "type": "chat",
+        "id": "chat_required_001",
+        "ts": 1739520007,
+        "v": 1,
+        "payload": {
+          "thread_id": "thread_1",
+          "from": "Director",
+          "to": "Team"
+        }
+      }
+    },
+    {
+      "name": "command move_player_to missing pos",
+      "expected_error_class": "ERR_COMMAND_PAYLOAD",
+      "message": {
+        "type": "command",
+        "id": "cmd_required_001",
+        "ts": 1739520008,
+        "v": 1,
+        "payload": {
+          "name": "move_player_to",
+          "data": {
+            "arrival_radius": 0.2
+          }
+        }
+      }
+    },
+    {
+      "name": "command start_kickoff invalid project_id",
+      "expected_error_class": "ERR_COMMAND_PAYLOAD",
+      "message": {
+        "type": "command",
+        "id": "cmd_required_002",
+        "ts": 1739520009,
+        "v": 1,
+        "payload": {
+          "name": "start_kickoff",
+          "data": {
+            "project_id": "invalid-project-id"
+          }
+        }
+      }
+    },
+    {
+      "name": "ack missing status",
+      "expected_error_class": "ERR_ACK_PAYLOAD",
+      "message": {
+        "type": "ack",
+        "id": "ack_required_001",
+        "ts": 1739520010,
+        "v": 1,
+        "payload": {
+          "in_reply_to": "cmd_required_001"
+        }
+      }
+    },
+    {
+      "name": "error missing message",
+      "expected_error_class": "ERR_ERROR_PAYLOAD",
+      "message": {
+        "type": "error",
+        "id": "err_required_001",
+        "ts": 1739520011,
+        "v": 1,
+        "payload": {
+          "in_reply_to": "cmd_required_001",
+          "code": "VALIDATION_FAILED"
+        }
+      }
+    },
+    {
+      "name": "pong missing payload envelope field",
+      "expected_error_class": "ERR_ENVELOPE_SCHEMA",
+      "message": {
+        "type": "pong",
+        "id": "pong_required_001",
+        "ts": 1739520012,
+        "v": 1
+      }
+    }
+  ]
+}

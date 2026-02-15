@@ -1,0 +1,286 @@
+{
+  "project": {
+    "project_id": "proj_abc",
+    "title": "Landing page plan",
+    "status": "executing"
+  },
+  "agents": [
+    {
+      "agent_id": "agent_bd",
+      "state": "InMeeting",
+      "pos": [0.6, 0, 0.2],
+      "task_id": "task_plan"
+    },
+    {
+      "agent_id": "agent_research_1",
+      "state": "WorkingAtPOI",
+      "pos": [1.2, 0, -0.2],
+      "task_id": "task_research"
+    },
+    {
+      "agent_id": "agent_eng_1",
+      "state": "BlockedWaiting",
+      "pos": [-0.3, 0, 1.7],
+      "task_id": "task_copy"
+    }
+  ],
+  "tasks": [
+    {
+      "task_id": "task_plan",
+      "project_id": "proj_abc",
+      "title": "Break request into tasks",
+      "status": "done",
+      "assignee": "agent_bd"
+    },
+    {
+      "task_id": "task_research",
+      "project_id": "proj_abc",
+      "title": "Research competitors",
+      "status": "in_progress",
+      "assignee": "agent_research_1"
+    },
+    {
+      "task_id": "task_copy",
+      "project_id": "proj_abc",
+      "title": "Draft headline copy",
+      "status": "blocked",
+      "assignee": "agent_eng_1"
+    }
+  ],
+  "decisions": [
+    {
+      "decision_id": "dec_audience",
+      "project_id": "proj_abc",
+      "status": "open",
+      "prompt": "Who is the primary audience?",
+      "task_id": "task_copy"
+    }
+  ],
+  "artifacts": [
+    {
+      "artifact_id": "art_research_report_v1",
+      "project_id": "proj_abc",
+      "type": "report",
+      "status": "delivered",
+      "version": 1,
+      "task_id": "task_research",
+      "poi_id": "poi_delivery_shelf"
+    }
+  ],
+  "messages": [
+    {
+      "type": "hello",
+      "id": "hello_001",
+      "ts": 1739500000,
+      "v": 1,
+      "payload": {
+        "client": {
+          "name": "officeclaw-web",
+          "build": "dev",
+          "platform": "web"
+        }
+      }
+    },
+    {
+      "type": "hello_ack",
+      "id": "helloack_001",
+      "ts": 1739500001,
+      "v": 1,
+      "payload": {
+        "session_id": "sess_abc",
+        "protocol_v": 1
+      }
+    },
+    {
+      "type": "subscribe",
+      "id": "sub_001",
+      "ts": 1739500002,
+      "v": 1,
+      "payload": {
+        "scene_id": "cozy_office_v0",
+        "channels": {
+          "events": true,
+          "snapshots": true,
+          "goals": true,
+          "chat": true
+        }
+      }
+    },
+    {
+      "type": "event",
+      "id": "evt_123",
+      "ts": 1739500010,
+      "v": 1,
+      "payload": {
+        "name": "decision_requested",
+        "project_id": "proj_abc",
+        "task_id": "task_copy",
+        "decision_id": "dec_audience",
+        "poi_id": "poi_lounge",
+        "agent_id": "agent_eng_1"
+      }
+    },
+    {
+      "type": "snapshot",
+      "id": "snap_001",
+      "ts": 1739500020,
+      "v": 1,
+      "payload": {
+        "scene_id": "cozy_office_v0",
+        "agents": [
+          {
+            "agent_id": "agent_research_1",
+            "state": "WorkingAtPOI",
+            "pos": [1.2, 0, -0.2],
+            "task_id": "task_research"
+          },
+          {
+            "agent_id": "agent_eng_1",
+            "state": "BlockedWaiting",
+            "pos": [-0.3, 0, 1.7],
+            "task_id": "task_copy"
+          }
+        ],
+        "projects": [
+          {
+            "project_id": "proj_abc",
+            "title": "Landing page plan",
+            "status": "executing"
+          }
+        ],
+        "tasks": [
+          {
+            "task_id": "task_research",
+            "project_id": "proj_abc",
+            "title": "Research competitors",
+            "status": "in_progress",
+            "assignee": "agent_research_1"
+          },
+          {
+            "task_id": "task_copy",
+            "project_id": "proj_abc",
+            "title": "Draft headline copy",
+            "status": "blocked",
+            "assignee": "agent_eng_1"
+          }
+        ],
+        "artifacts": [
+          {
+            "artifact_id": "art_research_report_v1",
+            "project_id": "proj_abc",
+            "type": "report",
+            "status": "delivered",
+            "version": 1,
+            "task_id": "task_research",
+            "poi_id": "poi_delivery_shelf"
+          }
+        ],
+        "decisions": [
+          {
+            "decision_id": "dec_audience",
+            "project_id": "proj_abc",
+            "status": "open",
+            "prompt": "Who is the primary audience?",
+            "task_id": "task_copy"
+          }
+        ]
+      }
+    },
+    {
+      "type": "agent_goal",
+      "id": "goal_777",
+      "ts": 1739500021,
+      "v": 1,
+      "payload": {
+        "agent_id": "agent_research_1",
+        "goal": {
+          "kind": "go_to_poi",
+          "poi_id": "poi_research_desk_1"
+        },
+        "path": [[1.0, 0, -0.2], [1.2, 0, -0.2], [1.4, 0, 0.0]],
+        "speed_mps": 1.2,
+        "arrival_radius": 0.15
+      }
+    },
+    {
+      "type": "agent_stream",
+      "id": "stream_001",
+      "ts": 1739500022,
+      "v": 1,
+      "payload": {
+        "stream_id": "oc_run_abc123",
+        "agent_id": "agent_eng_1",
+        "project_id": "proj_abc",
+        "task_id": "task_copy",
+        "kind": "token",
+        "seq": 17,
+        "delta": "Drafting CTA variants...",
+        "done": false
+      }
+    },
+    {
+      "type": "chat",
+      "id": "chat_201",
+      "ts": 1739500023,
+      "v": 1,
+      "payload": {
+        "thread_id": "bd_main",
+        "from": "agent_bd",
+        "to": "user",
+        "text": "I broke your request into tasks.",
+        "suggested_actions": [
+          {
+            "action": "auto_assign",
+            "label": "Auto-assign tasks"
+          }
+        ]
+      }
+    },
+    {
+      "type": "ping",
+      "id": "ping_001",
+      "ts": 1739500024,
+      "v": 1,
+      "payload": {
+        "nonce": "n1"
+      }
+    },
+    {
+      "type": "pong",
+      "id": "pong_001",
+      "ts": 1739500025,
+      "v": 1,
+      "payload": {
+        "nonce": "n1"
+      }
+    },
+    {
+      "type": "command",
+      "id": "cmd_004",
+      "ts": 1739500130,
+      "v": 1,
+      "payload": {
+        "name": "resolve_decision",
+        "data": {
+          "decision_id": "dec_audience",
+          "choice": "Tech users"
+        }
+      }
+    },
+    {
+      "type": "ack",
+      "id": "ack_004",
+      "ts": 1739500131,
+      "v": 1,
+      "payload": {
+        "in_reply_to": "cmd_004",
+        "status": "ok"
+      }
+    }
+  ],
+  "transition_sequences": {
+    "task": ["planned", "in_progress", "blocked", "in_progress", "done"],
+    "decision": ["open", "resolved"],
+    "artifact": ["created", "delivered", "in_review", "approved", "archived"]
+  }
+}

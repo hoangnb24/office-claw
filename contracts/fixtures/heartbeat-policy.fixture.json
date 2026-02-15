@@ -1,0 +1,62 @@
+{
+  "policy": {
+    "ping_interval_s": 15,
+    "timeout_s": 45
+  },
+  "messages": [
+    {
+      "type": "ping",
+      "id": "ping_500",
+      "ts": 1739532000,
+      "v": 1,
+      "payload": {
+        "nonce": "n500"
+      }
+    },
+    {
+      "type": "pong",
+      "id": "pong_500",
+      "ts": 1739532001,
+      "v": 1,
+      "payload": {
+        "nonce": "n500"
+      }
+    },
+    {
+      "type": "ping",
+      "id": "ping_501",
+      "ts": 1739532015,
+      "v": 1,
+      "payload": {
+        "nonce": "n501"
+      }
+    },
+    {
+      "type": "pong",
+      "id": "pong_501",
+      "ts": 1739532016,
+      "v": 1,
+      "payload": {
+        "nonce": "n501"
+      }
+    },
+    {
+      "type": "ping",
+      "id": "ping_502",
+      "ts": 1739532030,
+      "v": 1,
+      "payload": {
+        "nonce": "n502"
+      }
+    },
+    {
+      "type": "pong",
+      "id": "pong_502",
+      "ts": 1739532031,
+      "v": 1,
+      "payload": {
+        "nonce": "n502"
+      }
+    }
+  ]
+}

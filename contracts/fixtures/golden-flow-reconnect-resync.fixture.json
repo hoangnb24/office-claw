@@ -1,0 +1,130 @@
+{
+  "flow_id": "flow_reconnect_resume_snapshot_replay",
+  "messages": [
+    {
+      "type": "hello",
+      "id": "hello_resume_500",
+      "ts": 1739524000,
+      "v": 1,
+      "payload": {
+        "client": {
+          "name": "officeclaw-web",
+          "build": "dev",
+          "platform": "web"
+        },
+        "supported_versions": [
+          1
+        ],
+        "resume": {
+          "last_seq": 40
+        }
+      }
+    },
+    {
+      "type": "hello_ack",
+      "id": "helloack_resume_500",
+      "ts": 1739524001,
+      "v": 1,
+      "payload": {
+        "session_id": "sess_resume_500",
+        "protocol_v": 1,
+        "resume": {
+          "status": "resumed",
+          "reason": null,
+          "replay_from_seq": 41
+        }
+      }
+    },
+    {
+      "type": "subscribe",
+      "id": "sub_resume_500",
+      "ts": 1739524002,
+      "v": 1,
+      "payload": {
+        "scene_id": "cozy_office_v0",
+        "channels": {
+          "events": true,
+          "snapshots": true,
+          "goals": true,
+          "chat": false
+        }
+      }
+    },
+    {
+      "type": "snapshot",
+      "id": "snap_resume_500",
+      "ts": 1739524003,
+      "v": 1,
+      "payload": {
+        "scene_id": "cozy_office_v0",
+        "agents": [
+          {
+            "agent_id": "agent_eng_1",
+            "state": "WorkingAtPOI",
+            "pos": [
+              -0.3,
+              0,
+              1.7
+            ],
+            "task_id": "task_copy_500"
+          },
+          {
+            "agent_id": "agent_bd",
+            "state": "IdleAtHome",
+            "pos": [
+              0.4,
+              0,
+              -0.1
+            ]
+          }
+        ],
+        "projects": [
+          {
+            "project_id": "proj_flow_500",
+            "title": "Reconnect recovery flow",
+            "status": "executing"
+          }
+        ],
+        "tasks": [
+          {
+            "task_id": "task_copy_500",
+            "project_id": "proj_flow_500",
+            "title": "Finish recovery-safe copy task",
+            "status": "done",
+            "assignee": "agent_eng_1"
+          }
+        ],
+        "artifacts": [],
+        "decisions": []
+      }
+    },
+    {
+      "type": "event",
+      "id": "evt_replay_progress_500",
+      "ts": 1739524004,
+      "v": 1,
+      "payload": {
+        "seq": 41,
+        "name": "task_progress",
+        "project_id": "proj_flow_500",
+        "task_id": "task_copy_500",
+        "agent_id": "agent_eng_1",
+        "percent": 90,
+        "preview_text": "Final proofreading and polish."
+      }
+    },
+    {
+      "type": "event",
+      "id": "evt_replay_done_500",
+      "ts": 1739524005,
+      "v": 1,
+      "payload": {
+        "seq": 42,
+        "name": "task_done",
+        "project_id": "proj_flow_500",
+        "task_id": "task_copy_500",
+        "agent_id": "agent_eng_1"
+      }
+    }
+  ]
+}

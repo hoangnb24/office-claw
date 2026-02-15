@@ -1,0 +1,323 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://officeclaw.dev/schemas/protocol-envelope.schema.json",
+  "title": "OfficeClaw Protocol Envelope",
+  "type": "object",
+  "required": ["type", "id", "ts", "v", "payload"],
+  "additionalProperties": false,
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": [
+        "hello",
+        "hello_ack",
+        "subscribe",
+        "event",
+        "snapshot",
+        "agent_goal",
+        "agent_stream",
+        "chat",
+        "command",
+        "ack",
+        "error",
+        "ping",
+        "pong"
+      ]
+    },
+    "id": {
+      "$ref": "https://officeclaw.dev/schemas/identifiers.schema.json#/$defs/message_id"
+    },
+    "ts": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "v": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "payload": {
+      "type": "object"
+    }
+  },
+  "$defs": {
+    "hello_payload": {
+      "type": "object",
+      "required": ["client"],
+      "properties": {
+        "client": {
+          "type": "object",
+          "required": ["name", "build", "platform"],
+          "properties": {
+            "name": {"type": "string", "minLength": 1},
+            "build": {"type": "string", "minLength": 1},
+            "platform": {"type": "string", "minLength": 1}
+          },
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": true
+    },
+    "hello_ack_payload": {
+      "type": "object",
+      "required": ["session_id", "protocol_v"],
+      "properties": {
+        "session_id": {"type": "string", "minLength": 1},
+        "protocol_v": {"type": "integer", "minimum": 1}
+      },
+      "additionalProperties": true
+    },
+    "subscribe_payload": {
+      "type": "object",
+      "required": ["scene_id", "channels"],
+      "properties": {
+        "scene_id": {"type": "string", "minLength": 1},
+        "channels": {
+          "type": "object",
+          "properties": {
+            "events": {"type": "boolean"},
+            "snapshots": {"type": "boolean"},
+            "goals": {"type": "boolean"},
+            "chat": {"type": "boolean"},
+            "agent_stream": {"type": "boolean"}
+          },
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": true
+    },
+    "event_payload": {
+      "type": "object",
+      "required": ["name", "project_id"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "project_id": {
+          "$ref": "https://officeclaw.dev/schemas/identifiers.schema.json#/$defs/project_id"
+        },
+        "task_id": {
+          "$ref": "https://officeclaw.dev/schemas/identifiers.schema.json#/$defs/task_id"
+        },
+        "artifact_id": {
+          "$ref": "https://officeclaw.dev/schemas/identifiers.schema.json#/$defs/artifact_id"
+        },
+        "decision_id": {
+          "$ref": "https://officeclaw.dev/schemas/identifiers.schema.json#/$defs/decision_id"
+        },
+        "poi_id": {
+          "$ref": "https://officeclaw.dev/schemas/identifiers.schema.json#/$defs/poi_id"
+        },
+        "agent_id": {
+          "$ref": "https://officeclaw.dev/schemas/identifiers.schema.json#/$defs/agent_id"
+        },
+        "participants": {
+          "type": "array",
+          "items": {
+            "$ref": "https://officeclaw.dev/schemas/identifiers.schema.json#/$defs/agent_id"
+          }
+        },
+        "seq": {"type": "integer", "minimum": 0},
+        "meta": {"type": "object"}
+      },
+      "additionalProperties": true
+    },
+    "snapshot_payload": {
+      "type": "object",
+      "required": ["scene_id", "agents", "projects", "tasks", "artifacts", "decisions"],
+      "properties": {
+        "scene_id": {"type": "string", "minLength": 1},
+        "agents": {
+          "type": "array",
+          "items": {
+            "$ref": "https://officeclaw.dev/schemas/entities.schema.json#/$defs/agent"
+          }
+        },
+        "projects": {
+          "type": "array",
+          "items": {
+            "$ref": "https://officeclaw.dev/schemas/entities.schema.json#/$defs/project"
+          }
+        },
+        "tasks": {
+          "type": "array",
+          "items": {
+            "$ref": "https://officeclaw.dev/schemas/entities.schema.json#/$defs/task"
+          }
+        },
+        "artifacts": {
+          "type": "array",
+          "items": {
+            "$ref": "https://officeclaw.dev/schemas/entities.schema.json#/$defs/artifact"
+          }
+        },
+        "decisions": {
+          "type": "array",
+          "items": {
+            "$ref": "https://officeclaw.dev/schemas/entities.schema.json#/$defs/decision"
+          }
+        },
+        "office_decor": {
+          "type": "array",
+          "items": {"type": "object"}
+        }
+      },
+      "additionalProperties": true
+    },
+    "agent_goal_payload": {
+      "type": "object",
+      "required": ["agent_id", "goal", "path", "speed_mps", "arrival_radius"],
+      "properties": {
+        "agent_id": {
+          "$ref": "https://officeclaw.dev/schemas/identifiers.schema.json#/$defs/agent_id"
+        },
+        "goal": {
+          "type": "object",
+          "required": ["kind"],
+          "properties": {
+            "kind": {
+              "type": "string",
+              "enum": [
+                "go_to_poi",
+                "go_to_player",
+                "wait",
+                "deliver_artifact",
+                "seek_decision"
+              ]
+            },
+            "poi_id": {
+              "$ref": "https://officeclaw.dev/schemas/identifiers.schema.json#/$defs/poi_id"
+            }
+          },
+          "additionalProperties": true
+        },
+        "path": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {"type": "number"},
+            "minItems": 3,
+            "maxItems": 3
+          }
+        },
+        "speed_mps": {"type": "number", "exclusiveMinimum": 0},
+        "arrival_radius": {"type": "number", "exclusiveMinimum": 0}
+      },
+      "additionalProperties": true
+    },
+    "agent_stream_payload": {
+      "type": "object",
+      "required": ["stream_id", "agent_id", "project_id", "task_id", "kind", "seq", "delta", "done"],
+      "properties": {
+        "stream_id": {"type": "string", "minLength": 1},
+        "agent_id": {
+          "$ref": "https://officeclaw.dev/schemas/identifiers.schema.json#/$defs/agent_id"
+        },
+        "project_id": {
+          "$ref": "https://officeclaw.dev/schemas/identifiers.schema.json#/$defs/project_id"
+        },
+        "task_id": {
+          "$ref": "https://officeclaw.dev/schemas/identifiers.schema.json#/$defs/task_id"
+        },
+        "kind": {
+          "type": "string",
+          "enum": ["token", "thought", "code"]
+        },
+        "seq": {"type": "integer", "minimum": 0},
+        "delta": {"type": "string"},
+        "done": {"type": "boolean"}
+      },
+      "additionalProperties": true
+    },
+    "chat_payload": {
+      "type": "object",
+      "required": ["thread_id", "from", "to", "text"],
+      "properties": {
+        "thread_id": {"type": "string", "minLength": 1},
+        "from": {"type": "string", "minLength": 1},
+        "to": {"type": "string", "minLength": 1},
+        "text": {"type": "string", "minLength": 1},
+        "suggested_actions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["action", "label"],
+            "properties": {
+              "action": {"type": "string", "minLength": 1},
+              "label": {"type": "string", "minLength": 1}
+            },
+            "additionalProperties": true
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "command_payload": {
+      "$ref": "https://officeclaw.dev/schemas/commands.schema.json#/$defs/command_payload"
+    },
+    "ack_payload": {
+      "$ref": "https://officeclaw.dev/schemas/commands.schema.json#/$defs/ack_payload"
+    },
+    "error_payload": {
+      "$ref": "https://officeclaw.dev/schemas/commands.schema.json#/$defs/error_payload"
+    },
+    "heartbeat_payload": {
+      "type": "object",
+      "properties": {
+        "nonce": {"type": "string"}
+      },
+      "additionalProperties": true
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"type": {"const": "hello"}}},
+      "then": {"properties": {"payload": {"$ref": "#/$defs/hello_payload"}}}
+    },
+    {
+      "if": {"properties": {"type": {"const": "hello_ack"}}},
+      "then": {"properties": {"payload": {"$ref": "#/$defs/hello_ack_payload"}}}
+    },
+    {
+      "if": {"properties": {"type": {"const": "subscribe"}}},
+      "then": {"properties": {"payload": {"$ref": "#/$defs/subscribe_payload"}}}
+    },
+    {
+      "if": {"properties": {"type": {"const": "event"}}},
+      "then": {"properties": {"payload": {"$ref": "#/$defs/event_payload"}}}
+    },
+    {
+      "if": {"properties": {"type": {"const": "snapshot"}}},
+      "then": {"properties": {"payload": {"$ref": "#/$defs/snapshot_payload"}}}
+    },
+    {
+      "if": {"properties": {"type": {"const": "agent_goal"}}},
+      "then": {"properties": {"payload": {"$ref": "#/$defs/agent_goal_payload"}}}
+    },
+    {
+      "if": {"properties": {"type": {"const": "agent_stream"}}},
+      "then": {"properties": {"payload": {"$ref": "#/$defs/agent_stream_payload"}}}
+    },
+    {
+      "if": {"properties": {"type": {"const": "chat"}}},
+      "then": {"properties": {"payload": {"$ref": "#/$defs/chat_payload"}}}
+    },
+    {
+      "if": {"properties": {"type": {"const": "command"}}},
+      "then": {"properties": {"payload": {"$ref": "#/$defs/command_payload"}}}
+    },
+    {
+      "if": {"properties": {"type": {"const": "ack"}}},
+      "then": {"properties": {"payload": {"$ref": "#/$defs/ack_payload"}}}
+    },
+    {
+      "if": {"properties": {"type": {"const": "error"}}},
+      "then": {"properties": {"payload": {"$ref": "#/$defs/error_payload"}}}
+    },
+    {
+      "if": {"properties": {"type": {"const": "ping"}}},
+      "then": {"properties": {"payload": {"$ref": "#/$defs/heartbeat_payload"}}}
+    },
+    {
+      "if": {"properties": {"type": {"const": "pong"}}},
+      "then": {"properties": {"payload": {"$ref": "#/$defs/heartbeat_payload"}}}
+    }
+  ]
+}

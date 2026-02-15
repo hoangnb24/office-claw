@@ -1,0 +1,5 @@
+{
+  "task": ["planned", "done"],
+  "decision": ["open", "open"],
+  "artifact": ["delivered", "created"]
+}

@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://officeclaw.dev/schemas/identifiers.schema.json",
+  "title": "OfficeClaw Canonical IDs",
+  "type": "object",
+  "$defs": {
+    "agent_id": {
+      "type": "string",
+      "pattern": "^agent_[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+    },
+    "project_id": {
+      "type": "string",
+      "pattern": "^proj_[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+    },
+    "task_id": {
+      "type": "string",
+      "pattern": "^task_[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+    },
+    "artifact_id": {
+      "type": "string",
+      "pattern": "^art_[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+    },
+    "decision_id": {
+      "type": "string",
+      "pattern": "^dec_[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+    },
+    "poi_id": {
+      "type": "string",
+      "pattern": "^poi_[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+    },
+    "message_id": {
+      "type": "string",
+      "pattern": "^[a-z]+_[A-Za-z0-9][A-Za-z0-9_-]*$"
+    }
+  }
+}

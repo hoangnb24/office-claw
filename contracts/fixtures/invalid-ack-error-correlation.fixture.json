@@ -1,0 +1,90 @@
+{
+  "cases": [
+    {
+      "name": "ack references unknown command id",
+      "expected_error_contains": "references unknown command",
+      "messages": [
+        {
+          "type": "command",
+          "id": "cmd_corr_001",
+          "ts": 1739530001,
+          "v": 1,
+          "payload": {
+            "name": "submit_request",
+            "data": {
+              "text": "Create a quick launch checklist."
+            }
+          }
+        },
+        {
+          "type": "ack",
+          "id": "ack_corr_001",
+          "ts": 1739530002,
+          "v": 1,
+          "payload": {
+            "in_reply_to": "cmd_missing_999",
+            "status": "ok"
+          }
+        }
+      ]
+    },
+    {
+      "name": "duplicate terminal responses for one command",
+      "expected_error_contains": "has 2 terminal responses",
+      "messages": [
+        {
+          "type": "command",
+          "id": "cmd_corr_002",
+          "ts": 1739530011,
+          "v": 1,
+          "payload": {
+            "name": "assign_task",
+            "data": {
+              "task_id": "task_outline_1",
+              "agent_id": "agent_writer_1"
+            }
+          }
+        },
+        {
+          "type": "ack",
+          "id": "ack_corr_002",
+          "ts": 1739530012,
+          "v": 1,
+          "payload": {
+            "in_reply_to": "cmd_corr_002",
+            "status": "ok"
+          }
+        },
+        {
+          "type": "error",
+          "id": "err_corr_002",
+          "ts": 1739530013,
+          "v": 1,
+          "payload": {
+            "in_reply_to": "cmd_corr_002",
+            "code": "CONFLICT",
+            "message": "Command should not receive two terminal responses."
+          }
+        }
+      ]
+    },
+    {
+      "name": "missing terminal response for command",
+      "expected_error_contains": "has 0 terminal responses",
+      "messages": [
+        {
+          "type": "command",
+          "id": "cmd_corr_003",
+          "ts": 1739530021,
+          "v": 1,
+          "payload": {
+            "name": "approve_artifact",
+            "data": {
+              "artifact_id": "art_review_packet_1"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

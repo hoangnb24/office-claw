@@ -1,0 +1,131 @@
+{
+  "flow_id": "flow_blocked_decision_to_task_resumed",
+  "messages": [
+    {
+      "type": "event",
+      "id": "evt_task_blocked_300",
+      "ts": 1739522000,
+      "v": 1,
+      "payload": {
+        "name": "task_blocked",
+        "project_id": "proj_flow_300",
+        "task_id": "task_copy_300",
+        "decision_id": "dec_audience_300",
+        "agent_id": "agent_research_1",
+        "poi_id": "poi_lounge"
+      }
+    },
+    {
+      "type": "event",
+      "id": "evt_decision_requested_300",
+      "ts": 1739522001,
+      "v": 1,
+      "payload": {
+        "name": "decision_requested",
+        "project_id": "proj_flow_300",
+        "task_id": "task_copy_300",
+        "decision_id": "dec_audience_300",
+        "agent_id": "agent_bd",
+        "poi_id": "poi_lounge"
+      }
+    },
+    {
+      "type": "command",
+      "id": "cmd_resolve_decision_300",
+      "ts": 1739522002,
+      "v": 1,
+      "payload": {
+        "name": "resolve_decision",
+        "data": {
+          "decision_id": "dec_audience_300",
+          "choice": "Tech users",
+          "note": "Primary developers, secondary product managers"
+        }
+      }
+    },
+    {
+      "type": "ack",
+      "id": "ack_resolve_decision_300",
+      "ts": 1739522003,
+      "v": 1,
+      "payload": {
+        "in_reply_to": "cmd_resolve_decision_300",
+        "status": "ok"
+      }
+    },
+    {
+      "type": "event",
+      "id": "evt_decision_resolved_300",
+      "ts": 1739522004,
+      "v": 1,
+      "payload": {
+        "name": "decision_resolved",
+        "project_id": "proj_flow_300",
+        "task_id": "task_copy_300",
+        "decision_id": "dec_audience_300",
+        "agent_id": "agent_bd"
+      }
+    },
+    {
+      "type": "event",
+      "id": "evt_task_started_300",
+      "ts": 1739522005,
+      "v": 1,
+      "payload": {
+        "name": "task_started",
+        "project_id": "proj_flow_300",
+        "task_id": "task_copy_300",
+        "agent_id": "agent_research_1",
+        "poi_id": "poi_research_desk_1"
+      }
+    },
+    {
+      "type": "snapshot",
+      "id": "snap_decision_300",
+      "ts": 1739522006,
+      "v": 1,
+      "payload": {
+        "scene_id": "cozy_office_v0",
+        "agents": [
+          {
+            "agent_id": "agent_research_1",
+            "state": "WorkingAtPOI",
+            "pos": [1.6, 0, 0.2],
+            "task_id": "task_copy_300"
+          },
+          {
+            "agent_id": "agent_bd",
+            "state": "IdleAtHome",
+            "pos": [0.2, 0, -0.1]
+          }
+        ],
+        "projects": [
+          {
+            "project_id": "proj_flow_300",
+            "title": "Audience positioning",
+            "status": "executing"
+          }
+        ],
+        "tasks": [
+          {
+            "task_id": "task_copy_300",
+            "project_id": "proj_flow_300",
+            "title": "Draft positioning copy",
+            "status": "in_progress",
+            "assignee": "agent_research_1"
+          }
+        ],
+        "artifacts": [],
+        "decisions": [
+          {
+            "decision_id": "dec_audience_300",
+            "project_id": "proj_flow_300",
+            "status": "resolved",
+            "prompt": "Who is the target audience?",
+            "task_id": "task_copy_300"
+          }
+        ]
+      }
+    }
+  ]
+}

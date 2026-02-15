@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://officeclaw.dev/schemas/entities.schema.json",
+  "title": "OfficeClaw Canonical Entities",
+  "type": "object",
+  "$defs": {
+    "project": {
+      "type": "object",
+      "required": ["project_id", "title", "status"],
+      "additionalProperties": false,
+      "properties": {
+        "project_id": {
+          "$ref": "https://officeclaw.dev/schemas/identifiers.schema.json#/$defs/project_id"
+        },
+        "title": {"type": "string", "minLength": 1},
+        "status": {
+          "type": "string",
+          "enum": ["created", "planning", "executing", "blocked", "completed", "archived"]
+        }
+      }
+    },
+    "agent": {
+      "type": "object",
+      "required": ["agent_id", "state", "pos"],
+      "additionalProperties": false,
+      "properties": {
+        "agent_id": {
+          "$ref": "https://officeclaw.dev/schemas/identifiers.schema.json#/$defs/agent_id"
+        },
+        "state": {
+          "type": "string",
+          "enum": [
+            "IdleAtHome",
+            "WalkingToPOI",
+            "WorkingAtPOI",
+            "InMeeting",
+            "DeliveringArtifact",
+            "SeekingUserDecision",
+            "WalkingToPlayer",
+            "BlockedWaiting"
+          ]
+        },
+        "pos": {
+          "type": "array",
+          "items": {"type": "number"},
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "task_id": {
+          "$ref": "https://officeclaw.dev/schemas/identifiers.schema.json#/$defs/task_id"
+        }
+      }
+    },
+    "task": {
+      "type": "object",
+      "required": ["task_id", "project_id", "title", "status"],
+      "additionalProperties": false,
+      "properties": {
+        "task_id": {
+          "$ref": "https://officeclaw.dev/schemas/identifiers.schema.json#/$defs/task_id"
+        },
+        "project_id": {
+          "$ref": "https://officeclaw.dev/schemas/identifiers.schema.json#/$defs/project_id"
+        },
+        "title": {"type": "string", "minLength": 1},
+        "status": {
+          "type": "string",
+          "enum": ["planned", "in_progress", "blocked", "done", "cancelled"]
+        },
+        "assignee": {
+          "$ref": "https://officeclaw.dev/schemas/identifiers.schema.json#/$defs/agent_id"
+        }
+      }
+    },
+    "decision": {
+      "type": "object",
+      "required": ["decision_id", "project_id", "status", "prompt"],
+      "additionalProperties": false,
+      "properties": {
+        "decision_id": {
+          "$ref": "https://officeclaw.dev/schemas/identifiers.schema.json#/$defs/decision_id"
+        },
+        "project_id": {
+          "$ref": "https://officeclaw.dev/schemas/identifiers.schema.json#/$defs/project_id"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["open", "resolved", "cancelled"]
+        },
+        "prompt": {"type": "string", "minLength": 1},
+        "task_id": {
+          "$ref": "https://officeclaw.dev/schemas/identifiers.schema.json#/$defs/task_id"
+        }
+      }
+    },
+    "artifact": {
+      "type": "object",
+      "required": ["artifact_id", "project_id", "type", "status", "version"],
+      "additionalProperties": false,
+      "properties": {
+        "artifact_id": {
+          "$ref": "https://officeclaw.dev/schemas/identifiers.schema.json#/$defs/artifact_id"
+        },
+        "project_id": {
+          "$ref": "https://officeclaw.dev/schemas/identifiers.schema.json#/$defs/project_id"
+        },
+        "type": {"type": "string", "minLength": 1},
+        "status": {
+          "type": "string",
+          "enum": ["created", "delivered", "in_review", "approved", "changes_requested", "superseded", "archived"]
+        },
+        "version": {"type": "integer", "minimum": 1},
+        "task_id": {
+          "$ref": "https://officeclaw.dev/schemas/identifiers.schema.json#/$defs/task_id"
+        },
+        "poi_id": {
+          "$ref": "https://officeclaw.dev/schemas/identifiers.schema.json#/$defs/poi_id"
+        }
+      }
+    }
+  }
+}

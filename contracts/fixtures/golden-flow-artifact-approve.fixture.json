@@ -1,0 +1,123 @@
+{
+  "flow_id": "flow_artifact_delivered_to_task_done",
+  "messages": [
+    {
+      "type": "event",
+      "id": "evt_artifact_delivered_200",
+      "ts": 1739521000,
+      "v": 1,
+      "payload": {
+        "name": "artifact_delivered",
+        "project_id": "proj_flow_200",
+        "task_id": "task_content_200",
+        "artifact_id": "art_copy_v1_200",
+        "poi_id": "poi_delivery_shelf",
+        "agent_id": "agent_eng_1",
+        "meta": {
+          "artifact_status": "delivered"
+        }
+      }
+    },
+    {
+      "type": "command",
+      "id": "cmd_approve_200",
+      "ts": 1739521001,
+      "v": 1,
+      "payload": {
+        "name": "approve_artifact",
+        "data": {
+          "artifact_id": "art_copy_v1_200"
+        }
+      }
+    },
+    {
+      "type": "ack",
+      "id": "ack_approve_200",
+      "ts": 1739521002,
+      "v": 1,
+      "payload": {
+        "in_reply_to": "cmd_approve_200",
+        "status": "ok"
+      }
+    },
+    {
+      "type": "event",
+      "id": "evt_review_approved_200",
+      "ts": 1739521003,
+      "v": 1,
+      "payload": {
+        "name": "review_approved",
+        "project_id": "proj_flow_200",
+        "task_id": "task_content_200",
+        "artifact_id": "art_copy_v1_200",
+        "agent_id": "agent_bd",
+        "meta": {
+          "artifact_status": "approved"
+        }
+      }
+    },
+    {
+      "type": "event",
+      "id": "evt_task_done_200",
+      "ts": 1739521004,
+      "v": 1,
+      "payload": {
+        "name": "task_done",
+        "project_id": "proj_flow_200",
+        "task_id": "task_content_200",
+        "artifact_id": "art_copy_v1_200",
+        "agent_id": "agent_eng_1"
+      }
+    },
+    {
+      "type": "snapshot",
+      "id": "snap_approve_200",
+      "ts": 1739521005,
+      "v": 1,
+      "payload": {
+        "scene_id": "cozy_office_v0",
+        "agents": [
+          {
+            "agent_id": "agent_eng_1",
+            "state": "WorkingAtPOI",
+            "pos": [1.2, 0, 0.9],
+            "task_id": "task_content_200"
+          },
+          {
+            "agent_id": "agent_bd",
+            "state": "IdleAtHome",
+            "pos": [0.4, 0, -0.1]
+          }
+        ],
+        "projects": [
+          {
+            "project_id": "proj_flow_200",
+            "title": "Landing page copy",
+            "status": "executing"
+          }
+        ],
+        "tasks": [
+          {
+            "task_id": "task_content_200",
+            "project_id": "proj_flow_200",
+            "title": "Draft landing page copy",
+            "status": "done",
+            "assignee": "agent_eng_1"
+          }
+        ],
+        "artifacts": [
+          {
+            "artifact_id": "art_copy_v1_200",
+            "project_id": "proj_flow_200",
+            "type": "copy_doc",
+            "status": "approved",
+            "version": 1,
+            "task_id": "task_content_200",
+            "poi_id": "poi_delivery_shelf"
+          }
+        ],
+        "decisions": []
+      }
+    }
+  ]
+}

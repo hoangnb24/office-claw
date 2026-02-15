@@ -1,0 +1,71 @@
+{
+  "cases": [
+    {
+      "name": "hello missing client",
+      "expected_error_class": "ERR_HELLO_PAYLOAD",
+      "message": {
+        "type": "hello",
+        "id": "hello_002",
+        "ts": 1739501000,
+        "v": 1,
+        "payload": {}
+      }
+    },
+    {
+      "name": "command unknown name",
+      "expected_error_class": "ERR_COMMAND_PAYLOAD",
+      "message": {
+        "type": "command",
+        "id": "cmd_999",
+        "ts": 1739501001,
+        "v": 1,
+        "payload": {
+          "name": "totally_unknown_command",
+          "data": {}
+        }
+      }
+    },
+    {
+      "name": "command malformed assign_task payload",
+      "expected_error_class": "ERR_COMMAND_PAYLOAD",
+      "message": {
+        "type": "command",
+        "id": "cmd_998",
+        "ts": 1739501001,
+        "v": 1,
+        "payload": {
+          "name": "assign_task",
+          "data": {
+            "task_id": "task_1"
+          }
+        }
+      }
+    },
+    {
+      "name": "error unknown code",
+      "expected_error_class": "ERR_ERROR_PAYLOAD",
+      "message": {
+        "type": "error",
+        "id": "err_900",
+        "ts": 1739501002,
+        "v": 1,
+        "payload": {
+          "in_reply_to": "cmd_999",
+          "code": "UNKNOWN_ERROR",
+          "message": "Bad code"
+        }
+      }
+    },
+    {
+      "name": "envelope invalid timestamp",
+      "expected_error_class": "ERR_ENVELOPE_SCHEMA",
+      "message": {
+        "type": "ping",
+        "id": "ping_000",
+        "ts": 0,
+        "v": 1,
+        "payload": {}
+      }
+    }
+  ]
+}

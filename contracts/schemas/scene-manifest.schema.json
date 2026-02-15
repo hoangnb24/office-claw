@@ -1,0 +1,281 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://officeclaw.dev/schemas/scene-manifest.schema.json",
+  "title": "OfficeClaw Scene Manifest",
+  "type": "object",
+  "required": ["scene_id", "version", "office_shell", "pois", "objects", "navigation"],
+  "additionalProperties": false,
+  "properties": {
+    "scene_id": {"type": "string", "minLength": 1},
+    "version": {"type": "integer", "minimum": 1},
+    "office_shell": {"$ref": "#/$defs/office_shell"},
+    "pois": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/poi"}
+    },
+    "objects": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/object"}
+    },
+    "navigation": {"$ref": "#/$defs/navigation"},
+    "spawns": {"$ref": "#/$defs/spawns"},
+    "decor_anchors": {"$ref": "#/$defs/decor_anchors"}
+  },
+  "$defs": {
+    "number3": {
+      "type": "array",
+      "items": {"type": "number"},
+      "minItems": 3,
+      "maxItems": 3
+    },
+    "number2": {
+      "type": "array",
+      "items": {"type": "number"},
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "transform": {
+      "type": "object",
+      "required": ["pos", "rot", "scale"],
+      "additionalProperties": false,
+      "properties": {
+        "pos": {"$ref": "#/$defs/number3"},
+        "rot": {"$ref": "#/$defs/number3"},
+        "scale": {"$ref": "#/$defs/number3"}
+      }
+    },
+    "office_shell": {
+      "type": "object",
+      "required": ["url", "transform", "collision"],
+      "additionalProperties": false,
+      "properties": {
+        "url": {"type": "string", "pattern": "\\.glb$"},
+        "transform": {"$ref": "#/$defs/transform"},
+        "collision": {
+          "type": "object",
+          "required": ["mode"],
+          "additionalProperties": true,
+          "properties": {
+            "mode": {"type": "string", "enum": ["manifest", "embedded"]}
+          }
+        }
+      }
+    },
+    "interaction": {
+      "type": "object",
+      "required": ["type"],
+      "additionalProperties": true,
+      "properties": {
+        "type": {"type": "string", "enum": ["open_panel", "focus_only", "command"]},
+        "panel": {"type": "string", "minLength": 1},
+        "command": {"type": "string", "minLength": 1}
+      }
+    },
+    "nav_anchor": {
+      "type": "object",
+      "required": ["id", "pos", "facing"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "pos": {"$ref": "#/$defs/number3"},
+        "facing": {"$ref": "#/$defs/number3"}
+      }
+    },
+    "ui_anchor": {
+      "type": "object",
+      "required": ["pos", "facing", "size"],
+      "additionalProperties": false,
+      "properties": {
+        "pos": {"$ref": "#/$defs/number3"},
+        "facing": {"$ref": "#/$defs/number3"},
+        "size": {
+          "type": "array",
+          "items": {"type": "number", "exclusiveMinimum": 0},
+          "minItems": 2,
+          "maxItems": 2
+        }
+      }
+    },
+    "camera_framing": {
+      "type": "object",
+      "required": ["kind", "offset", "zoom"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {"type": "string", "enum": ["poi", "agent", "event"]},
+        "offset": {"$ref": "#/$defs/number3"},
+        "zoom": {"type": "number", "exclusiveMinimum": 0}
+      }
+    },
+    "poi": {
+      "type": "object",
+      "required": [
+        "poi_id",
+        "type",
+        "nav_anchors",
+        "interaction_radius_m",
+        "capacity",
+        "highlight_nodes",
+        "interaction"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "poi_id": {
+          "$ref": "https://officeclaw.dev/schemas/identifiers.schema.json#/$defs/poi_id"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "inbox",
+            "task_board",
+            "meeting_table",
+            "research_desk",
+            "dev_desk",
+            "delivery_shelf",
+            "lounge"
+          ]
+        },
+        "nav_anchors": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/nav_anchor"}
+        },
+        "interaction_radius_m": {"type": "number", "exclusiveMinimum": 0},
+        "ui_anchor": {"$ref": "#/$defs/ui_anchor"},
+        "camera_framing": {"$ref": "#/$defs/camera_framing"},
+        "capacity": {"type": "integer", "minimum": 1},
+        "highlight_nodes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string", "minLength": 1},
+          "uniqueItems": true
+        },
+        "interaction": {"$ref": "#/$defs/interaction"}
+      }
+    },
+    "collider": {
+      "oneOf": [
+        {
+          "type": "boolean",
+          "const": false
+        },
+        {
+          "type": "object",
+          "required": ["type"],
+          "additionalProperties": false,
+          "properties": {
+            "type": {"type": "string", "enum": ["box", "capsule", "mesh"]},
+            "size": {
+              "type": "array",
+              "items": {"type": "number", "exclusiveMinimum": 0},
+              "minItems": 3,
+              "maxItems": 3
+            },
+            "offset": {"$ref": "#/$defs/number3"},
+            "radius": {"type": "number", "exclusiveMinimum": 0},
+            "height": {"type": "number", "exclusiveMinimum": 0}
+          },
+          "allOf": [
+            {
+              "if": {"properties": {"type": {"const": "box"}}},
+              "then": {"required": ["size", "offset"]}
+            },
+            {
+              "if": {"properties": {"type": {"const": "capsule"}}},
+              "then": {"required": ["radius", "height", "offset"]}
+            }
+          ]
+        }
+      ]
+    },
+    "object": {
+      "type": "object",
+      "required": ["id", "url", "transform", "tags", "collider"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "url": {"type": "string", "pattern": "\\.glb$"},
+        "transform": {"$ref": "#/$defs/transform"},
+        "tags": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1},
+          "uniqueItems": true
+        },
+        "collider": {"$ref": "#/$defs/collider"},
+        "interaction": {"$ref": "#/$defs/interaction"},
+        "poi_id": {
+          "$ref": "https://officeclaw.dev/schemas/identifiers.schema.json#/$defs/poi_id"
+        },
+        "interaction_radius_m": {"type": "number", "exclusiveMinimum": 0},
+        "highlight_nodes": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1},
+          "uniqueItems": true
+        },
+        "instance_group": {"type": "string", "minLength": 1}
+      }
+    },
+    "navigation": {
+      "type": "object",
+      "required": ["grid"],
+      "additionalProperties": false,
+      "properties": {
+        "grid": {
+          "type": "object",
+          "required": ["origin", "cell_size", "width", "height", "walkable"],
+          "additionalProperties": false,
+          "properties": {
+            "origin": {"$ref": "#/$defs/number2"},
+            "cell_size": {"type": "number", "exclusiveMinimum": 0},
+            "width": {"type": "integer", "minimum": 1},
+            "height": {"type": "integer", "minimum": 1},
+            "walkable": {
+              "oneOf": [
+                {
+                  "type": "array",
+                  "items": {"type": "integer", "enum": [0, 1]}
+                },
+                {
+                  "type": "string",
+                  "minLength": 1
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "spawns": {
+      "type": "object",
+      "required": ["player", "agents"],
+      "additionalProperties": false,
+      "properties": {
+        "player": {"$ref": "#/$defs/number3"},
+        "agents": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {"$ref": "#/$defs/number3"}
+        }
+      }
+    },
+    "decor_anchor": {
+      "type": "object",
+      "required": ["anchor_id", "pos", "facing"],
+      "additionalProperties": false,
+      "properties": {
+        "anchor_id": {"type": "string", "minLength": 1},
+        "pos": {"$ref": "#/$defs/number3"},
+        "facing": {"$ref": "#/$defs/number3"}
+      }
+    },
+    "decor_anchors": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "array",
+        "minItems": 1,
+        "items": {"$ref": "#/$defs/decor_anchor"}
+      }
+    }
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "flow_id": "flow_assign_to_started_progress",
+  "messages": [
+    {
+      "type": "command",
+      "id": "cmd_assign_400",
+      "ts": 1739523000,
+      "v": 1,
+      "payload": {
+        "name": "assign_task",
+        "data": {
+          "task_id": "task_copy_400",
+          "agent_id": "agent_eng_1"
+        }
+      }
+    },
+    {
+      "type": "ack",
+      "id": "ack_assign_400",
+      "ts": 1739523001,
+      "v": 1,
+      "payload": {
+        "in_reply_to": "cmd_assign_400",
+        "status": "ok"
+      }
+    },
+    {
+      "type": "event",
+      "id": "evt_task_assigned_400",
+      "ts": 1739523002,
+      "v": 1,
+      "payload": {
+        "name": "task_assigned",
+        "project_id": "proj_flow_400",
+        "task_id": "task_copy_400",
+        "agent_id": "agent_eng_1",
+        "poi_id": "poi_task_board"
+      }
+    },
+    {
+      "type": "event",
+      "id": "evt_task_started_400",
+      "ts": 1739523003,
+      "v": 1,
+      "payload": {
+        "name": "task_started",
+        "project_id": "proj_flow_400",
+        "task_id": "task_copy_400",
+        "agent_id": "agent_eng_1",
+        "poi_id": "poi_eng_desk_1"
+      }
+    },
+    {
+      "type": "event",
+      "id": "evt_task_progress_400",
+      "ts": 1739523004,
+      "v": 1,
+      "payload": {
+        "name": "task_progress",
+        "project_id": "proj_flow_400",
+        "task_id": "task_copy_400",
+        "agent_id": "agent_eng_1",
+        "kind": "code",
+        "percent": 45,
+        "preview_text": "Drafting API handlers and validators."
+      }
+    },
+    {
+      "type": "snapshot",
+      "id": "snap_assign_progress_400",
+      "ts": 1739523005,
+      "v": 1,
+      "payload": {
+        "scene_id": "cozy_office_v0",
+        "agents": [
+          {
+            "agent_id": "agent_eng_1",
+            "state": "WorkingAtPOI",
+            "pos": [
+              1.4,
+              0,
+              0.8
+            ],
+            "task_id": "task_copy_400"
+          },
+          {
+            "agent_id": "agent_bd",
+            "state": "IdleAtHome",
+            "pos": [
+              0.3,
+              0,
+              -0.1
+            ]
+          }
+        ],
+        "projects": [
+          {
+            "project_id": "proj_flow_400",
+            "title": "Task assignment flow",
+            "status": "executing"
+          }
+        ],
+        "tasks": [
+          {
+            "task_id": "task_copy_400",
+            "project_id": "proj_flow_400",
+            "title": "Draft implementation plan",
+            "status": "in_progress",
+            "assignee": "agent_eng_1"
+          }
+        ],
+        "artifacts": [],
+        "decisions": []
+      }
+    }
+  ]
+}
