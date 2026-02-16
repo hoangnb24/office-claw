@@ -1,3 +1,29 @@
+## Repo Navigation for Agents
+
+Use the lookup index before broad file scanning:
+
+```bash
+node tools/agent-lookup.mjs --list
+node tools/agent-lookup.mjs --search websocket
+node tools/agent-lookup.mjs --topic contracts-validation
+```
+
+Reference files:
+- `docs/AGENT_NAVIGATION.md`
+- `docs/agent-lookup-map.json`
+
+Local folder instructions:
+- `apps/AGENTS.md`
+- `apps/client-web/AGENTS.md`
+- `apps/server-world/AGENTS.md`
+- `contracts/AGENTS.md`
+- `tools/AGENTS.md`
+- `packages/AGENTS.md`
+- `packages/openclaw-gateway/AGENTS.md`
+- `packages/repository/AGENTS.md`
+- `assets/AGENTS.md`
+- `docs/AGENTS.md`
+
 ## MCP Agent Mail: coordination for multi-agent workflows
 
 What it is
@@ -227,3 +253,45 @@ git push                # Push to remote
 - Always run `br sync --flush-only`, then commit `.beads/`, before ending session
 
 <!-- end-bv-agent-instructions -->
+
+🔎 cass — Search All Your Agent History
+
+ What: cass indexes conversations from Claude Code, Codex, Cursor, Gemini, Aider, ChatGPT, and more into a unified, searchable index. Before solving a problem from scratch, check if any agent already solved something similar.
+
+ ⚠️ NEVER run bare cass — it launches an interactive TUI. Always use --robot or --json.
+
+ Quick Start
+
+ # Check if index is healthy (exit 0=ok, 1=run index first)
+ cass health
+
+ # Search across all agent histories
+ cass search "authentication error" --robot --limit 5
+
+ # View a specific result (from search output)
+ cass view /path/to/session.jsonl -n 42 --json
+
+ # Expand context around a line
+ cass expand /path/to/session.jsonl -n 42 -C 3 --json
+
+ # Learn the full API
+ cass capabilities --json # Feature discovery
+ cass robot-docs guide # LLM-optimized docs
+
+ Why Use It
+
+ - Cross-agent knowledge: Find solutions from Codex when using Claude, or vice versa
+ - Forgiving syntax: Typos and wrong flags are auto-corrected with teaching notes
+ - Token-efficient: --fields minimal returns only essential data
+
+ Key Flags
+
+ | Flag | Purpose |
+ |------------------|--------------------------------------------------------|
+ | --robot / --json | Machine-readable JSON output (required!) |
+ | --fields minimal | Reduce payload: source_path, line_number, agent only |
+ | --limit N | Cap result count |
+ | --agent NAME | Filter to specific agent (claude, codex, cursor, etc.) |
+ | --days N | Limit to recent N days |
+
+ stdout = data only, stderr = diagnostics. Exit 0 = success.

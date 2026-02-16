@@ -1,0 +1,255 @@
+{
+  "schema_version": 1,
+  "project": "office-claw",
+  "updated_at": "2026-02-16",
+  "topics": [
+    {
+      "id": "runtime-overview",
+      "title": "Runtime architecture and ownership boundaries",
+      "tags": ["architecture", "entrypoints", "overview"],
+      "when_to_use": [
+        "You need a quick map of client/server/contracts responsibilities.",
+        "You need authoritative runtime module locations."
+      ],
+      "first_files": [
+        "README.md",
+        "CONTRIBUTOR_ONBOARDING.md",
+        "apps/server-world/src/worldServer.mjs",
+        "apps/client-web/src/network/useWorldSocket.ts",
+        "contracts/validation/run-validation.mjs"
+      ],
+      "commands": [
+        "node tools/agent-lookup.mjs --topic runtime-overview"
+      ],
+      "related_docs": [
+        "docs/client-web-architecture.md",
+        "docs/server-world-simulation-loop.md",
+        "docs/contracts-validation-gates.md"
+      ]
+    },
+    {
+      "id": "server-world",
+      "title": "World server lifecycle, command routing, and simulation",
+      "tags": ["server", "websocket", "simulation", "commands"],
+      "when_to_use": [
+        "You are changing /ws/world behavior.",
+        "You need command ack/error or replay/resync behavior."
+      ],
+      "first_files": [
+        "apps/server-world/AGENTS.md",
+        "apps/server-world/src/worldServer.mjs",
+        "apps/server-world/src/commandRouter.mjs",
+        "apps/server-world/src/worldState.mjs",
+        "apps/server-world/src/simulation.mjs"
+      ],
+      "commands": [
+        "npm --prefix apps/server-world test",
+        "node --input-type=module -e \"import { createWorldServer } from './apps/server-world/src/index.mjs'; console.log(typeof createWorldServer);\""
+      ],
+      "related_docs": [
+        "apps/server-world/README.md",
+        "docs/server-world-ws-lifecycle.md",
+        "docs/server-world-command-security.md",
+        "docs/server-world-reconnect-resync.md"
+      ]
+    },
+    {
+      "id": "client-web",
+      "title": "Client runtime, overlays, and state stores",
+      "tags": ["client", "react", "three", "overlay", "state"],
+      "when_to_use": [
+        "You are changing client rendering, input, or panel behavior.",
+        "You need to trace command flows from UI to network layer."
+      ],
+      "first_files": [
+        "apps/client-web/AGENTS.md",
+        "apps/client-web/src/App.tsx",
+        "apps/client-web/src/overlay/OverlayRoot.tsx",
+        "apps/client-web/src/network/useWorldSocket.ts",
+        "apps/client-web/src/state/worldStore.ts"
+      ],
+      "commands": [
+        "npm --prefix apps/client-web run typecheck",
+        "npm --prefix apps/client-web run build",
+        "npm --prefix apps/client-web run dev"
+      ],
+      "related_docs": [
+        "docs/client-web-architecture.md",
+        "docs/client-runtime-sync-workflow.md",
+        "docs/client-panel-state-standards.md"
+      ]
+    },
+    {
+      "id": "offline-live-modes",
+      "title": "Offline mock runtime and live websocket runtime parity",
+      "tags": ["offline", "live", "parity", "runtime-profile"],
+      "when_to_use": [
+        "You need behavior to match in offline and live modes.",
+        "You are debugging mode-specific failures."
+      ],
+      "first_files": [
+        "apps/client-web/src/config/runtimeProfile.ts",
+        "apps/client-web/src/network/useWorldSocket.ts",
+        "apps/client-web/src/offline/mockWorldRuntime.ts",
+        "tools/qa/check-offline-live-parity.mjs"
+      ],
+      "commands": [
+        "VITE_OFFLINE_MOCK_WORLD=1 npm --prefix apps/client-web run dev",
+        "node tools/qa/check-offline-live-parity.mjs",
+        "node tools/qa/run-qa-gates.mjs --only parity"
+      ],
+      "related_docs": [
+        "docs/client-offline-mock-world.md",
+        "docs/offline-live-parity-regression-checklist.md"
+      ]
+    },
+    {
+      "id": "contracts-validation",
+      "title": "Schema, fixture, and invariant validation",
+      "tags": ["contracts", "schemas", "fixtures", "validation"],
+      "when_to_use": [
+        "You changed protocol, command, entity, or scene contract shape.",
+        "You need fixture-level confidence before merging."
+      ],
+      "first_files": [
+        "contracts/AGENTS.md",
+        "contracts/validation/run-validation.mjs",
+        "contracts/schemas/protocol-envelope.schema.json",
+        "contracts/schemas/commands.schema.json",
+        "contracts/schemas/scene-manifest.schema.json"
+      ],
+      "commands": [
+        "npm --prefix contracts run validate",
+        "npm --prefix contracts run validate:session-key"
+      ],
+      "related_docs": [
+        "contracts/README.md",
+        "docs/contracts-validation-gates.md",
+        "PROTOCOL.md",
+        "SCENE_MANIFESTS.md"
+      ]
+    },
+    {
+      "id": "assets-scenes",
+      "title": "Asset sync, GLB preflight, and scene manifest runtime mirrors",
+      "tags": ["assets", "scene", "glb", "preflight", "sync"],
+      "when_to_use": [
+        "You changed assets/glb or assets/scenes content.",
+        "You need to resolve runtime mirror drift."
+      ],
+      "first_files": [
+        "assets/AGENTS.md",
+        "tools/sync-runtime-assets.mjs",
+        "tools/glb-preflight.mjs",
+        "tools/nav-preflight.mjs",
+        "tools/asset-provenance-ledger.mjs"
+      ],
+      "commands": [
+        "npm --prefix apps/client-web run assets:sync",
+        "npm --prefix apps/client-web run assets:verify",
+        "node tools/glb-preflight.mjs --scene assets/scenes/cozy_office_v0.scene.json --asset-root assets/glb --report reports/glb-preflight-report.latest.md",
+        "node tools/nav-preflight.mjs --scene assets/scenes/cozy_office_v0.scene.json --out reports/nav-preflight-report.latest.md"
+      ],
+      "related_docs": [
+        "SCENE_MANIFESTS.md",
+        "docs/glb-preflight-validator.md",
+        "docs/asset-pack-contract.md"
+      ]
+    },
+    {
+      "id": "qa-gates",
+      "title": "Full QA gate suite and partial execution groups",
+      "tags": ["qa", "gates", "regression", "ci"],
+      "when_to_use": [
+        "You need the canonical pre-merge checks.",
+        "You need fast triage with grouped checks."
+      ],
+      "first_files": [
+        "docs/qa-gate-command-suite.md",
+        "tools/qa/run-qa-gates.mjs"
+      ],
+      "commands": [
+        "node tools/qa/run-qa-gates.mjs",
+        "node tools/qa/run-qa-gates.mjs --only client",
+        "node tools/qa/run-qa-gates.mjs --only contracts",
+        "node tools/qa/run-qa-gates.mjs --only preflight",
+        "node tools/qa/run-qa-gates.mjs --only parity",
+        "node tools/qa/run-qa-gates.mjs --only client,contracts --dry-run"
+      ],
+      "related_docs": [
+        "docs/qa-gate-command-suite.md",
+        "docs/visual-qa-checklist.md"
+      ]
+    },
+    {
+      "id": "gateway-repository-packages",
+      "title": "Gateway adapter and repository package tests",
+      "tags": ["package", "gateway", "repository", "tests"],
+      "when_to_use": [
+        "You are changing package-level adapter behavior.",
+        "You need package test commands."
+      ],
+      "first_files": [
+        "packages/openclaw-gateway/AGENTS.md",
+        "packages/repository/AGENTS.md",
+        "packages/openclaw-gateway/test",
+        "packages/repository/test"
+      ],
+      "commands": [
+        "npm --prefix packages/openclaw-gateway test",
+        "npm --prefix packages/repository test"
+      ],
+      "related_docs": [
+        "docs/openclaw-gateway-client.md",
+        "docs/repository-layer.md"
+      ]
+    },
+    {
+      "id": "session-trace",
+      "title": "Session trace export/import for deterministic replay debugging",
+      "tags": ["trace", "debug", "replay", "non-prod"],
+      "when_to_use": [
+        "You need to capture runtime events/commands for reproduction.",
+        "You need to import traces into a sandbox workflow."
+      ],
+      "first_files": [
+        "tools/session-trace.mjs",
+        "docs/session-trace-export-import.md"
+      ],
+      "commands": [
+        "OFFICECLAW_NON_PROD=1 node tools/session-trace.mjs export --events reports/runtime/events.jsonl --commands reports/runtime/commands.jsonl --out reports/runtime/session-trace.json",
+        "OFFICECLAW_NON_PROD=1 node tools/session-trace.mjs import --in reports/runtime/session-trace.json --events-out reports/runtime/events.import.jsonl --commands-out reports/runtime/commands.import.jsonl --allow-overwrite"
+      ],
+      "related_docs": [
+        "docs/session-trace-export-import.md",
+        "docs/operations-runbook.md"
+      ]
+    },
+    {
+      "id": "agent-workflow",
+      "title": "Agent collaboration workflow and traceability conventions",
+      "tags": ["agent", "workflow", "beads", "thread-id", "reservations"],
+      "when_to_use": [
+        "You need to coordinate with other coding agents.",
+        "You need conventions for thread IDs and reservations."
+      ],
+      "first_files": [
+        "AGENTS.md",
+        "CONTRIBUTOR_ONBOARDING.md",
+        "docs/traceability-conventions.md"
+      ],
+      "commands": [
+        "br ready --json",
+        "bv --robot-triage",
+        "br update <id> --status in_progress",
+        "br close <id> --reason \"Completed\"",
+        "br sync --flush-only"
+      ],
+      "related_docs": [
+        "AGENTS.md",
+        "CONTRIBUTOR_ONBOARDING.md",
+        "docs/traceability-conventions.md"
+      ]
+    }
+  ]
+}
