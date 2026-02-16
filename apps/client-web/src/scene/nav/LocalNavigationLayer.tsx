@@ -1,9 +1,8 @@
 import { useFrame } from "@react-three/fiber";
-import { useEffect, useMemo } from "react";
-import rawSceneManifest from "../highlight/cozy_office_v0.scene.json";
-import { parseSceneManifest } from "../loader";
-import type { ScenePoi } from "../loader";
-import { useInteractionStore } from "../../state/interactionStore";
+import { useCallback, useEffect, useMemo } from "react";
+import type { SceneManifest, ScenePoi } from "../loader";
+import { useSceneRuntimeProvider } from "../runtime";
+import { useInteractionStore, type InteractionTargetType } from "../../state/interactionStore";
 import {
   usePlayerStore,
   type PendingPoiAction,
@@ -12,12 +11,8 @@ import {
 import { useUiStore } from "../../state/uiStore";
 import { useWorldStore } from "../../state/worldStore";
 import {
-  applyColliderBlockers,
   blockedCellCenters,
-  collectColliderBlockedIndices,
-  createNavGridRuntime,
   findPathOnGrid,
-  validatePoiAnchorReachability,
   type NavGridRuntime
 } from "./pathfinding";
 
@@ -54,6 +49,13 @@ function panelFromToken(token: string | undefined): PendingPoiAction["panelId"] 
 }
 
 function panelFromIntent(commandName: string, poi: ScenePoi): PendingPoiAction["panelId"] {
+  const manifestPanel = panelFromToken(poi.interaction?.panel);
+  if (manifestPanel) {
+    return manifestPanel;
+  }
+
+  // Compatibility fallback for legacy command-name routing while manifests
+  // are being normalized to panel-first metadata.
   if (commandName === "open_inbox_panel") {
     return "inbox";
   }
@@ -64,6 +66,149 @@ function panelFromIntent(commandName: string, poi: ScenePoi): PendingPoiAction["
     return "artifact-viewer";
   }
   return panelFromToken(poi.interaction?.panel);
+}
+
+function pushPoiInteractionFeedback(poi: ScenePoi, panelId: PendingPoiAction["panelId"]) {
+  const ui = useUiStore.getState();
+  const poiLabel = poi.poi_id.replace(/^poi_/, "").replace(/_/g, " ");
+
+  if (panelId === "inbox") {
+    ui.setInboxNotice({
+      level: "success",
+      message: `Inbox interaction ready at ${poiLabel}.`
+    });
+    return;
+  }
+  if (panelId === "task-board") {
+    ui.setTaskBoardNotice({
+      level: "success",
+      message: `Task Board interaction ready at ${poiLabel}.`
+    });
+    return;
+  }
+  if (panelId === "artifact-viewer") {
+    ui.setArtifactNotice({
+      level: "success",
+      message: `Delivery interaction ready at ${poiLabel}.`
+    });
+  }
+}
+
+interface NavAuthoringCapture {
+  mode: "anchor" | "collider";
+  target: string;
+  point: [number, number, number];
+  snippet: string;
+}
+
+function rounded(value: number): number {
+  return Number(value.toFixed(3));
+}
+
+function roundedVec3(vec: [number, number, number]): [number, number, number] {
+  return [rounded(vec[0]), rounded(vec[1]), rounded(vec[2])];
+}
+
+function isEditableTarget(target: EventTarget | null): boolean {
+  if (!(target instanceof HTMLElement)) {
+    return false;
+  }
+  if (target.isContentEditable) {
+    return true;
+  }
+  const tag = target.tagName;
+  return tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || tag === "BUTTON";
+}
+
+function buildAnchorCapture(
+  manifest: SceneManifest,
+  poiId: string,
+  point: [number, number, number]
+): NavAuthoringCapture | null {
+  const poiIndex = manifest.pois.findIndex((poi) => poi.poi_id === poiId);
+  if (poiIndex < 0) {
+    return null;
+  }
+
+  const poi = manifest.pois[poiIndex];
+  if (!Array.isArray(poi.nav_anchors) || poi.nav_anchors.length === 0) {
+    return null;
+  }
+
+  const anchorIndex = 0;
+  const anchor = poi.nav_anchors[anchorIndex];
+  const capturePoint = roundedVec3(point);
+  const patchPayload = {
+    capture_kind: "poi_anchor",
+    poi_id: poi.poi_id,
+    anchor_id: anchor.id,
+    captured_world_pos: capturePoint,
+    json_patch: [
+      {
+        op: "replace",
+        path: `/pois/${poiIndex}/nav_anchors/${anchorIndex}/pos`,
+        value: capturePoint
+      }
+    ]
+  };
+
+  return {
+    mode: "anchor",
+    target: `poi:${poi.poi_id}/anchor:${anchor.id}`,
+    point: capturePoint,
+    snippet: JSON.stringify(patchPayload, null, 2)
+  };
+}
+
+function buildColliderCapture(
+  manifest: SceneManifest,
+  targetType: InteractionTargetType | null,
+  targetId: string | null,
+  point: [number, number, number]
+): NavAuthoringCapture | null {
+  if (!targetId) {
+    return null;
+  }
+
+  let objectIndex = -1;
+  if (targetType === "object") {
+    objectIndex = manifest.objects.findIndex((object) => object.id === targetId);
+  } else if (targetType === "poi") {
+    objectIndex = manifest.objects.findIndex((object) => object.poi_id === targetId);
+  }
+
+  if (objectIndex < 0) {
+    return null;
+  }
+
+  const object = manifest.objects[objectIndex];
+  const objectPosY = object.transform?.pos?.[1] ?? point[1] ?? 0;
+  const snappedPosition: [number, number, number] = [
+    rounded(point[0]),
+    rounded(objectPosY),
+    rounded(point[2])
+  ];
+
+  const patchPayload = {
+    capture_kind: "object_collider",
+    object_id: object.id,
+    poi_id: object.poi_id ?? null,
+    captured_world_pos: snappedPosition,
+    json_patch: [
+      {
+        op: "replace",
+        path: `/objects/${objectIndex}/transform/pos`,
+        value: snappedPosition
+      }
+    ]
+  };
+
+  return {
+    mode: "collider",
+    target: `object:${object.id}`,
+    point: snappedPosition,
+    snippet: JSON.stringify(patchPayload, null, 2)
+  };
 }
 
 function applyPathIntent(
@@ -101,31 +246,28 @@ function applyPathIntent(
 }
 
 export function LocalNavigationLayer() {
+  const { snapshot, reloadScene } = useSceneRuntimeProvider();
   const navDebugEnabled =
     import.meta.env.DEV ||
     import.meta.env.VITE_NAV_DEBUG === "1" ||
     import.meta.env.VITE_DEBUG_HUD === "1";
-  const manifest = useMemo(() => parseSceneManifest(rawSceneManifest), []);
-  const baseNavGrid = useMemo(() => createNavGridRuntime(manifest.navigation.grid), [manifest]);
-  const colliderBlockers = useMemo(
-    () => collectColliderBlockedIndices(manifest, baseNavGrid),
-    [baseNavGrid, manifest]
+
+  const manifest = snapshot.manifest;
+  const navGrid = snapshot.derived?.navigationGrid ?? null;
+  const anchorValidationIssues = snapshot.derived?.navAnchorIssues ?? [];
+  const staticBlockedCellMarkers = useMemo(
+    () => (navGrid ? blockedCellCenters(navGrid) : []),
+    [navGrid]
   );
-  const navGrid = useMemo(
-    () => applyColliderBlockers(baseNavGrid, colliderBlockers.blockedIndices),
-    [baseNavGrid, colliderBlockers]
-  );
-  const anchorValidationIssues = useMemo(
-    () => validatePoiAnchorReachability(manifest, navGrid),
-    [manifest, navGrid]
-  );
-  const staticBlockedCellMarkers = useMemo(() => blockedCellCenters(navGrid), [navGrid]);
-  const poiById = useMemo(
-    () => Object.fromEntries(manifest.pois.map((poi) => [poi.poi_id, poi])),
-    [manifest]
-  );
+  const poiById = snapshot.derived?.poisById ?? {};
+  const sceneId = snapshot.sceneId || manifest?.scene_id || "cozy_office_v0";
 
   const pendingCommandIntent = useInteractionStore((state) => state.pendingCommandIntent);
+  const pointerWorldPos = useInteractionStore((state) => state.pointerWorldPos);
+  const hoveredId = useInteractionStore((state) => state.hoveredId);
+  const hoveredType = useInteractionStore((state) => state.hoveredType);
+  const selectedId = useInteractionStore((state) => state.selectedId);
+  const selectedType = useInteractionStore((state) => state.selectedType);
   const clearCommandIntent = useInteractionStore((state) => state.clearCommandIntent);
 
   const openPanel = useUiStore((state) => state.openPanel);
@@ -149,7 +291,36 @@ export function LocalNavigationLayer() {
   const setNavDebug = usePlayerStore((state) => state.setNavDebug);
   const advanceAlongPath = usePlayerStore((state) => state.advanceAlongPath);
 
+  const reloadManifest = useCallback(async () => {
+    try {
+      await reloadScene();
+      setNavDebug({
+        lastStatus: "idle",
+        lastReason: "manifest_hot_reload_ok"
+      });
+      console.info(`[nav-authoring] manifest reloaded for ${sceneId}`);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unknown manifest reload failure";
+      setNavDebug({
+        lastStatus: "blocked",
+        lastReason: "manifest_hot_reload_failed"
+      });
+      console.warn(`[nav-authoring] manifest reload failed: ${message}`);
+    }
+  }, [reloadScene, sceneId, setNavDebug]);
+
   useEffect(() => {
+    if (!manifest || !navGrid) {
+      setNavDebug({
+        navReady: false,
+        gridWidth: 0,
+        gridHeight: 0,
+        cellSize: 0,
+        blockedCellCount: 0
+      });
+      return;
+    }
+
     const spawn = manifest.spawns?.player ?? [0, 0, 0];
     setPosition(spawn);
     setNavDebug({
@@ -164,6 +335,9 @@ export function LocalNavigationLayer() {
   }, [manifest, navGrid, setNavDebug, setPosition]);
 
   useEffect(() => {
+    if (!navDebugEnabled || !debugHudEnabled) {
+      return;
+    }
     if (anchorValidationIssues.length === 0) {
       return;
     }
@@ -176,7 +350,80 @@ export function LocalNavigationLayer() {
         `[nav] anchor issue ${issue.reason} poi=${issue.poiId} anchor=${issue.anchorId}${nearest}`
       );
     }
-  }, [anchorValidationIssues]);
+  }, [anchorValidationIssues, debugHudEnabled, navDebugEnabled]);
+
+  useEffect(() => {
+    if (!navDebugEnabled || !debugHudEnabled) {
+      return;
+    }
+
+    const handleCaptureKeyDown = (event: KeyboardEvent) => {
+      if (event.defaultPrevented || isEditableTarget(event.target)) {
+        return;
+      }
+      const normalizedKey = event.key.toLowerCase();
+
+      if (normalizedKey === "r") {
+        void reloadManifest();
+        event.preventDefault();
+        return;
+      }
+
+      if (normalizedKey !== "c") {
+        return;
+      }
+      if (!pointerWorldPos || !manifest) {
+        return;
+      }
+
+      const captureTargetId = selectedId ?? hoveredId;
+      const captureTargetType = selectedType ?? hoveredType;
+      const capture = event.shiftKey
+        ? buildColliderCapture(manifest, captureTargetType, captureTargetId, pointerWorldPos)
+        : captureTargetType === "poi" && captureTargetId
+          ? buildAnchorCapture(manifest, captureTargetId, pointerWorldPos)
+          : null;
+
+      if (!capture) {
+        const modeLabel = event.shiftKey ? "collider" : "anchor";
+        console.warn(
+          `[nav-authoring] ${modeLabel} capture requires a ${event.shiftKey ? "POI/object" : "POI"} target under pointer.`
+        );
+        return;
+      }
+
+      setNavDebug({
+        lastCaptureMode: capture.mode,
+        lastCaptureTarget: capture.target,
+        lastCapturePoint: capture.point,
+        lastCaptureSnippet: capture.snippet
+      });
+
+      console.info(`[nav-authoring] capture ${capture.mode} ${capture.target}\n${capture.snippet}`);
+      if (typeof navigator !== "undefined" && navigator.clipboard?.writeText) {
+        void navigator.clipboard.writeText(capture.snippet).catch(() => {
+          // no-op: clipboard availability depends on browser permissions/context
+        });
+      }
+      event.preventDefault();
+    };
+
+    window.addEventListener("keydown", handleCaptureKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleCaptureKeyDown);
+    };
+  }, [
+    debugHudEnabled,
+    hoveredId,
+    hoveredType,
+    manifest,
+    navDebugEnabled,
+    pointerWorldPos,
+    reloadManifest,
+    selectedId,
+    selectedType,
+    setNavDebug
+  ]);
 
   useEffect(() => {
     if (!pendingCommandIntent) {
@@ -192,10 +439,20 @@ export function LocalNavigationLayer() {
       return;
     }
 
+    if (!navGrid) {
+      setNavDebug({
+        lastStatus: "blocked",
+        lastReason: "nav_grid_unavailable"
+      });
+      clearCommandIntent();
+      return;
+    }
+
     const poi = poiById[pendingCommandIntent.sourceId];
     const isPoiCommand =
       Boolean(poi) &&
       (pendingCommandIntent.sourceType === "poi" ||
+        pendingCommandIntent.sourceType === "artifact" ||
         pendingCommandIntent.name === "focus_poi" ||
         pendingCommandIntent.name.startsWith("open_"));
 
@@ -208,6 +465,7 @@ export function LocalNavigationLayer() {
       if (distanceXZ(currentPlayerPosition, anchor) <= interactionRadiusM) {
         if (panelId) {
           openPanel(panelId);
+          pushPoiInteractionFeedback(poi, panelId);
         }
         setPendingPoiAction(null);
         setNavDebug({
@@ -282,6 +540,10 @@ export function LocalNavigationLayer() {
       setFocusedPoi(pendingPoiAction.poiId);
       if (pendingPoiAction.panelId) {
         openPanel(pendingPoiAction.panelId);
+        const pendingPoi = poiById[pendingPoiAction.poiId];
+        if (pendingPoi) {
+          pushPoiInteractionFeedback(pendingPoi, pendingPoiAction.panelId);
+        }
       }
       setNavDebug({
         lastStatus: "arrived",
@@ -316,7 +578,7 @@ export function LocalNavigationLayer() {
             </mesh>
           ))
         : null}
-      {navDebugEnabled && debugHudEnabled && showBlockedCellsOverlay
+      {navDebugEnabled && debugHudEnabled && showBlockedCellsOverlay && navGrid
         ? staticBlockedCellMarkers.map((position, index) => (
             <mesh key={`blocked-cell-${index}`} position={position}>
               <boxGeometry args={[navGrid.cellSize * 0.82, 0.04, navGrid.cellSize * 0.82]} />

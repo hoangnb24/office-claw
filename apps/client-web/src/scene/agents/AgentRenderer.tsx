@@ -37,6 +37,21 @@ interface ActiveTraversal {
   arrivalRadius: number;
 }
 
+function disableShadowCasting(root: Object3D) {
+  root.traverse((node) => {
+    const mesh = node as Object3D & {
+      isMesh?: boolean;
+      castShadow?: boolean;
+      receiveShadow?: boolean;
+    };
+    if (!mesh.isMesh) {
+      return;
+    }
+    mesh.castShadow = false;
+    mesh.receiveShadow = false;
+  });
+}
+
 export interface AgentRendererProps {
   agentId: string;
   state: AgentState;
@@ -202,8 +217,9 @@ export function AgentRenderer({
     if (!model) {
       return null;
     }
-
-    return SkeletonUtils.clone(model) as Object3D;
+    const clone = SkeletonUtils.clone(model) as Object3D;
+    disableShadowCasting(clone);
+    return clone;
   }, [model]);
 
   const mixer = useMemo(() => {
@@ -398,11 +414,11 @@ export function AgentRenderer({
   if (!clonedModel) {
     return (
       <group ref={groupRef}>
-        <mesh position={[0, 0.8, 0]} castShadow>
+        <mesh position={[0, 0.8, 0]}>
           <capsuleGeometry args={[0.22, 0.55, 8, 16]} />
           <meshStandardMaterial color={fallbackColorByState(effectiveState)} />
         </mesh>
-        <mesh position={[0, 1.45, 0]} castShadow>
+        <mesh position={[0, 1.45, 0]}>
           <sphereGeometry args={[0.2, 16, 16]} />
           <meshStandardMaterial color="#f5f7fa" />
         </mesh>

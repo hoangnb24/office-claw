@@ -2,38 +2,50 @@ import { Canvas } from "@react-three/fiber";
 import { OfficeScene } from "./scene/OfficeScene";
 import { LocalNavigationLayer } from "./scene/nav";
 import { RuntimeTelemetryProbe } from "./scene/debug";
+import { SceneRuntimeProvider } from "./scene/runtime";
 import { OverlayRoot } from "./overlay/OverlayRoot";
 import { useWorldSocket } from "./network/useWorldSocket";
-import { isOfflineMockWorldEnabled } from "./config/runtimeProfile";
+import {
+  isDebugDiagnosticsProfileEnabled,
+  isOfflineMockWorldEnabled,
+  runtimeSceneId
+} from "./config/runtimeProfile";
+import { useScriptedDemoFlowHotkey } from "./demo/useScriptedDemoFlowHotkey";
 
 export function WorkspaceRoute() {
   const offlineMode = isOfflineMockWorldEnabled();
-  useWorldSocket("cozy_office_v0");
+  const debugDiagnosticsProfile = isDebugDiagnosticsProfileEnabled();
+  const sceneId = runtimeSceneId();
+  const manifestUrl = `/scenes/${sceneId}.scene.json`;
+
+  useWorldSocket(sceneId);
+  useScriptedDemoFlowHotkey();
 
   return (
-    <div className="app-shell" data-runtime-profile={offlineMode ? "offline-mock" : "live-world"}>
-      <div className="scene-shell">
-        <Canvas
-          orthographic
-          dpr={[1, 1.5]}
-          shadows
-          gl={{
-            antialias: false,
-            powerPreference: "high-performance"
-          }}
-          camera={{
-            position: [12, 12, 12],
-            zoom: 1.1,
-            near: 0.1,
-            far: 200
-          }}
-        >
-          <OfficeScene />
-          <LocalNavigationLayer />
-          <RuntimeTelemetryProbe />
-        </Canvas>
+    <SceneRuntimeProvider initialSceneId={sceneId} initialManifestUrl={manifestUrl} autoLoad>
+      <div className="app-shell" data-runtime-profile={offlineMode ? "offline-mock" : "live-world"}>
+        <div className="scene-shell">
+          <Canvas
+            orthographic
+            dpr={0.85}
+            gl={{
+              antialias: false,
+              powerPreference: "high-performance"
+            }}
+            camera={{
+              position: [12, 12, 12],
+              zoom: 1.1,
+              near: 0.1,
+              far: 200
+            }}
+          >
+            <OfficeScene />
+            <LocalNavigationLayer />
+            {debugDiagnosticsProfile ? <RuntimeTelemetryProbe /> : null}
+          </Canvas>
+        </div>
+        <OverlayRoot />
       </div>
-      <OverlayRoot />
-    </div>
+    </SceneRuntimeProvider>
   );
 }

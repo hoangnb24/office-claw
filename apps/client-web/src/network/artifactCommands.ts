@@ -1,5 +1,5 @@
 import { useUiStore } from "../state/uiStore";
-import { getWorldSocketClient } from "./worldSocketBridge";
+import { getCommandGateway } from "./worldSocketBridge";
 
 export function artifactErrorMicrocopy(code?: string, fallbackMessage?: string): string {
   switch (code) {
@@ -34,20 +34,20 @@ export function dispatchApproveArtifact(artifactId: string): string | null {
     return null;
   }
 
-  const client = getWorldSocketClient();
-  if (!client) {
+  const gateway = getCommandGateway();
+  if (!gateway) {
     setArtifactError("World connection is not available. Reconnect and retry.");
     return null;
   }
 
-  const commandId = client.sendCommand("approve_artifact", {
+  const submission = gateway.sendCommand("approve_artifact", {
     artifact_id: normalizedArtifactId
   });
-  if (!commandId) {
+  if (!submission) {
     setArtifactError("Unable to send approve command. Reconnect and retry.");
     return null;
   }
-  return commandId;
+  return submission.commandId;
 }
 
 export function dispatchRequestArtifactChanges(artifactId: string, instructions: string): string | null {
@@ -58,21 +58,21 @@ export function dispatchRequestArtifactChanges(artifactId: string, instructions:
     return null;
   }
 
-  const client = getWorldSocketClient();
-  if (!client) {
+  const gateway = getCommandGateway();
+  if (!gateway) {
     setArtifactError("World connection is not available. Reconnect and retry.");
     return null;
   }
 
-  const commandId = client.sendCommand("request_changes", {
+  const submission = gateway.sendCommand("request_changes", {
     artifact_id: normalizedArtifactId,
     instructions: normalizedInstructions
   });
-  if (!commandId) {
+  if (!submission) {
     setArtifactError("Unable to send change request command. Reconnect and retry.");
     return null;
   }
-  return commandId;
+  return submission.commandId;
 }
 
 export function dispatchSplitArtifactIntoTasks(artifactId: string, taskTitles: string[]): string | null {
@@ -85,19 +85,19 @@ export function dispatchSplitArtifactIntoTasks(artifactId: string, taskTitles: s
     return null;
   }
 
-  const client = getWorldSocketClient();
-  if (!client) {
+  const gateway = getCommandGateway();
+  if (!gateway) {
     setArtifactError("World connection is not available. Reconnect and retry.");
     return null;
   }
 
-  const commandId = client.sendCommand("split_into_tasks", {
+  const submission = gateway.sendCommand("split_into_tasks", {
     artifact_id: normalizedArtifactId,
     task_titles: normalizedTaskTitles
   });
-  if (!commandId) {
+  if (!submission) {
     setArtifactError("Unable to send split command. Reconnect and retry.");
     return null;
   }
-  return commandId;
+  return submission.commandId;
 }

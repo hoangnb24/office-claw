@@ -1,4 +1,5 @@
 import type { ConnectionStatus } from "../state/worldStore";
+import type { CommandDataMap, CommandErrorCode, CommandName, CommandResultEvent } from "./commandGateway";
 
 interface ConnectionStateUpdate {
   status: ConnectionStatus;
@@ -16,13 +17,7 @@ interface WorldSocketClientOptions {
   sceneId: string;
   onConnectionState: (update: ConnectionStateUpdate) => void;
   onEnvelope: (envelope: unknown) => void;
-  onCommandResult?: (result: {
-    kind: "ack" | "error";
-    commandId: string;
-    commandName?: string;
-    code?: string;
-    message?: string;
-  }) => void;
+  onCommandResult?: (result: CommandResultEvent) => void;
   onResumeCursor: (cursor: Partial<ResumeCursor>) => void;
   getResumeCursor: () => ResumeCursor;
 }
@@ -30,6 +25,7 @@ interface WorldSocketClientOptions {
 interface Envelope {
   type: string;
   id?: string;
+  ts?: number;
   payload?: Record<string, unknown>;
 }
 
@@ -54,13 +50,27 @@ function reconnectDelayMs(attempt: number): number {
   return 8000 + Math.floor(Math.random() * 500);
 }
 
+function parseCommandErrorCode(value: unknown): CommandErrorCode | undefined {
+  switch (value) {
+    case "VALIDATION_FAILED":
+    case "NOT_FOUND":
+    case "CONFLICT":
+    case "RATE_LIMITED":
+    case "NOT_ALLOWED":
+    case "INTERNAL":
+      return value;
+    default:
+      return undefined;
+  }
+}
+
 export class WorldSocketClient {
   private readonly options: WorldSocketClientOptions;
   private socket: WebSocket | null = null;
   private reconnectTimer: ReturnType<typeof setTimeout> | null = null;
   private reconnectAttempt = 0;
   private stopped = false;
-  private readonly pendingCommands = new Map<string, { name: string }>();
+  private readonly pendingCommands = new Map<string, { name: CommandName }>();
 
   constructor(options: WorldSocketClientOptions) {
     this.options = options;
@@ -154,7 +164,7 @@ export class WorldSocketClient {
     };
   }
 
-  sendCommand(name: string, data: Record<string, unknown>): string | null {
+  sendCommand<K extends CommandName>(name: K, data: CommandDataMap[K]): string | null {
     if (!this.socket || this.socket.readyState !== WebSocket.OPEN) {
       return null;
     }
@@ -261,11 +271,14 @@ export class WorldSocketClient {
     const pending = this.pendingCommands.get(inReplyTo);
     this.pendingCommands.delete(inReplyTo);
 
+    const receivedAt = typeof envelope.ts === "number" ? envelope.ts : Date.now();
+
     if (envelope.type === "ack") {
       this.options.onCommandResult?.({
         kind: "ack",
         commandId: inReplyTo,
-        commandName: pending?.name
+        commandName: pending?.name,
+        receivedAt
       });
       return;
     }
@@ -274,9 +287,10 @@ export class WorldSocketClient {
       kind: "error",
       commandId: inReplyTo,
       commandName: pending?.name,
-      code: typeof envelope.payload?.code === "string" ? envelope.payload.code : undefined,
+      code: parseCommandErrorCode(envelope.payload?.code),
       message:
-        typeof envelope.payload?.message === "string" ? envelope.payload.message : undefined
+        typeof envelope.payload?.message === "string" ? envelope.payload.message : undefined,
+      receivedAt
     });
   }
 }

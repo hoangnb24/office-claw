@@ -188,6 +188,15 @@
         }
       ]
     },
+    "render_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "cast_shadow": {"type": "boolean"},
+        "receive_shadow": {"type": "boolean"},
+        "cull_distance_m": {"type": "number", "exclusiveMinimum": 0}
+      }
+    },
     "object": {
       "type": "object",
       "required": ["id", "url", "transform", "tags", "collider"],
@@ -206,6 +215,7 @@
         "poi_id": {
           "$ref": "https://officeclaw.dev/schemas/identifiers.schema.json#/$defs/poi_id"
         },
+        "render_policy": {"$ref": "#/$defs/render_policy"},
         "interaction_radius_m": {"type": "number", "exclusiveMinimum": 0},
         "highlight_nodes": {
           "type": "array",

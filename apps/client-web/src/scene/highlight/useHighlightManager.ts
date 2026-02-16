@@ -2,11 +2,12 @@ import { useThree } from "@react-three/fiber";
 import { useEffect, useMemo } from "react";
 import { useInteractionStore } from "../../state/interactionStore";
 import { useUiStore } from "../../state/uiStore";
+import { useSceneRuntimeProvider } from "../runtime";
 import { HighlightManager } from "./HighlightManager";
-import { poiHighlightNodesById } from "./poiHighlightManifest";
 
 export function useHighlightManager() {
   const { scene } = useThree();
+  const sceneRuntime = useSceneRuntimeProvider();
 
   const hoveredId = useInteractionStore((state) => state.hoveredId);
   const hoveredType = useInteractionStore((state) => state.hoveredType);
@@ -16,9 +17,10 @@ export function useHighlightManager() {
   const focusedPoiId = useUiStore((state) => state.focusedPoiId);
   const focusedAgentId = useUiStore((state) => state.focusedAgentId);
 
+  const poiHighlightNodesById = sceneRuntime.snapshot.derived?.poiHighlightNodesById ?? {};
   const highlightManager = useMemo(
     () => new HighlightManager(poiHighlightNodesById),
-    []
+    [poiHighlightNodesById]
   );
 
   const activePoiId =

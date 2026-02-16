@@ -19,6 +19,10 @@ export interface PlayerNavDebugState {
   lastReason: string | null;
   startCell: [number, number] | null;
   targetCell: [number, number] | null;
+  lastCaptureMode: "anchor" | "collider" | null;
+  lastCaptureTarget: string | null;
+  lastCapturePoint: [number, number, number] | null;
+  lastCaptureSnippet: string | null;
 }
 
 interface PlayerStore {
@@ -70,7 +74,11 @@ const initialNavDebug: PlayerNavDebugState = {
   lastStatus: "idle",
   lastReason: null,
   startCell: null,
-  targetCell: null
+  targetCell: null,
+  lastCaptureMode: null,
+  lastCaptureTarget: null,
+  lastCapturePoint: null,
+  lastCaptureSnippet: null
 };
 
 export const usePlayerStore = create<PlayerStore>((set) => ({

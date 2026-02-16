@@ -1,5 +1,6 @@
 import { useUiStore } from "../state/uiStore";
-import { getWorldSocketClient } from "./worldSocketBridge";
+import type { CommandDataMap } from "./commandGateway";
+import { getCommandGateway } from "./worldSocketBridge";
 
 type OverrideCommandName =
   | "reassign_task"
@@ -56,23 +57,23 @@ export function overrideErrorMicrocopy(
   }
 }
 
-function sendOverrideCommand(
-  commandName: OverrideCommandName,
-  data: Record<string, unknown>,
+function sendOverrideCommand<K extends OverrideCommandName>(
+  commandName: K,
+  data: CommandDataMap[K],
   offlineMessage: string,
   sendFailMessage: string
 ): string | null {
-  const client = getWorldSocketClient();
-  if (!client) {
+  const gateway = getCommandGateway();
+  if (!gateway) {
     setOverrideError(offlineMessage);
     return null;
   }
-  const commandId = client.sendCommand(commandName, data);
-  if (!commandId) {
+  const submission = gateway.sendCommand(commandName, data);
+  if (!submission) {
     setOverrideError(sendFailMessage);
     return null;
   }
-  return commandId;
+  return submission.commandId;
 }
 
 export function dispatchReassignTask(params: {

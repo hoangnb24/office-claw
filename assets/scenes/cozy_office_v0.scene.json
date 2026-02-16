@@ -2,7 +2,7 @@
   "scene_id": "cozy_office_v0",
   "version": 1,
   "office_shell": {
-    "url": "assets/glb/office_shell.glb",
+    "url": "/assets/office_shell.glb",
     "transform": {
       "pos": [
         0,
@@ -32,7 +32,7 @@
         {
           "id": "stand",
           "pos": [
-            2.4,
+            2.6,
             0,
             -1.2
           ],
@@ -46,7 +46,7 @@
       "interaction_radius_m": 1.25,
       "ui_anchor": {
         "pos": [
-          2.25,
+          2.05,
           1.05,
           -1.15
         ],
@@ -88,7 +88,7 @@
           "pos": [
             1.2,
             0,
-            2
+            1.85
           ],
           "facing": [
             0,
@@ -102,7 +102,7 @@
         "pos": [
           1.2,
           1.1,
-          1.8
+          1.65
         ],
         "facing": [
           0,
@@ -140,9 +140,9 @@
         {
           "id": "stand",
           "pos": [
-            -1.2,
+            -1.85,
             0,
-            2.1
+            1.65
           ],
           "facing": [
             1,
@@ -159,18 +159,202 @@
       "interaction": {
         "type": "open_panel",
         "panel": "deliverables"
+      },
+      "ui_anchor": {
+        "pos": [
+          -1.65,
+          1.1,
+          1.75
+        ],
+        "facing": [
+          1,
+          0,
+          0
+        ],
+        "size": [
+          1.25,
+          0.85
+        ]
+      },
+      "camera_framing": {
+        "kind": "poi",
+        "offset": [
+          0,
+          1.15,
+          1.75
+        ],
+        "zoom": 1.03
+      }
+    },
+    {
+      "poi_id": "poi_dev_desk_1",
+      "type": "dev_desk",
+      "nav_anchors": [
+        {
+          "id": "sit_work",
+          "pos": [
+            0.125,
+            0,
+            -0.375
+          ],
+          "facing": [
+            0.03,
+            0,
+            1
+          ]
+        }
+      ],
+      "interaction_radius_m": 1.15,
+      "capacity": 1,
+      "highlight_nodes": [
+        "DeskTop"
+      ],
+      "ui_anchor": {
+        "pos": [
+          0.2,
+          1,
+          0.45
+        ],
+        "facing": [
+          -0.75,
+          0,
+          0.66
+        ],
+        "size": [
+          1.2,
+          0.8
+        ]
+      },
+      "camera_framing": {
+        "kind": "poi",
+        "offset": [
+          0,
+          1.05,
+          1.6
+        ],
+        "zoom": 1.08
       }
     }
   ],
   "objects": [
     {
-      "id": "delivery_shelf",
-      "url": "assets/glb/shelf.glb",
+      "id": "inbox_reception",
+      "url": "/assets/inbox.glb",
       "transform": {
         "pos": [
-          -1,
+          1.95,
           0,
-          2.2
+          -1.2
+        ],
+        "rot": [
+          0,
+          1.57,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "tags": [
+        "prop",
+        "interactive",
+        "poi-zone",
+        "reception"
+      ],
+      "collider": {
+        "type": "box",
+        "size": [
+          0.7,
+          0.9,
+          0.45
+        ],
+        "offset": [
+          0,
+          0.45,
+          0
+        ]
+      },
+      "interaction": {
+        "type": "open_panel",
+        "panel": "inbox"
+      },
+      "render_policy": {
+        "cast_shadow": true,
+        "receive_shadow": true,
+        "cull_distance_m": 18
+      },
+      "poi_id": "poi_reception_inbox",
+      "interaction_radius_m": 1.25,
+      "highlight_nodes": [
+        "Head",
+        "LeftHand"
+      ]
+    },
+    {
+      "id": "task_board_wall",
+      "url": "/assets/task_board.glb",
+      "transform": {
+        "pos": [
+          1.2,
+          0,
+          1.35
+        ],
+        "rot": [
+          0,
+          3.14,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "tags": [
+        "prop",
+        "interactive",
+        "poi-zone",
+        "planning"
+      ],
+      "collider": {
+        "type": "box",
+        "size": [
+          1.15,
+          1.4,
+          0.25
+        ],
+        "offset": [
+          0,
+          0.7,
+          0
+        ]
+      },
+      "interaction": {
+        "type": "open_panel",
+        "panel": "task_board"
+      },
+      "render_policy": {
+        "cast_shadow": true,
+        "receive_shadow": true,
+        "cull_distance_m": 18
+      },
+      "poi_id": "poi_task_board",
+      "interaction_radius_m": 1.25,
+      "highlight_nodes": [
+        "Spine",
+        "RightHand"
+      ]
+    },
+    {
+      "id": "delivery_shelf",
+      "url": "/assets/shelf.glb",
+      "transform": {
+        "pos": [
+          -1.25,
+          0,
+          1.95
         ],
         "rot": [
           0,
@@ -185,7 +369,9 @@
       },
       "tags": [
         "prop",
-        "interactive"
+        "interactive",
+        "poi-zone",
+        "delivery"
       ],
       "collider": {
         "type": "box",
@@ -204,6 +390,11 @@
         "type": "open_panel",
         "panel": "deliverables"
       },
+      "render_policy": {
+        "cast_shadow": true,
+        "receive_shadow": true,
+        "cull_distance_m": 18
+      },
       "poi_id": "poi_delivery_shelf",
       "interaction_radius_m": 1.25,
       "highlight_nodes": [
@@ -212,16 +403,16 @@
     },
     {
       "id": "desk_01",
-      "url": "assets/glb/desk.glb",
+      "url": "/assets/desk.glb",
       "transform": {
         "pos": [
-          0.5,
+          0.15,
           0,
-          0.4
+          0.55
         ],
         "rot": [
           0,
-          1.57,
+          1.2,
           0
         ],
         "scale": [
@@ -231,7 +422,10 @@
         ]
       },
       "tags": [
-        "prop"
+        "prop",
+        "workspace",
+        "zone-divider",
+        "poi-zone"
       ],
       "collider": {
         "type": "box",
@@ -245,7 +439,125 @@
           0.4,
           0
         ]
+      },
+      "render_policy": {
+        "cast_shadow": false,
+        "receive_shadow": true,
+        "cull_distance_m": 14
+      },
+      "poi_id": "poi_dev_desk_1",
+      "interaction_radius_m": 1.15,
+      "highlight_nodes": [
+        "DeskTop"
+      ]
+    },
+    {
+      "id": "delivery_cone_marker",
+      "url": "/assets/blocker_cone.glb",
+      "transform": {
+        "pos": [
+          -0.45,
+          0,
+          1.35
+        ],
+        "rot": [
+          0,
+          0.4,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "tags": [
+        "prop",
+        "storytelling",
+        "delivery"
+      ],
+      "collider": {
+        "type": "box",
+        "size": [
+          0.35,
+          0.5,
+          0.35
+        ],
+        "offset": [
+          0,
+          0.25,
+          0
+        ]
+      },
+      "render_policy": {
+        "cast_shadow": false,
+        "receive_shadow": false,
+        "cull_distance_m": 10
       }
+    },
+    {
+      "id": "decor_cone_cluster_a",
+      "url": "/assets/blocker_cone.glb",
+      "transform": {
+        "pos": [
+          -0.85,
+          0,
+          1.25
+        ],
+        "rot": [
+          0,
+          0.2,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "tags": [
+        "prop",
+        "decor",
+        "instancing-demo"
+      ],
+      "collider": false,
+      "render_policy": {
+        "cast_shadow": false,
+        "receive_shadow": false
+      },
+      "instance_group": "decor_cone_cluster"
+    },
+    {
+      "id": "decor_cone_cluster_b",
+      "url": "/assets/blocker_cone.glb",
+      "transform": {
+        "pos": [
+          -1.05,
+          0,
+          1.05
+        ],
+        "rot": [
+          0,
+          -0.35,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "tags": [
+        "prop",
+        "decor",
+        "instancing-demo"
+      ],
+      "collider": false,
+      "render_policy": {
+        "cast_shadow": false,
+        "receive_shadow": false
+      },
+      "instance_group": "decor_cone_cluster"
     }
   ],
   "navigation": {

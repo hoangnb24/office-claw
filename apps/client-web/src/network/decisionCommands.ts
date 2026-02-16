@@ -1,5 +1,5 @@
 import { useUiStore } from "../state/uiStore";
-import { getWorldSocketClient } from "./worldSocketBridge";
+import { getCommandGateway } from "./worldSocketBridge";
 
 export function decisionErrorMicrocopy(code?: string, fallbackMessage?: string): string {
   switch (code) {
@@ -35,17 +35,17 @@ export function dispatchResolveDecision(decisionId: string, choice: string): str
     return null;
   }
 
-  const client = getWorldSocketClient();
-  if (!client) {
+  const gateway = getCommandGateway();
+  if (!gateway) {
     setDecisionError("World connection is not available. Reconnect and retry.");
     return null;
   }
 
-  const commandId = client.sendCommand("resolve_decision", {
+  const submission = gateway.sendCommand("resolve_decision", {
     decision_id: normalizedDecisionId,
     choice: normalizedChoice
   });
-  if (!commandId) {
+  if (!submission) {
     setDecisionError("Unable to send resolve command. Reconnect and retry.");
     return null;
   }
@@ -54,5 +54,5 @@ export function dispatchResolveDecision(decisionId: string, choice: string): str
     level: "success",
     message: "Resolve request sent. Waiting for server acknowledgment."
   });
-  return commandId;
+  return submission.commandId;
 }

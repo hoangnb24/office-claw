@@ -1,5 +1,5 @@
 import { useUiStore } from "../state/uiStore";
-import { getWorldSocketClient } from "./worldSocketBridge";
+import { getCommandGateway } from "./worldSocketBridge";
 
 export function taskBoardErrorMicrocopy(code?: string, fallbackMessage?: string): string {
   switch (code) {
@@ -28,36 +28,36 @@ function setLocalError(message: string) {
 }
 
 export function dispatchAssignTask(taskId: string, agentId: string): string | null {
-  const client = getWorldSocketClient();
-  if (!client) {
+  const gateway = getCommandGateway();
+  if (!gateway) {
     setLocalError("World connection is not available. Reconnect and retry assignment.");
     return null;
   }
 
-  const commandId = client.sendCommand("assign_task", {
+  const submission = gateway.sendCommand("assign_task", {
     task_id: taskId,
     agent_id: agentId
   });
-  if (!commandId) {
+  if (!submission) {
     setLocalError("Unable to send assignment command. Reconnect and retry.");
     return null;
   }
-  return commandId;
+  return submission.commandId;
 }
 
 export function dispatchAutoAssign(projectId: string): string | null {
-  const client = getWorldSocketClient();
-  if (!client) {
+  const gateway = getCommandGateway();
+  if (!gateway) {
     setLocalError("World connection is not available. Reconnect and retry auto-assign.");
     return null;
   }
 
-  const commandId = client.sendCommand("auto_assign", {
+  const submission = gateway.sendCommand("auto_assign", {
     project_id: projectId
   });
-  if (!commandId) {
+  if (!submission) {
     setLocalError("Unable to send auto-assign command. Reconnect and retry.");
     return null;
   }
-  return commandId;
+  return submission.commandId;
 }

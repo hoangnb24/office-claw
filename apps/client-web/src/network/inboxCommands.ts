@@ -1,5 +1,5 @@
 import { useUiStore } from "../state/uiStore";
-import { getWorldSocketClient } from "./worldSocketBridge";
+import { getCommandGateway } from "./worldSocketBridge";
 
 export function inboxErrorMicrocopy(code?: string, fallbackMessage?: string): string {
   switch (code) {
@@ -34,23 +34,23 @@ export function dispatchSubmitRequest(text: string): string | null {
     return null;
   }
 
-  const client = getWorldSocketClient();
-  if (!client) {
+  const gateway = getCommandGateway();
+  if (!gateway) {
     setInboxError("World connection is not available. Reconnect and retry.");
-    return null;
-  }
-
-  const commandId = client.sendCommand("submit_request", {
-    text: normalizedText
-  });
-  if (!commandId) {
-    setInboxError("Unable to send request command. Reconnect and retry.");
     return null;
   }
 
   useUiStore.getState().setInboxNotice({
     level: "success",
-    message: "Request submitted. Waiting for server acknowledgment."
+    message: "Request submitted. Awaiting kickoff confirmation."
   });
-  return commandId;
+
+  const submission = gateway.sendCommand("submit_request", {
+    text: normalizedText
+  });
+  if (!submission) {
+    setInboxError("Unable to send request command. Reconnect and retry.");
+    return null;
+  }
+  return submission.commandId;
 }

@@ -248,10 +248,16 @@ interface UiStore {
   setTaskDragGhost: (ghost: TaskDragGhost | null) => void;
 }
 
-const debugProfileEnabled =
+const debugHudProfileAvailable =
   import.meta.env.DEV ||
   import.meta.env.VITE_DEBUG_HUD === "1" ||
   import.meta.env.VITE_NAV_DEBUG === "1";
+
+const debugHudDefaultEnabled =
+  import.meta.env.VITE_DEBUG_HUD === "1" ||
+  import.meta.env.VITE_NAV_DEBUG === "1";
+
+const navOverlayDefaultsEnabled = import.meta.env.VITE_NAV_DEBUG === "1";
 
 export const useUiStore = create<UiStore>((set) => ({
   openPanels: ["event-feed"],
@@ -263,10 +269,10 @@ export const useUiStore = create<UiStore>((set) => ({
   focusedAgentId: null,
   focusedPoiScreenAnchor: null,
   reducedMotionEnabled: readReducedMotionPreference(),
-  debugHudEnabled: debugProfileEnabled,
-  showPathOverlay: debugProfileEnabled,
-  showBlockedCellsOverlay: debugProfileEnabled,
-  showAnchorIssueOverlay: debugProfileEnabled,
+  debugHudEnabled: debugHudProfileAvailable && debugHudDefaultEnabled,
+  showPathOverlay: navOverlayDefaultsEnabled,
+  showBlockedCellsOverlay: navOverlayDefaultsEnabled,
+  showAnchorIssueOverlay: navOverlayDefaultsEnabled,
   artifacts: {},
   focusedArtifactId: null,
   artifactNotice: null,

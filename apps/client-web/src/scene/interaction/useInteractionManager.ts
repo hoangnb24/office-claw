@@ -1,5 +1,5 @@
 import { useThree, type ThreeEvent } from "@react-three/fiber";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useInteractionStore } from "../../state/interactionStore";
 import { InteractionManager } from "./InteractionManager";
 import type { InteractionTargetMeta } from "./interactionTypes";
@@ -24,6 +24,19 @@ function commandFromTarget(target: InteractionTargetMeta) {
   }
 }
 
+function cursorFromTarget(target: InteractionTargetMeta | null): string {
+  if (!target) {
+    return "default";
+  }
+  if (target.type === "poi" || target.type === "artifact" || target.type === "agent") {
+    return "pointer";
+  }
+  if (target.commandName) {
+    return "pointer";
+  }
+  return "default";
+}
+
 export function useInteractionManager() {
   const { camera, scene } = useThree();
 
@@ -42,6 +55,9 @@ export function useInteractionManager() {
             setPointerWorldPos(
               hit ? [hit.point.x, hit.point.y, hit.point.z] : null
             );
+            if (typeof document !== "undefined") {
+              document.body.style.cursor = cursorFromTarget(hit?.target ?? null);
+            }
           },
           onTargetSelected: (hit) => {
             setSelected(hit.target.id, hit.target.type);
@@ -54,6 +70,14 @@ export function useInteractionManager() {
       }),
     [queueCommandIntent, setHovered, setPointerWorldPos, setSelected]
   );
+
+  useEffect(() => {
+    return () => {
+      if (typeof document !== "undefined") {
+        document.body.style.cursor = "default";
+      }
+    };
+  }, []);
 
   return {
     onPointerMove: (event: ThreeEvent<PointerEvent>) => {
@@ -76,6 +100,9 @@ export function useInteractionManager() {
     onPointerOut: () => {
       manager.clearHover();
       setPointerWorldPos(null);
+      if (typeof document !== "undefined") {
+        document.body.style.cursor = "default";
+      }
     }
   };
 }

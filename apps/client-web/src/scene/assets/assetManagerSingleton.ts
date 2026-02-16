@@ -1,8 +1,15 @@
 import { AssetManager, type AssetTelemetryEvent } from "./AssetManager";
+import { isDebugDiagnosticsProfileEnabled } from "../../config/runtimeProfile";
+
+const verboseAssetTelemetryEnabled = isDebugDiagnosticsProfileEnabled();
 
 function logAssetTelemetry(event: AssetTelemetryEvent) {
   if (event.name === "load_error") {
     console.error("[asset] load_error", event.url, event.error);
+    return;
+  }
+
+  if (!verboseAssetTelemetryEnabled) {
     return;
   }
 

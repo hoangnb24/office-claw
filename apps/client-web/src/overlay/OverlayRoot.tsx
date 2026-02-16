@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   useUiStore,
   type ArtifactSnapshot,
@@ -31,6 +31,12 @@ import {
   dispatchRerunTask,
   dispatchResumeProject
 } from "../network/overrideCommands";
+import {
+  classifySceneObjectLoadBucket,
+  useSceneRuntimeProvider,
+  type SceneRuntimeIssue
+} from "../scene/runtime";
+import type { SceneObjectSpec, ScenePoi } from "../scene/loader";
 
 const panelLabels: Record<PanelId, string> = {
   "event-feed": "Event Feed",
@@ -79,8 +85,8 @@ const ONBOARDING_FLOW_STEPS: Array<{
     panelId: "task-board",
     poiId: "poi_task_board",
     title: "Step 2: Task Board",
-    primary: "Review assignments and drag tasks between specialists.",
-    secondary: "Use auto-assign or manual assignment to start execution."
+    primary: "Review assignments, then drag a task card onto a specialist column or use Auto-Assign.",
+    secondary: "Cards are draggable directly from To Do/Doing/Done. Watch the \"Moving ...\" hint while dragging."
   },
   {
     id: "artifact_viewer",
@@ -154,6 +160,83 @@ function eventSubtitle(event: WorldEvent): string {
   return details.join(" • ");
 }
 
+function resolveEventFocusPoi(event: WorldEvent): string | null {
+  if (event.poiId) {
+    return event.poiId;
+  }
+
+  const commandName =
+    typeof event.meta?.command_name === "string" ? event.meta.command_name : null;
+  const taskToken = typeof event.taskId === "string" ? event.taskId.toLowerCase() : "";
+
+  if (event.name === "snapshot_correction") {
+    if (
+      taskToken.includes("wireframe") ||
+      taskToken.includes("artifact") ||
+      taskToken.includes("delivery")
+    ) {
+      return "poi_delivery_shelf";
+    }
+    return "poi_task_board";
+  }
+
+  if (event.artifactId || event.name.startsWith("review_")) {
+    return "poi_delivery_shelf";
+  }
+  if (
+    taskToken.includes("wireframe") ||
+    taskToken.includes("artifact") ||
+    taskToken.includes("delivery")
+  ) {
+    return "poi_delivery_shelf";
+  }
+  if (commandName === "submit_request") {
+    return "poi_reception_inbox";
+  }
+  if (
+    event.taskId ||
+    event.decisionId ||
+    event.name.startsWith("task_") ||
+    event.name.startsWith("decision_")
+  ) {
+    return "poi_task_board";
+  }
+  return null;
+}
+
+function isSnapshotCorrectionEvent(event: WorldEvent): boolean {
+  return event.name === "snapshot_correction";
+}
+
+function resolveEventFocusAgent(
+  event: WorldEvent,
+  taskLookup: Record<string, TaskSnapshot>
+): string | null {
+  if (event.agentId) {
+    return event.agentId;
+  }
+
+  if (typeof event.meta?.to_agent_id === "string" && event.meta.to_agent_id.trim()) {
+    return event.meta.to_agent_id;
+  }
+  if (typeof event.meta?.agent_id === "string" && event.meta.agent_id.trim()) {
+    return event.meta.agent_id;
+  }
+
+  if (event.taskId) {
+    const taskAssignee = taskLookup[event.taskId]?.assignee;
+    if (typeof taskAssignee === "string" && taskAssignee.trim()) {
+      return taskAssignee;
+    }
+  }
+
+  const preferredParticipant =
+    event.participants.find((participant) => participant !== "agent_bd") ??
+    event.participants[0] ??
+    null;
+  return preferredParticipant;
+}
+
 function eventTimeLabel(ts: number): string {
   const date = new Date(ts);
   return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" });
@@ -165,6 +248,52 @@ function titleFromToken(token: string): string {
     .filter((part) => part.length > 0)
     .map((part) => part[0].toUpperCase() + part.slice(1))
     .join(" ");
+}
+
+interface PoiUiHints {
+  ui?: {
+    label?: string;
+    tooltip?: string;
+    cursor?: string;
+    affordance?: string;
+  };
+}
+
+function affordanceLabelForPoi(poi: ScenePoi): string {
+  const uiLabel = (poi as ScenePoi & PoiUiHints).ui?.label;
+  if (typeof uiLabel === "string" && uiLabel.trim().length > 0) {
+    return uiLabel.trim();
+  }
+
+  const panelToken = poi.interaction?.panel;
+  if (typeof panelToken === "string" && panelToken.trim().length > 0) {
+    return titleFromToken(panelToken);
+  }
+
+  if (typeof poi.type === "string" && poi.type.trim().length > 0) {
+    return titleFromToken(poi.type);
+  }
+
+  return titleFromToken(poi.poi_id.replace(/^poi_/, ""));
+}
+
+function affordanceTooltipForPoi(poi: ScenePoi, label: string): string {
+  const uiTooltip = (poi as ScenePoi & PoiUiHints).ui?.tooltip;
+  if (typeof uiTooltip === "string" && uiTooltip.trim().length > 0) {
+    return uiTooltip.trim();
+  }
+
+  const interactionType = poi.interaction?.type;
+  if (interactionType === "open_panel") {
+    return `Open ${label}`;
+  }
+  if (interactionType === "focus_only") {
+    return `Focus ${label}`;
+  }
+  if (interactionType === "command") {
+    return `Run interaction for ${label}`;
+  }
+  return `Interact with ${label}`;
 }
 
 function roleLabel(agentId: string): string {
@@ -407,6 +536,70 @@ function fmt(value: number | null | undefined, digits = 1): string {
   return value.toFixed(digits);
 }
 
+interface SceneLoadPolicySummary {
+  criticalTotal: number;
+  criticalLoaded: number;
+  decorTotal: number;
+  decorLoaded: number;
+}
+
+function summarizeSceneLoadPolicy(params: {
+  manifestObjects: SceneObjectSpec[];
+  loadedObjectIds: Set<string>;
+}): SceneLoadPolicySummary {
+  const criticalIds: string[] = [];
+  const decorIds: string[] = [];
+
+  for (const object of params.manifestObjects) {
+    const bucket = classifySceneObjectLoadBucket(object);
+    if (bucket === "critical") {
+      criticalIds.push(object.id);
+    } else {
+      decorIds.push(object.id);
+    }
+  }
+
+  const criticalLoaded = criticalIds.filter((objectId) => params.loadedObjectIds.has(objectId)).length;
+  const decorLoaded = decorIds.filter((objectId) => params.loadedObjectIds.has(objectId)).length;
+  return {
+    criticalTotal: criticalIds.length,
+    criticalLoaded,
+    decorTotal: decorIds.length,
+    decorLoaded
+  };
+}
+
+function runtimeStatusClass(status: "idle" | "loading" | "loaded" | "degraded" | "error"): string {
+  if (status === "error") {
+    return "status-error";
+  }
+  if (status === "degraded" || status === "loading") {
+    return "status-warning";
+  }
+  return "status-ok";
+}
+
+function runtimeIssueActionHint(issue: SceneRuntimeIssue): string {
+  switch (issue.code) {
+    case "manifest_fetch_failed":
+      return "Action: verify manifest URL/server availability, then reload scene.";
+    case "manifest_parse_failed":
+      return "Action: fix scene JSON structure/values to satisfy parser expectations, then reload.";
+    case "manifest_version_invalid":
+      return "Action: update manifest contract fields and version to schema-compliant values.";
+    case "asset_load_failed":
+      return "Action: verify shell/object GLB URLs under /assets and retry scene reload.";
+    case "asset_object_load_warnings":
+      return "Action: review missing object assets; placeholders may be active for non-critical objects.";
+    case "nav_anchor_issues_detected":
+      return "Action: adjust nav anchors/collider blockers, then reload to verify reachability.";
+    case "invalid_load_options":
+      return "Action: ensure scene id and manifest URL are provided before loading runtime scene.";
+    default:
+      return "Action: open Debug HUD for full diagnostics and retry reload after changes.";
+  }
+}
+
 type PanelStateKind = "loading" | "empty" | "error";
 
 interface PanelStateMessageProps {
@@ -488,9 +681,57 @@ export function OverlayRoot() {
   const setFocusedDecision = useUiStore((state) => state.setFocusedDecision);
   const decisions = useUiStore((state) => Object.values(state.decisions));
 
+  const sceneRuntime = useSceneRuntimeProvider();
+  const [sceneRuntimeReloadPending, setSceneRuntimeReloadPending] = useState(false);
+  const [sceneRuntimeNotice, setSceneRuntimeNotice] = useState<string | null>(null);
   const world = useWorldStore();
   const interaction = useInteractionStore();
   const player = usePlayerStore();
+  const manifestPois = sceneRuntime.snapshot.manifest?.pois ?? [];
+  const manifestObjects = sceneRuntime.snapshot.manifest?.objects ?? [];
+  const loadedRuntimeObjectIds = useMemo(
+    () => new Set((sceneRuntime.snapshot.runtimeData?.objects ?? []).map((object) => object.id)),
+    [sceneRuntime.snapshot.runtimeData]
+  );
+  const sceneLoadPolicy = useMemo(
+    () =>
+      summarizeSceneLoadPolicy({
+        manifestObjects,
+        loadedObjectIds: loadedRuntimeObjectIds
+      }),
+    [loadedRuntimeObjectIds, manifestObjects]
+  );
+  const sceneRuntimeIssues = sceneRuntime.snapshot.issues;
+  const visibleSceneRuntimeIssues = sceneRuntimeIssues.slice(0, 3);
+  const reloadSceneRuntime = useCallback(async () => {
+    setSceneRuntimeReloadPending(true);
+    setSceneRuntimeNotice(null);
+    try {
+      await sceneRuntime.reloadScene();
+      setSceneRuntimeNotice("Scene runtime reloaded.");
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unknown scene reload failure.";
+      setSceneRuntimeNotice(`Reload failed: ${message}`);
+    } finally {
+      setSceneRuntimeReloadPending(false);
+    }
+  }, [sceneRuntime]);
+  const hoveredPoi =
+    interaction.hoveredType === "poi" || interaction.hoveredType === "artifact"
+      ? manifestPois.find((poi) => poi.poi_id === interaction.hoveredId) ?? null
+      : null;
+  const focusedPoi =
+    focusedPoiId ? manifestPois.find((poi) => poi.poi_id === focusedPoiId) ?? null : null;
+  const hoveredAffordance = hoveredPoi
+    ? (() => {
+        const label = affordanceLabelForPoi(hoveredPoi);
+        return {
+          label,
+          tooltip: affordanceTooltipForPoi(hoveredPoi, label)
+        };
+      })()
+    : null;
+  const focusedAffordanceLabel = focusedPoi ? affordanceLabelForPoi(focusedPoi) : null;
 
   const processedAssets = world.assetStartup.loaded + world.assetStartup.failed;
   const hasCriticalAssetFailure = world.assetStartup.criticalFailed > 0;
@@ -500,6 +741,19 @@ export function OverlayRoot() {
     import.meta.env.VITE_NAV_DEBUG === "1";
   const anchoredPanelId = focusedPoiId ? PANEL_BY_POI[focusedPoiId] ?? null : null;
   const events = world.events;
+  const prioritizedEvents = useMemo(() => {
+    const ordered = [...events].reverse();
+    const primary: WorldEvent[] = [];
+    const secondary: WorldEvent[] = [];
+    for (const event of ordered) {
+      if (isSnapshotCorrectionEvent(event)) {
+        secondary.push(event);
+      } else {
+        primary.push(event);
+      }
+    }
+    return [...primary, ...secondary];
+  }, [events]);
   const tasks = Object.values(world.tasks);
   const taskLookup = world.tasks;
   const agents = Object.values(world.agents);
@@ -941,6 +1195,17 @@ export function OverlayRoot() {
 
   return (
     <div className={`overlay-root${reducedMotionEnabled ? " reduced-motion" : ""}`}>
+      {hoveredAffordance ? (
+        <div className="poi-affordance-tooltip" role="status" aria-live="polite">
+          <p className="poi-affordance-title">{hoveredAffordance.label}</p>
+          <p className="poi-affordance-copy">{hoveredAffordance.tooltip}</p>
+        </div>
+      ) : null}
+      {focusedAffordanceLabel ? (
+        <div className="poi-focus-marker" role="status" aria-live="polite">
+          Focused: {focusedAffordanceLabel}
+        </div>
+      ) : null}
       <aside className="panel-list">
         <h1>OfficeClaw v0</h1>
         <p>Client scaffold with render loop + state boundaries.</p>
@@ -1047,6 +1312,58 @@ export function OverlayRoot() {
           </p>
         ) : null}
         {world.assetStartup.lastError ? <p>Asset error: {world.assetStartup.lastError}</p> : null}
+        <section className="scene-runtime-summary">
+          <h2>Scene Runtime</h2>
+          <p className={runtimeStatusClass(sceneRuntime.snapshot.status)}>
+            <strong>
+              Status: {sceneRuntime.snapshot.status}
+              {" "}
+              ({sceneRuntime.snapshot.progress.phase} {sceneRuntime.snapshot.progress.percent}%)
+            </strong>
+          </p>
+          <p>{sceneRuntime.snapshot.progress.label}</p>
+          <p>
+            Load policy:
+            {" "}
+            {`shell -> critical (${sceneLoadPolicy.criticalLoaded}/${sceneLoadPolicy.criticalTotal}) -> decor (${sceneLoadPolicy.decorLoaded}/${sceneLoadPolicy.decorTotal})`}
+          </p>
+          {sceneRuntimeNotice ? (
+            <p className={sceneRuntimeNotice.startsWith("Reload failed") ? "status-error" : "status-ok"}>
+              {sceneRuntimeNotice}
+            </p>
+          ) : null}
+          {visibleSceneRuntimeIssues.length > 0 ? (
+            <ul className="scene-runtime-issues">
+              {visibleSceneRuntimeIssues.map((issue) => (
+                <li
+                  key={issue.id}
+                  className={`scene-runtime-issue scene-runtime-issue-${issue.severity}`}
+                >
+                  <p>
+                    <strong>{issue.code}</strong>
+                    {" "}
+                    ({issue.source})
+                  </p>
+                  <p>{issue.message}</p>
+                  <p className="scene-runtime-issue-action">{runtimeIssueActionHint(issue)}</p>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="status-ok">No provider issues detected.</p>
+          )}
+          <div className="scene-runtime-actions">
+            <button
+              type="button"
+              onClick={() => {
+                void reloadSceneRuntime();
+              }}
+              disabled={sceneRuntimeReloadPending}
+            >
+              {sceneRuntimeReloadPending ? "Reloading Scene..." : "Reload Scene Runtime"}
+            </button>
+          </div>
+        </section>
         <p>Agents in store: {Object.keys(world.agents).length}</p>
         <p>Hovered: {interaction.hoveredId ?? "none"}</p>
         <p>Focused POI: {focusedPoiId ?? "none"}</p>
@@ -1101,6 +1418,17 @@ export function OverlayRoot() {
                     ? ` (slowest: ${world.assetStartup.slowestAssetId} ${fmt(world.assetStartup.slowestAssetMs, 0)} ms)`
                     : ""}
                 </p>
+                <p>
+                  Scene runtime: {sceneRuntime.snapshot.status}
+                  {" "}({sceneRuntime.snapshot.progress.phase} {sceneRuntime.snapshot.progress.percent}%)
+                </p>
+                <p>Scene runtime issues: {sceneRuntimeIssues.length}</p>
+                {sceneRuntimeIssues.length > 0 ? (
+                  <p className={runtimeStatusClass(sceneRuntime.snapshot.status)}>
+                    Latest provider issue: {sceneRuntimeIssues[0]?.code} —{" "}
+                    {sceneRuntimeIssues[0]?.message}
+                  </p>
+                ) : null}
                 <div className="debug-toggle-group">
                   <label className="debug-toggle">
                     <input
@@ -1127,6 +1455,28 @@ export function OverlayRoot() {
                     <span>Anchor issue overlay</span>
                   </label>
                 </div>
+                <p>
+                  Authoring capture: press <code>C</code> over a POI to capture anchor patch JSON.
+                  Press <code>Shift+C</code> over a POI/object to capture collider/object transform patch JSON.
+                </p>
+                <p>
+                  Last capture: {player.navDebug.lastCaptureTarget ?? "none"}
+                  {player.navDebug.lastCaptureMode ? ` (${player.navDebug.lastCaptureMode})` : ""}
+                </p>
+                {player.navDebug.lastCapturePoint ? (
+                  <p>
+                    Capture point: [{player.navDebug.lastCapturePoint[0].toFixed(3)},
+                    {" "}
+                    {player.navDebug.lastCapturePoint[1].toFixed(3)},
+                    {" "}
+                    {player.navDebug.lastCapturePoint[2].toFixed(3)}]
+                  </p>
+                ) : null}
+                {player.navDebug.lastCaptureSnippet ? (
+                  <pre style={{ margin: 0, whiteSpace: "pre-wrap", fontSize: "11px", lineHeight: 1.35 }}>
+                    {player.navDebug.lastCaptureSnippet}
+                  </pre>
+                ) : null}
               </>
             ) : null}
           </section>
@@ -1204,7 +1554,7 @@ export function OverlayRoot() {
             >
               <h2>{panelLabels[panelId]}</h2>
               {isEventFeed ? (
-                hasConnectionIssue && events.length === 0 ? (
+                hasConnectionIssue && prioritizedEvents.length === 0 ? (
                   <PanelStateMessage
                     kind="error"
                     primary="Couldn't load event timeline."
@@ -1212,13 +1562,13 @@ export function OverlayRoot() {
                     actionLabel="Open Inbox"
                     onAction={() => openPanel("inbox")}
                   />
-                ) : isConnectionLoading && events.length === 0 ? (
+                ) : isConnectionLoading && prioritizedEvents.length === 0 ? (
                   <PanelStateMessage
                     kind="loading"
                     primary="Event timeline is loading."
                     secondary="Recent office activity will appear here."
                   />
-                ) : events.length === 0 ? (
+                ) : prioritizedEvents.length === 0 ? (
                   <PanelStateMessage
                     kind="empty"
                     primary="No events yet."
@@ -1228,14 +1578,14 @@ export function OverlayRoot() {
                   />
                 ) : (
                   <div className="event-feed-list">
-                    {[...events].reverse().map((event) => (
+                    {prioritizedEvents.map((event) => (
                       <button
                         key={event.id}
                         type="button"
                         className="event-feed-item"
                         onClick={() => {
-                          const nextPoiId = event.poiId ?? null;
-                          const nextAgentId = event.agentId ?? event.participants[0] ?? null;
+                          const nextPoiId = resolveEventFocusPoi(event);
+                          const nextAgentId = resolveEventFocusAgent(event, taskLookup);
 
                           if (nextPoiId) {
                             setFocusedPoi(nextPoiId);
@@ -1464,6 +1814,10 @@ export function OverlayRoot() {
                       Resume Dispatch
                     </button>
                   </div>
+                  <p>
+                    Task Board tip: drag a task card onto a specialist column, or use Trigger Auto-Assign for
+                    automatic routing.
+                  </p>
                   {taskDragGhost ? (
                     <p className="task-drag-ghost">
                       Moving `{taskDragGhost.taskId}` from `{taskDragGhost.fromAssignee ?? "unassigned"}`

@@ -40,6 +40,12 @@ interface SceneObjectInteraction {
   panel?: string;
 }
 
+export interface SceneObjectRenderPolicy {
+  cast_shadow?: boolean;
+  receive_shadow?: boolean;
+  cull_distance_m?: number;
+}
+
 export interface SceneObjectSpec {
   id: string;
   url: string;
@@ -47,6 +53,8 @@ export interface SceneObjectSpec {
   tags?: string[];
   collider?: false | SceneObjectCollider;
   interaction?: SceneObjectInteraction;
+  render_policy?: SceneObjectRenderPolicy;
+  instance_group?: string;
   poi_id?: string;
   interaction_radius_m?: number;
   highlight_nodes?: string[];
@@ -122,6 +130,40 @@ function asString(value: unknown, label: string): string {
   return value;
 }
 
+function asOptionalBoolean(value: unknown, label: string): boolean | undefined {
+  if (value === undefined) {
+    return undefined;
+  }
+  if (typeof value !== "boolean") {
+    throw new Error(`${label} must be a boolean`);
+  }
+  return value;
+}
+
+function asOptionalPositiveNumber(value: unknown, label: string): number | undefined {
+  if (value === undefined) {
+    return undefined;
+  }
+  if (typeof value !== "number" || Number.isNaN(value) || value <= 0) {
+    throw new Error(`${label} must be a number > 0`);
+  }
+  return value;
+}
+
+function normalizeServedAssetUrl(value: unknown, label: string): string {
+  const raw = asString(value, label).trim();
+  if (raw.startsWith("/assets/")) {
+    return raw;
+  }
+  if (raw.startsWith("assets/")) {
+    return `/${raw}`;
+  }
+  if (raw.startsWith("./assets/")) {
+    return `/${raw.slice(2)}`;
+  }
+  throw new Error(`${label} must use served asset root /assets/...`);
+}
+
 function asVec3(value: unknown, label: string): Vec3 {
   if (
     !Array.isArray(value) ||
@@ -187,7 +229,7 @@ export function parseSceneManifest(raw: unknown): SceneManifest {
   const scene_id = asString(root.scene_id, "scene_id");
   const officeShell = asObject(root.office_shell, "office_shell");
   const office_shell = {
-    url: asString(officeShell.url, "office_shell.url"),
+    url: normalizeServedAssetUrl(officeShell.url, "office_shell.url"),
     transform: asTransform(officeShell.transform, "office_shell.transform")
   };
 
@@ -231,10 +273,11 @@ export function parseSceneManifest(raw: unknown): SceneManifest {
   const objects = (Array.isArray(root.objects) ? root.objects : []).map((object, index) => {
     const obj = asObject(object, `objects[${index}]`);
     const interactionRaw = obj.interaction;
+    const renderPolicyRaw = obj.render_policy;
     const colliderRaw = obj.collider;
     return {
       id: asString(obj.id, `objects[${index}].id`),
-      url: asString(obj.url, `objects[${index}].url`),
+      url: normalizeServedAssetUrl(obj.url, `objects[${index}].url`),
       transform: asTransform(obj.transform, `objects[${index}].transform`),
       tags: Array.isArray(obj.tags) ? obj.tags.filter((item) => typeof item === "string") : [],
       collider:
@@ -262,6 +305,27 @@ export function parseSceneManifest(raw: unknown): SceneManifest {
                   ? ((interactionRaw as Record<string, unknown>).panel as string)
                   : undefined
             }
+          : undefined,
+      render_policy:
+        renderPolicyRaw && typeof renderPolicyRaw === "object"
+          ? {
+              cast_shadow: asOptionalBoolean(
+                (renderPolicyRaw as Record<string, unknown>).cast_shadow,
+                `objects[${index}].render_policy.cast_shadow`
+              ),
+              receive_shadow: asOptionalBoolean(
+                (renderPolicyRaw as Record<string, unknown>).receive_shadow,
+                `objects[${index}].render_policy.receive_shadow`
+              ),
+              cull_distance_m: asOptionalPositiveNumber(
+                (renderPolicyRaw as Record<string, unknown>).cull_distance_m,
+                `objects[${index}].render_policy.cull_distance_m`
+              )
+            }
+          : undefined,
+      instance_group:
+        typeof obj.instance_group === "string" && obj.instance_group.trim().length > 0
+          ? obj.instance_group.trim()
           : undefined,
       poi_id: typeof obj.poi_id === "string" ? obj.poi_id : undefined,
       interaction_radius_m:

@@ -5,7 +5,9 @@ import { inboxErrorMicrocopy } from "./inboxCommands";
 import { decisionErrorMicrocopy } from "./decisionCommands";
 import { artifactErrorMicrocopy } from "./artifactCommands";
 import { overrideErrorMicrocopy } from "./overrideCommands";
-import { setWorldSocketClient } from "./worldSocketBridge";
+import type { CommandResultEvent } from "./commandGateway";
+import { setCommandGateway, setWorldSocketClient } from "./worldSocketBridge";
+import { createWorldSocketGateway } from "./worldSocketGateway";
 import {
   isOfflineMockWorldEnabled,
   shouldAutoConnectWorldSocket,
@@ -421,11 +423,168 @@ export function useWorldSocket(sceneId = "cozy_office_v0") {
     const world = useWorldStore.getState();
     world.setScene(sceneId);
 
+    const handleCommandResult = (result: CommandResultEvent) => {
+      const { kind, commandId, commandName } = result;
+      const code = result.kind === "error" ? result.code : undefined;
+      const message = result.kind === "error" ? result.message : undefined;
+
+      if (commandName === "submit_request") {
+        if (kind === "ack") {
+          const ui = useUiStore.getState();
+          const currentInboxMessage = ui.inboxNotice?.message ?? "";
+          const downstreamKickoffStateVisible =
+            currentInboxMessage.startsWith("Kickoff started.") ||
+            currentInboxMessage.startsWith("Initial tasks created.");
+          if (!downstreamKickoffStateVisible) {
+            ui.setInboxNotice({
+              level: "success",
+              message: "Request accepted. Kickoff is starting."
+            });
+          }
+          ui.setFocusedPoi("poi_task_board");
+          ui.openPanel("task-board");
+          return;
+        }
+
+        useUiStore.getState().setInboxNotice({
+          level: "error",
+          message: inboxErrorMicrocopy(code, message)
+        });
+        return;
+      }
+
+      if (commandName === "resolve_decision") {
+        if (kind === "ack") {
+          const ui = useUiStore.getState();
+          ui.setDecisionNotice({
+            level: "success",
+            message: "Decision resolved. Blocked work can now resume."
+          });
+          ui.openPanel("task-board");
+          return;
+        }
+        useUiStore.getState().setDecisionNotice({
+          level: "error",
+          message: decisionErrorMicrocopy(code, message)
+        });
+        return;
+      }
+
+      if (
+        commandName === "approve_artifact" ||
+        commandName === "request_changes" ||
+        commandName === "split_into_tasks"
+      ) {
+        const ui = useUiStore.getState();
+        if (kind === "ack") {
+          if (ui.focusedArtifactId && commandName === "approve_artifact") {
+            ui.markArtifactStatus(ui.focusedArtifactId, "approved");
+          }
+          if (ui.focusedArtifactId && commandName === "request_changes") {
+            ui.markArtifactStatus(ui.focusedArtifactId, "changes_requested");
+          }
+          if (ui.focusedArtifactId && commandName === "split_into_tasks") {
+            const focusedArtifact = ui.artifacts[ui.focusedArtifactId];
+            if (focusedArtifact?.status === "delivered") {
+              ui.markArtifactStatus(ui.focusedArtifactId, "in_review");
+            }
+          }
+
+          ui.setArtifactNotice({
+            level: "success",
+            message:
+              commandName === "approve_artifact"
+                ? "Artifact approved. Linked task completion will appear in world updates."
+                : commandName === "request_changes"
+                  ? "Change request accepted. Waiting for revised artifact delivery."
+                  : "Split accepted. Follow-up tasks are being created."
+          });
+          if (commandName === "split_into_tasks" || commandName === "approve_artifact") {
+            ui.openPanel("task-board");
+          }
+          return;
+        }
+
+        ui.setArtifactNotice({
+          level: "error",
+          message: artifactErrorMicrocopy(code, message)
+        });
+        return;
+      }
+
+      if (
+        commandName === "reassign_task" ||
+        commandName === "cancel_task" ||
+        commandName === "pause_project" ||
+        commandName === "resume_project" ||
+        commandName === "rerun_task"
+      ) {
+        const ui = useUiStore.getState();
+        if (kind === "ack") {
+          ui.setTaskBoardNotice({
+            level: "success",
+            message:
+              commandName === "reassign_task"
+                ? "Reassign override accepted. Waiting for reflected state updates."
+                : commandName === "cancel_task"
+                  ? "Cancel override accepted. Waiting for reflected state updates."
+                  : commandName === "pause_project"
+                    ? "Project pause accepted. New dispatch is now blocked."
+                    : commandName === "resume_project"
+                      ? "Project resume accepted. Dispatch can continue."
+                      : "Rerun override accepted. Follow-up task creation is pending."
+          });
+          ui.openPanel("task-board");
+          return;
+        }
+
+        ui.setTaskBoardNotice({
+          level: "error",
+          message: overrideErrorMicrocopy(commandName, code, message)
+        });
+        return;
+      }
+
+      if (commandName !== "assign_task" && commandName !== "auto_assign") {
+        return;
+      }
+
+      if (kind === "ack") {
+        if (commandName === "assign_task") {
+          useWorldStore.getState().resolveOptimisticTaskAssignment(commandId, true);
+        }
+        const noticeMessage =
+          commandName === "assign_task"
+            ? "Task assignment accepted."
+            : "Auto-assign accepted.";
+        useUiStore.getState().setTaskBoardNotice({
+          level: "success",
+          message: noticeMessage
+        });
+        return;
+      }
+
+      if (commandName === "assign_task") {
+        useWorldStore.getState().resolveOptimisticTaskAssignment(commandId, false);
+      }
+      useUiStore.getState().setTaskBoardNotice({
+        level: "error",
+        message: taskBoardErrorMicrocopy(code, message)
+      });
+    };
+
     if (offlineMode) {
-      const runtime = createOfflineMockWorldRuntime({ sceneId });
+      const runtime = createOfflineMockWorldRuntime({
+        sceneId,
+        onCommandResult: handleCommandResult
+      });
+      setWorldSocketClient(null);
+      setCommandGateway(runtime.commandGateway);
       runtime.start();
       return () => {
         runtime.stop();
+        setCommandGateway(null);
+        setWorldSocketClient(null);
       };
     }
 
@@ -495,9 +654,23 @@ export function useWorldSocket(sceneId = "cozy_office_v0") {
         if (parsed.type === "event") {
           const parsedEvent = parseWorldEvent(parsed);
           if (parsedEvent) {
+            const ui = useUiStore.getState();
             world.appendEvent(parsedEvent);
+            if (parsedEvent.name === "kickoff_started") {
+              ui.setInboxNotice({
+                level: "success",
+                message: "Kickoff started. Task Board will update with initial work."
+              });
+            }
+            if (parsedEvent.name === "tasks_created") {
+              ui.setInboxNotice({
+                level: "success",
+                message: "Initial tasks created. Review assignments in Task Board."
+              });
+              ui.openPanel("task-board");
+            }
             if (parsedEvent.name === "task_assigned" && parsedEvent.taskId) {
-              useUiStore.getState().setTaskBoardNotice({
+              ui.setTaskBoardNotice({
                 level: "success",
                 message: parsedEvent.agentId
                   ? `${parsedEvent.taskId} assigned to ${parsedEvent.agentId}.`
@@ -508,15 +681,22 @@ export function useWorldSocket(sceneId = "cozy_office_v0") {
               (parsedEvent.name === "decision_requested" || parsedEvent.name === "task_blocked") &&
               parsedEvent.taskId
             ) {
-              useUiStore.getState().setTaskBoardNotice({
+              ui.setTaskBoardNotice({
                 level: "error",
                 message: parsedEvent.decisionId
                   ? `${parsedEvent.taskId} blocked by ${parsedEvent.decisionId}.`
                   : `${parsedEvent.taskId} is blocked pending user decision.`
               });
+              ui.setDecisionNotice({
+                level: "error",
+                message: parsedEvent.decisionId
+                  ? `${parsedEvent.taskId} needs ${parsedEvent.decisionId}. Open Decisions to unblock progress.`
+                  : `${parsedEvent.taskId} is blocked. A decision prompt will appear when available.`
+              });
+              ui.openPanel("decision-panel");
             }
             if (parsedEvent.decisionId && parsedEvent.name === "decision_requested") {
-              useUiStore.getState().upsertDecision({
+              ui.upsertDecision({
                 decisionId: parsedEvent.decisionId,
                 projectId: parsedEvent.projectId,
                 taskId: parsedEvent.taskId,
@@ -529,21 +709,23 @@ export function useWorldSocket(sceneId = "cozy_office_v0") {
               });
             }
             if (parsedEvent.decisionId && parsedEvent.name === "decision_resolved") {
-              useUiStore.getState().markDecisionResolved(
+              ui.markDecisionResolved(
                 parsedEvent.decisionId,
                 typeof parsedEvent.meta?.choice === "string" ? parsedEvent.meta.choice : undefined
               );
+              ui.setDecisionNotice({
+                level: "success",
+                message: "Decision resolved. Previously blocked tasks can continue."
+              });
             }
             if (parsedEvent.artifactId) {
               const nextStatus = artifactStatusFromEvent(parsedEvent);
               if (nextStatus) {
-                useUiStore
-                  .getState()
-                  .markArtifactStatus(parsedEvent.artifactId, nextStatus, parsedEvent.ts);
+                ui.markArtifactStatus(parsedEvent.artifactId, nextStatus, parsedEvent.ts);
               }
             }
             if (parsedEvent.name === "task_reassigned" && parsedEvent.taskId) {
-              useUiStore.getState().setTaskBoardNotice({
+              ui.setTaskBoardNotice({
                 level: "success",
                 message: parsedEvent.agentId
                   ? `${parsedEvent.taskId} reassigned to ${parsedEvent.agentId}.`
@@ -551,19 +733,19 @@ export function useWorldSocket(sceneId = "cozy_office_v0") {
               });
             }
             if (parsedEvent.name === "task_cancelled" && parsedEvent.taskId) {
-              useUiStore.getState().setTaskBoardNotice({
+              ui.setTaskBoardNotice({
                 level: "success",
                 message: `${parsedEvent.taskId} cancelled by override.`
               });
             }
             if (parsedEvent.name === "project_paused") {
-              useUiStore.getState().setTaskBoardNotice({
+              ui.setTaskBoardNotice({
                 level: "success",
                 message: `${parsedEvent.projectId} dispatch paused.`
               });
             }
             if (parsedEvent.name === "project_resumed") {
-              useUiStore.getState().setTaskBoardNotice({
+              ui.setTaskBoardNotice({
                 level: "success",
                 message: `${parsedEvent.projectId} dispatch resumed.`
               });
@@ -584,145 +766,7 @@ export function useWorldSocket(sceneId = "cozy_office_v0") {
           lastSnapshotId: cursor.lastSnapshotId
         });
       },
-      onCommandResult: ({ kind, commandId, commandName, code, message }) => {
-        if (commandName === "submit_request") {
-          if (kind === "ack") {
-            const ui = useUiStore.getState();
-            ui.setInboxNotice({
-              level: "success",
-              message: "Request accepted. Kickoff is starting."
-            });
-            ui.setFocusedPoi("poi_task_board");
-            ui.openPanel("task-board");
-            return;
-          }
-
-          useUiStore.getState().setInboxNotice({
-            level: "error",
-            message: inboxErrorMicrocopy(code, message)
-          });
-          return;
-        }
-
-        if (commandName === "resolve_decision") {
-          if (kind === "ack") {
-            const ui = useUiStore.getState();
-            ui.setDecisionNotice({
-              level: "success",
-              message: "Decision resolved. Blocked work can now resume."
-            });
-            ui.openPanel("task-board");
-            return;
-          }
-          useUiStore.getState().setDecisionNotice({
-            level: "error",
-            message: decisionErrorMicrocopy(code, message)
-          });
-          return;
-        }
-
-        if (
-          commandName === "approve_artifact" ||
-          commandName === "request_changes" ||
-          commandName === "split_into_tasks"
-        ) {
-          const ui = useUiStore.getState();
-          if (kind === "ack") {
-            if (ui.focusedArtifactId && commandName === "approve_artifact") {
-              ui.markArtifactStatus(ui.focusedArtifactId, "approved");
-            }
-            if (ui.focusedArtifactId && commandName === "request_changes") {
-              ui.markArtifactStatus(ui.focusedArtifactId, "changes_requested");
-            }
-            if (ui.focusedArtifactId && commandName === "split_into_tasks") {
-              const focusedArtifact = ui.artifacts[ui.focusedArtifactId];
-              if (focusedArtifact?.status === "delivered") {
-                ui.markArtifactStatus(ui.focusedArtifactId, "in_review");
-              }
-            }
-
-            ui.setArtifactNotice({
-              level: "success",
-              message:
-                commandName === "approve_artifact"
-                  ? "Artifact approved. Linked task completion will appear in world updates."
-                  : commandName === "request_changes"
-                    ? "Change request accepted. Waiting for revised artifact delivery."
-                    : "Split accepted. Follow-up tasks are being created."
-            });
-            if (commandName === "split_into_tasks" || commandName === "approve_artifact") {
-              ui.openPanel("task-board");
-            }
-            return;
-          }
-
-          ui.setArtifactNotice({
-            level: "error",
-            message: artifactErrorMicrocopy(code, message)
-          });
-          return;
-        }
-
-        if (
-          commandName === "reassign_task" ||
-          commandName === "cancel_task" ||
-          commandName === "pause_project" ||
-          commandName === "resume_project" ||
-          commandName === "rerun_task"
-        ) {
-          const ui = useUiStore.getState();
-          if (kind === "ack") {
-            ui.setTaskBoardNotice({
-              level: "success",
-              message:
-                commandName === "reassign_task"
-                  ? "Reassign override accepted. Waiting for reflected state updates."
-                  : commandName === "cancel_task"
-                    ? "Cancel override accepted. Waiting for reflected state updates."
-                    : commandName === "pause_project"
-                      ? "Project pause accepted. New dispatch is now blocked."
-                      : commandName === "resume_project"
-                        ? "Project resume accepted. Dispatch can continue."
-                        : "Rerun override accepted. Follow-up task creation is pending."
-            });
-            ui.openPanel("task-board");
-            return;
-          }
-
-          ui.setTaskBoardNotice({
-            level: "error",
-            message: overrideErrorMicrocopy(commandName, code, message)
-          });
-          return;
-        }
-
-        if (commandName !== "assign_task" && commandName !== "auto_assign") {
-          return;
-        }
-
-        if (kind === "ack") {
-          if (commandName === "assign_task") {
-            useWorldStore.getState().resolveOptimisticTaskAssignment(commandId, true);
-          }
-          const noticeMessage =
-            commandName === "assign_task"
-              ? "Task assignment accepted."
-              : "Auto-assign accepted.";
-          useUiStore.getState().setTaskBoardNotice({
-            level: "success",
-            message: noticeMessage
-          });
-          return;
-        }
-
-        if (commandName === "assign_task") {
-          useWorldStore.getState().resolveOptimisticTaskAssignment(commandId, false);
-        }
-        useUiStore.getState().setTaskBoardNotice({
-          level: "error",
-          message: taskBoardErrorMicrocopy(code, message)
-        });
-      },
+      onCommandResult: handleCommandResult,
       getResumeCursor: () => {
         const state = useWorldStore.getState();
         return {
@@ -733,12 +777,15 @@ export function useWorldSocket(sceneId = "cozy_office_v0") {
     });
 
     clientRef.current = client;
+    const gateway = createWorldSocketGateway(client);
+    setCommandGateway(gateway);
     setWorldSocketClient(client);
     client.start();
 
     return () => {
       client.stop();
       clientRef.current = null;
+      setCommandGateway(null);
       setWorldSocketClient(null);
     };
   }, [sceneId]);

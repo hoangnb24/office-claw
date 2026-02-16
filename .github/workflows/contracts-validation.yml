@@ -1,0 +1,32 @@
+name: Contracts Validation
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+
+jobs:
+  contracts-validate:
+    name: contracts-validate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: contracts/package-lock.json
+
+      - name: Install contracts deps
+        run: npm --prefix contracts ci
+
+      - name: Validate contracts schemas and fixtures
+        run: npm --prefix contracts run validate
+
+      - name: Validate session key contract invariants
+        run: npm --prefix contracts run validate:session-key

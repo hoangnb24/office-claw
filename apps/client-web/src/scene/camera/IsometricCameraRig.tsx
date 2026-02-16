@@ -2,7 +2,7 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { useEffect, useMemo, useRef } from "react";
 import { type OrthographicCamera, Vector3 } from "three";
 import { useUiStore } from "../../state/uiStore";
-import { poiFocusConfigById } from "../focus/poiFocusManifest";
+import { useSceneRuntimeProvider } from "../runtime";
 
 const DEFAULT_CAMERA_POSITION = new Vector3(12, 12, 12);
 const DEFAULT_LOOK_AT = new Vector3(0, 0, 0);
@@ -20,6 +20,7 @@ export function IsometricCameraRig() {
   const camera = useThree((state) => state.camera);
   const gl = useThree((state) => state.gl);
   const size = useThree((state) => state.size);
+  const sceneRuntime = useSceneRuntimeProvider();
 
   const focusedPoiId = useUiStore((state) => state.focusedPoiId);
   const setFocusedPoiScreenAnchor = useUiStore((state) => state.setFocusedPoiScreenAnchor);
@@ -32,6 +33,8 @@ export function IsometricCameraRig() {
   const preFocusZoomRef = useRef<number | null>(null);
   const lastFocusedPoiRef = useRef<string | null>(null);
   const lastProjectedAnchorRef = useRef<{ x: number; y: number } | null>(null);
+
+  const poiFocusConfigById = sceneRuntime.snapshot.derived?.poiFocusConfigById ?? {};
 
   useEffect(() => {
     if (!orthographicCamera.isOrthographicCamera) {
@@ -120,7 +123,7 @@ export function IsometricCameraRig() {
     lastFocusedPoiRef.current = null;
     setFocusedPoiScreenAnchor(null);
     lastProjectedAnchorRef.current = null;
-  }, [focusedPoiId, setFocusedPoiScreenAnchor]);
+  }, [focusedPoiId, poiFocusConfigById, setFocusedPoiScreenAnchor]);
 
   useFrame((_state, delta) => {
     if (!orthographicCamera.isOrthographicCamera) {
