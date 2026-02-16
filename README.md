@@ -6,6 +6,7 @@ OfficeClaw is a collaborative office simulation runtime with an authoritative wo
 
 - Read `AGENTS.md`.
 - Read `CONTRIBUTOR_ONBOARDING.md`.
+- Install the beads claim hook once: `tools/install-br-cass-hook.sh`.
 
 ## Runtime Architecture
 

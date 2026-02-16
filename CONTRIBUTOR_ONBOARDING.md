@@ -44,9 +44,10 @@ When working in a folder subtree, read that subtree's `AGENTS.md` first.
 
 1. Read `AGENTS.md` and `README.md`.
 2. Run `br ready --json` and `bv --robot-triage` to select ready work.
-3. Set issue to in progress: `br update <br-id> --status in_progress`.
-4. Reserve file scope in Agent Mail with `reason=<br-id>`.
-5. Send an Agent Mail kickoff message using `thread_id=<br-id>` and subject prefix `[<br-id>]`.
+3. Install the claim hook once: `tools/install-br-cass-hook.sh`.
+4. Set issue to in progress: `br update <br-id> --status in_progress` (this now auto-runs cass preflight first).
+5. Reserve file scope in Agent Mail with `reason=<br-id>`.
+6. Send an Agent Mail kickoff message using `thread_id=<br-id>` and subject prefix `[<br-id>]`.
 
 ### B) Implement and validate
 

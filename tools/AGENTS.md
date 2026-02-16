@@ -10,6 +10,8 @@ Scope: `tools/**`
 - Asset provenance gate: `tools/asset-provenance-ledger.mjs`
 - GLB/scene validation: `tools/glb-preflight.mjs`, `tools/nav-preflight.mjs`
 - Agent lookup: `tools/agent-lookup.mjs`
+- Beads claim hook installer: `tools/install-br-cass-hook.sh`
+- Beads claim preflight wrapper: `tools/br-update-with-cass.sh`
 
 ## Conventions
 

@@ -71,13 +71,18 @@ Recommended conventions
 Typical flow (agents)
 1) **Pick ready work** (Beads)
    - `br ready --json` → choose one item (highest priority, no blockers)
-2) **Reserve edit surface** (Mail)
+2) **Install claim hook once per machine**
+   - `tools/install-br-cass-hook.sh` (wraps `br` so claims auto-run cass preflight)
+3) **Claim work (auto cass preflight)**
+   - `br update <id> --status=in_progress`
+   - Hook behavior: runs `tools/cass-preflight.sh` before status changes to `in_progress`
+4) **Reserve edit surface** (Mail)
    - `file_reservation_paths(project_key, agent_name, ["src/**"], ttl_seconds=3600, exclusive=true, reason="br-123")`
-3) **Announce start** (Mail)
+5) **Announce start** (Mail)
    - `send_message(..., thread_id="br-123", subject="[br-123] Start: <short title>", ack_required=true)`
-4) **Work and update**
+6) **Work and update**
    - Reply in-thread with progress and attach artifacts/images; keep the discussion in one thread per issue id
-5) **Complete and release**
+7) **Complete and release**
    - `br close br-123 --reason "Completed"` (Beads is status authority)
    - `release_file_reservations(project_key, agent_name, paths=["src/**"])`
    - Final Mail reply: `[br-123] Completed` with summary and links
@@ -201,11 +206,12 @@ This project uses [beads_rust](https://github.com/steveyegge/beads) for issue tr
 bv
 
 # CLI commands for agents (use these instead)
+tools/install-br-cass-hook.sh
 br ready              # Show issues ready to work (no blockers)
 br list --status=open # All open issues
 br show <id>          # Full issue details with dependencies
 br create --title="..." --type=task --priority=2
-br update <id> --status=in_progress
+br update <id> --status=in_progress  # Hooked: runs cass preflight before claim
 br close <id> --reason="Completed"
 br close <id1> <id2>  # Close multiple issues at once
 br dep add <issue> <depends-on>
@@ -218,7 +224,7 @@ git commit -m "sync beads"
 ### Workflow Pattern
 
 1. **Start**: Run `br ready` to find actionable work
-2. **Claim**: Use `br update <id> --status=in_progress`
+2. **Claim**: Use `br update <id> --status=in_progress` (after `tools/install-br-cass-hook.sh`)
 3. **Work**: Implement the task
 4. **Complete**: Use `br close <id>`
 5. **Sync**: Always run `br sync --flush-only`, then `git add .beads/ && git commit -m "sync beads"` at session end
@@ -264,6 +270,12 @@ git push                # Push to remote
 
  # Check if index is healthy (exit 0=ok, 1=run index first)
  cass health
+
+ # Run preflight manually for a bead/issue before claiming
+ tools/cass-preflight.sh --bead br-123 --query "short problem statement"
+
+ # Install the automatic claim hook (one-time per machine)
+ tools/install-br-cass-hook.sh
 
  # Search across all agent histories
  cass search "authentication error" --robot --limit 5
