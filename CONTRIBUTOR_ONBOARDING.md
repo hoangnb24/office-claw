@@ -55,6 +55,11 @@ This guide gets a contributor from zero context to productive delivery in Office
 ### D) Implement and validate
 1. Keep edits within reserved scope.
 2. Run relevant validation commands.
+   - Contracts gate (required for contract/schema/protocol/fixture changes):
+     - `npm --prefix contracts ci`
+     - `npm --prefix contracts run validate`
+     - `npm --prefix contracts run validate:session-key`
+   - Reference: `docs/contracts-validation-gates.md`
 3. If blocked, send an Agent Mail update immediately with blocker details.
 
 ### E) Complete and close
@@ -109,6 +114,7 @@ br close <bead-id> --reason "Completed"
 - Symptom: schema/type/build checks fail.
 - Action:
   - treat as incomplete bead
+  - include exact failing command and first actionable error line
   - include failure summary and remediation in mail
   - close bead only after checks pass or documented exception is agreed
 

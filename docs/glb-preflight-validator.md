@@ -29,7 +29,7 @@ node tools/glb-preflight.mjs \
   - `reports/glb-preflight-report.template.md`
 
 ## Validation rules
-- Agent assets (filename includes `agent`) must contain:
+- Agent animation bundles (filename includes both `agent` and `animation`) must contain:
   - `Idle`
   - `Walk`
   - `Work_Typing`
