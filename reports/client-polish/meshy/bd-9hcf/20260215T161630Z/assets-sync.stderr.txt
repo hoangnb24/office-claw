@@ -1,0 +1,1581 @@
++npm:0> nvm use default
++nvm:1> unset -f nvm node npm npx
++nvm:2> [ -s /opt/homebrew/opt/nvm/nvm.sh ']'
++nvm:2> . /opt/homebrew/opt/nvm/nvm.sh
++/opt/homebrew/opt/nvm/nvm.sh:2> [ -z /Users/themrb/.nvm ']'
++/opt/homebrew/opt/nvm/nvm.sh:3> . /opt/homebrew/Cellar/nvm/0.39.2/libexec/nvm.sh
++/opt/homebrew/Cellar/nvm/0.39.2/libexec/nvm.sh:14> NVM_SCRIPT_SOURCE='' 
++/opt/homebrew/Cellar/nvm/0.39.2/libexec/nvm.sh:362> [ -z -q ']'
++/opt/homebrew/Cellar/nvm/0.39.2/libexec/nvm.sh:365> nvm_is_zsh
++nvm_is_zsh:1> [ -n 5.9 ']'
++/opt/homebrew/Cellar/nvm/0.39.2/libexec/nvm.sh:366> NVM_CD_FLAGS=-q 
++/opt/homebrew/Cellar/nvm/0.39.2/libexec/nvm.sh:370> [ -z /Users/themrb/.nvm ']'
++/opt/homebrew/Cellar/nvm/0.39.2/libexec/nvm.sh:380> case /Users/themrb/.nvm (*[!/]*/)
++/opt/homebrew/Cellar/nvm/0.39.2/libexec/nvm.sh:388> unset NVM_SCRIPT_SOURCE
++/opt/homebrew/Cellar/nvm/0.39.2/libexec/nvm.sh:4397> nvm_process_parameters use default
++nvm_process_parameters:1> local NVM_AUTO_MODE
++nvm_process_parameters:2> NVM_AUTO_MODE=use 
++nvm_process_parameters:3> [ 2 -ne 0 ']'
++nvm_process_parameters:4> case use (--install)
++nvm_process_parameters:4> case use (--no-use)
++nvm_process_parameters:8> shift
++nvm_process_parameters:3> [ 1 -ne 0 ']'
++nvm_process_parameters:4> case default (--install)
++nvm_process_parameters:4> case default (--no-use)
++nvm_process_parameters:8> shift
++nvm_process_parameters:3> [ 0 -ne 0 ']'
++nvm_process_parameters:10> nvm_auto use
++nvm_auto:1> local NVM_MODE
++nvm_auto:2> NVM_MODE=use 
++nvm_auto:3> local VERSION
++nvm_auto:4> local NVM_CURRENT
++nvm_auto:5> [ _use '=' _install ']'
++nvm_auto:12> [ _use '=' _use ']'
++nvm_auto:13> NVM_CURRENT=+nvm_auto:13> nvm_ls_current
++nvm_ls_current:1> local NVM_LS_CURRENT_NODE_PATH
++nvm_ls_current:2> NVM_LS_CURRENT_NODE_PATH=+nvm_ls_current:2> which node
++nvm_ls_current:2> NVM_LS_CURRENT_NODE_PATH=/opt/homebrew/bin/node 
++nvm_ls_current:4> nvm_version_dir iojs
++nvm_version_dir:1> local NVM_WHICH_DIR
++nvm_version_dir:2> NVM_WHICH_DIR=iojs 
++nvm_version_dir:3> [ -z iojs ']'
++nvm_version_dir:3> [ iojs '=' new ']'
++nvm_version_dir:5> [ _iojs '=' _iojs ']'
++nvm_version_dir:6> nvm_echo /Users/themrb/.nvm/versions/io.js
++nvm_echo:1> printf '%s\n' /Users/themrb/.nvm/versions/io.js
++nvm_ls_current:4> nvm_tree_contains_path /Users/themrb/.nvm/versions/io.js /opt/homebrew/bin/node
++nvm_tree_contains_path:1> local tree
++nvm_tree_contains_path:2> tree=/Users/themrb/.nvm/versions/io.js 
++nvm_tree_contains_path:3> local node_path
++nvm_tree_contains_path:4> node_path=/opt/homebrew/bin/node 
++nvm_tree_contains_path:6> [ @/Users/themrb/.nvm/versions/io.js@ '=' @@ ']'
++nvm_tree_contains_path:6> [ @/opt/homebrew/bin/node@ '=' @@ ']'
++nvm_tree_contains_path:11> local previous_pathdir
++nvm_tree_contains_path:12> previous_pathdir=/opt/homebrew/bin/node 
++nvm_tree_contains_path:13> local pathdir
++nvm_tree_contains_path:14> pathdir=+nvm_tree_contains_path:14> dirname /opt/homebrew/bin/node
++nvm_tree_contains_path:14> pathdir=/opt/homebrew/bin 
++nvm_tree_contains_path:15> [ /opt/homebrew/bin '!=' '' ']'
++nvm_tree_contains_path:15> [ /opt/homebrew/bin '!=' . ']'
++nvm_tree_contains_path:15> [ /opt/homebrew/bin '!=' / ']'
++nvm_tree_contains_path:16> [ /opt/homebrew/bin '!=' /Users/themrb/.nvm/versions/io.js ']'
++nvm_tree_contains_path:16> [ /opt/homebrew/bin '!=' /opt/homebrew/bin/node ']'
++nvm_tree_contains_path:17> previous_pathdir=/opt/homebrew/bin 
++nvm_tree_contains_path:18> pathdir=+nvm_tree_contains_path:18> dirname /opt/homebrew/bin
++nvm_tree_contains_path:18> pathdir=/opt/homebrew 
++nvm_tree_contains_path:15> [ /opt/homebrew '!=' '' ']'
++nvm_tree_contains_path:15> [ /opt/homebrew '!=' . ']'
++nvm_tree_contains_path:15> [ /opt/homebrew '!=' / ']'
++nvm_tree_contains_path:16> [ /opt/homebrew '!=' /Users/themrb/.nvm/versions/io.js ']'
++nvm_tree_contains_path:16> [ /opt/homebrew '!=' /opt/homebrew/bin ']'
++nvm_tree_contains_path:17> previous_pathdir=/opt/homebrew 
++nvm_tree_contains_path:18> pathdir=+nvm_tree_contains_path:18> dirname /opt/homebrew
++nvm_tree_contains_path:18> pathdir=/opt 
++nvm_tree_contains_path:15> [ /opt '!=' '' ']'
++nvm_tree_contains_path:15> [ /opt '!=' . ']'
++nvm_tree_contains_path:15> [ /opt '!=' / ']'
++nvm_tree_contains_path:16> [ /opt '!=' /Users/themrb/.nvm/versions/io.js ']'
++nvm_tree_contains_path:16> [ /opt '!=' /opt/homebrew ']'
++nvm_tree_contains_path:17> previous_pathdir=/opt 
++nvm_tree_contains_path:18> pathdir=+nvm_tree_contains_path:18> dirname /opt
++nvm_tree_contains_path:18> pathdir=/ 
++nvm_tree_contains_path:15> [ / '!=' '' ']'
++nvm_tree_contains_path:15> [ / '!=' . ']'
++nvm_tree_contains_path:15> [ / '!=' / ']'
++nvm_tree_contains_path:20> [ / '=' /Users/themrb/.nvm/versions/io.js ']'
++nvm_ls_current:6> nvm_tree_contains_path /Users/themrb/.nvm /opt/homebrew/bin/node
++nvm_tree_contains_path:1> local tree
++nvm_tree_contains_path:2> tree=/Users/themrb/.nvm 
++nvm_tree_contains_path:3> local node_path
++nvm_tree_contains_path:4> node_path=/opt/homebrew/bin/node 
++nvm_tree_contains_path:6> [ @/Users/themrb/.nvm@ '=' @@ ']'
++nvm_tree_contains_path:6> [ @/opt/homebrew/bin/node@ '=' @@ ']'
++nvm_tree_contains_path:11> local previous_pathdir
++nvm_tree_contains_path:12> previous_pathdir=/opt/homebrew/bin/node 
++nvm_tree_contains_path:13> local pathdir
++nvm_tree_contains_path:14> pathdir=+nvm_tree_contains_path:14> dirname /opt/homebrew/bin/node
++nvm_tree_contains_path:14> pathdir=/opt/homebrew/bin 
++nvm_tree_contains_path:15> [ /opt/homebrew/bin '!=' '' ']'
++nvm_tree_contains_path:15> [ /opt/homebrew/bin '!=' . ']'
++nvm_tree_contains_path:15> [ /opt/homebrew/bin '!=' / ']'
++nvm_tree_contains_path:16> [ /opt/homebrew/bin '!=' /Users/themrb/.nvm ']'
++nvm_tree_contains_path:16> [ /opt/homebrew/bin '!=' /opt/homebrew/bin/node ']'
++nvm_tree_contains_path:17> previous_pathdir=/opt/homebrew/bin 
++nvm_tree_contains_path:18> pathdir=+nvm_tree_contains_path:18> dirname /opt/homebrew/bin
++nvm_tree_contains_path:18> pathdir=/opt/homebrew 
++nvm_tree_contains_path:15> [ /opt/homebrew '!=' '' ']'
++nvm_tree_contains_path:15> [ /opt/homebrew '!=' . ']'
++nvm_tree_contains_path:15> [ /opt/homebrew '!=' / ']'
++nvm_tree_contains_path:16> [ /opt/homebrew '!=' /Users/themrb/.nvm ']'
++nvm_tree_contains_path:16> [ /opt/homebrew '!=' /opt/homebrew/bin ']'
++nvm_tree_contains_path:17> previous_pathdir=/opt/homebrew 
++nvm_tree_contains_path:18> pathdir=+nvm_tree_contains_path:18> dirname /opt/homebrew
++nvm_tree_contains_path:18> pathdir=/opt 
++nvm_tree_contains_path:15> [ /opt '!=' '' ']'
++nvm_tree_contains_path:15> [ /opt '!=' . ']'
++nvm_tree_contains_path:15> [ /opt '!=' / ']'
++nvm_tree_contains_path:16> [ /opt '!=' /Users/themrb/.nvm ']'
++nvm_tree_contains_path:16> [ /opt '!=' /opt/homebrew ']'
++nvm_tree_contains_path:17> previous_pathdir=/opt 
++nvm_tree_contains_path:18> pathdir=+nvm_tree_contains_path:18> dirname /opt
++nvm_tree_contains_path:18> pathdir=/ 
++nvm_tree_contains_path:15> [ / '!=' '' ']'
++nvm_tree_contains_path:15> [ / '!=' . ']'
++nvm_tree_contains_path:15> [ / '!=' / ']'
++nvm_tree_contains_path:20> [ / '=' /Users/themrb/.nvm ']'
++nvm_ls_current:15> nvm_echo system
++nvm_echo:1> printf '%s\n' system
++nvm_auto:13> NVM_CURRENT=system 
++nvm_auto:14> [ _system '=' _none ']'
++nvm_auto:14> [ _system '=' _system ']'
++nvm_auto:15> VERSION=+nvm_auto:15> nvm_resolve_local_alias default
++nvm_auto:15> VERSION=v24.9.0 
++nvm_auto:16> [ -n v24.9.0 ']'
++nvm_auto:17> nvm use --silent v24.9.0
++nvm:1> [ 3 -lt 1 ']'
++nvm:6> local DEFAULT_IFS
++nvm:7> DEFAULT_IFS=+nvm:7> nvm_echo t
++nvm:7> DEFAULT_IFS=+nvm_echo:1> printf '%s\n' t
++nvm:7> tr t '\t'
++nvm:7> DEFAULT_IFS=$' \t\n' 
++nvm:9> [ 569JNRXghkx '!=' 569JNRXghkx ']'
++nvm:16> [ 569JNRXghkx '!=' 569JNRXghkx ']'
++nvm:23> [ -n '' ']'
++nvm:32> [ $' \t\n\C-@' '!=' $' \t\n' ']'
++nvm:33> IFS=$' \t\n' +nvm:33> nvm use --silent v24.9.0
++nvm:1> [ 3 -lt 1 ']'
++nvm:6> local DEFAULT_IFS
++nvm:7> DEFAULT_IFS=+nvm:7> nvm_echo t
++nvm:7> DEFAULT_IFS=+nvm:7> tr t '\t'
++nvm_echo:1> printf '%s\n' t
++nvm:7> DEFAULT_IFS=$' \t\n' 
++nvm:9> [ 569JNRXghkx '!=' 569JNRXghkx ']'
++nvm:16> [ 569JNRXghkx '!=' 569JNRXghkx ']'
++nvm:23> [ -n '' ']'
++nvm:32> [ $' \t\n' '!=' $' \t\n' ']'
++nvm:37> local i
++nvm:38> i=use
++nvm:40> case use (--)
++nvm:40> case use (-h | help | --help)
++nvm:38> i=--silent
++nvm:40> case --silent (--)
++nvm:40> case --silent (-h | help | --help)
++nvm:38> i=v24.9.0
++nvm:40> case v24.9.0 (--)
++nvm:40> case v24.9.0 (-h | help | --help)
++nvm:193> local COMMAND
++nvm:194> COMMAND=use 
++nvm:195> shift
++nvm:198> local VERSION
++nvm:199> local ADDITIONAL_PARAMETERS
++nvm:201> case use (cache)
++nvm:201> case use (debug)
++nvm:201> case use (install | i)
++nvm:201> case use (uninstall)
++nvm:201> case use (deactivate)
++nvm:201> case use (use)
++nvm:791> local PROVIDED_VERSION
++nvm:792> local NVM_SILENT
++nvm:793> local NVM_SILENT_ARG
++nvm:794> local NVM_DELETE_PREFIX
++nvm:795> NVM_DELETE_PREFIX=0 
++nvm:796> local NVM_LTS
++nvm:797> local IS_VERSION_FROM_NVMRC
++nvm:798> IS_VERSION_FROM_NVMRC=0 
++nvm:800> [ 2 -ne 0 ']'
++nvm:801> case --silent (--silent)
++nvm:803> NVM_SILENT=1 
++nvm:804> NVM_SILENT_ARG=--silent 
++nvm:817> shift
++nvm:800> [ 1 -ne 0 ']'
++nvm:801> case v24.9.0 (--silent)
++nvm:801> case v24.9.0 (--delete-prefix)
++nvm:801> case v24.9.0 (--)
++nvm:801> case v24.9.0 (--lts)
++nvm:801> case v24.9.0 (--lts=*)
++nvm:801> case v24.9.0 (--*)
++nvm:801> case v24.9.0 (*)
++nvm:812> [ -n v24.9.0 ']'
++nvm:813> PROVIDED_VERSION=v24.9.0 
++nvm:817> shift
++nvm:800> [ 0 -ne 0 ']'
++nvm:820> [ -n '' ']'
++nvm:822> [ -z v24.9.0 ']'
++nvm:835> VERSION=+nvm:835> nvm_match_version v24.9.0
++nvm_match_version:1> local NVM_IOJS_PREFIX
++nvm_match_version:2> NVM_IOJS_PREFIX=+nvm_match_version:2> nvm_iojs_prefix
++nvm_iojs_prefix:1> nvm_echo iojs
++nvm_echo:1> printf '%s\n' iojs
++nvm_match_version:2> NVM_IOJS_PREFIX=iojs 
++nvm_match_version:3> local PROVIDED_VERSION
++nvm_match_version:4> PROVIDED_VERSION=v24.9.0 
++nvm_match_version:5> case _v24.9.0 (_iojs | _io.js)
++nvm_match_version:5> case _v24.9.0 (_system)
++nvm_match_version:5> case _v24.9.0 (*)
++nvm_match_version:13> nvm_version v24.9.0
++nvm_version:1> local PATTERN
++nvm_version:2> PATTERN=v24.9.0 
++nvm_version:3> local VERSION
++nvm_version:5> [ -z v24.9.0 ']'
++nvm_version:9> [ v24.9.0 '=' current ']'
++nvm_version:14> local NVM_NODE_PREFIX
++nvm_version:15> NVM_NODE_PREFIX=+nvm_version:15> nvm_node_prefix
++nvm_node_prefix:1> nvm_echo node
++nvm_echo:1> printf '%s\n' node
++nvm_version:15> NVM_NODE_PREFIX=node 
++nvm_version:16> case _v24.9.0 (_node | _node-)
++nvm_version:21> VERSION=+nvm_version:21> nvm_ls v24.9.0
++nvm_ls:1> local PATTERN
++nvm_ls:2> PATTERN=v24.9.0 
++nvm_ls:3> local VERSIONS
++nvm_ls:4> VERSIONS='' 
++nvm_ls:5> [ v24.9.0 '=' current ']'
++nvm_ls:10> local NVM_IOJS_PREFIX
++nvm_ls:11> NVM_IOJS_PREFIX=+nvm_ls:11> nvm_iojs_prefix
++nvm_iojs_prefix:1> nvm_echo iojs
++nvm_version:21> VERSION=+nvm_version:21> tail -1
++nvm_echo:1> printf '%s\n' iojs
++nvm_ls:11> NVM_IOJS_PREFIX=iojs 
++nvm_ls:12> local NVM_NODE_PREFIX
++nvm_ls:13> NVM_NODE_PREFIX=+nvm_ls:13> nvm_node_prefix
++nvm_node_prefix:1> nvm_echo node
++nvm_echo:1> printf '%s\n' node
++nvm_ls:13> NVM_NODE_PREFIX=node 
++nvm_ls:14> local NVM_VERSION_DIR_IOJS
++nvm_ls:15> NVM_VERSION_DIR_IOJS=+nvm_ls:15> nvm_version_dir iojs
++nvm_version_dir:1> local NVM_WHICH_DIR
++nvm_version_dir:2> NVM_WHICH_DIR=iojs 
++nvm_version_dir:3> [ -z iojs ']'
++nvm_version_dir:3> [ iojs '=' new ']'
++nvm_version_dir:5> [ _iojs '=' _iojs ']'
++nvm_version_dir:6> nvm_echo /Users/themrb/.nvm/versions/io.js
++nvm_echo:1> printf '%s\n' /Users/themrb/.nvm/versions/io.js
++nvm_ls:15> NVM_VERSION_DIR_IOJS=/Users/themrb/.nvm/versions/io.js 
++nvm_ls:16> local NVM_VERSION_DIR_NEW
++nvm_ls:17> NVM_VERSION_DIR_NEW=+nvm_ls:17> nvm_version_dir new
++nvm_version_dir:1> local NVM_WHICH_DIR
++nvm_version_dir:2> NVM_WHICH_DIR=new 
++nvm_version_dir:3> [ -z new ']'
++nvm_version_dir:3> [ new '=' new ']'
++nvm_version_dir:4> nvm_echo /Users/themrb/.nvm/versions/node
++nvm_echo:1> printf '%s\n' /Users/themrb/.nvm/versions/node
++nvm_ls:17> NVM_VERSION_DIR_NEW=/Users/themrb/.nvm/versions/node 
++nvm_ls:18> local NVM_VERSION_DIR_OLD
++nvm_ls:19> NVM_VERSION_DIR_OLD=+nvm_ls:19> nvm_version_dir old
++nvm_version_dir:1> local NVM_WHICH_DIR
++nvm_version_dir:2> NVM_WHICH_DIR=old 
++nvm_version_dir:3> [ -z old ']'
++nvm_version_dir:3> [ old '=' new ']'
++nvm_version_dir:5> [ _old '=' _iojs ']'
++nvm_version_dir:7> [ _old '=' _old ']'
++nvm_version_dir:8> nvm_echo /Users/themrb/.nvm
++nvm_echo:1> printf '%s\n' /Users/themrb/.nvm
++nvm_ls:19> NVM_VERSION_DIR_OLD=/Users/themrb/.nvm 
++nvm_ls:21> case v24.9.0 (iojs | node)
++nvm_ls:21> case v24.9.0 (*)
++nvm_ls:26> nvm_resolve_local_alias v24.9.0
++nvm_resolve_local_alias:1> [ -z v24.9.0 ']'
++nvm_resolve_local_alias:5> local VERSION
++nvm_resolve_local_alias:6> local EXIT_CODE
++nvm_resolve_local_alias:7> VERSION=+nvm_resolve_local_alias:7> nvm_resolve_alias v24.9.0
++nvm_resolve_alias:1> [ -z v24.9.0 ']'
++nvm_resolve_alias:5> local PATTERN
++nvm_resolve_alias:6> PATTERN=v24.9.0 
++nvm_resolve_alias:8> local ALIAS
++nvm_resolve_alias:9> ALIAS=v24.9.0 
++nvm_resolve_alias:10> local ALIAS_TEMP
++nvm_resolve_alias:12> local SEEN_ALIASES
++nvm_resolve_alias:13> SEEN_ALIASES=v24.9.0 
++nvm_resolve_alias:14> true
++nvm_resolve_alias:15> ALIAS_TEMP=+nvm_resolve_alias:15> nvm_alias v24.9.0
++nvm_resolve_alias:15> nvm_echo
++nvm_echo:1> printf '%s\n' ''
++nvm_resolve_alias:15> ALIAS_TEMP='' 
++nvm_resolve_alias:17> [ -z '' ']'
++nvm_resolve_alias:18> break
++nvm_resolve_alias:30> [ -n v24.9.0 ']'
++nvm_resolve_alias:30> [ _v24.9.0 '!=' _v24.9.0 ']'
++nvm_resolve_alias:48> nvm_validate_implicit_alias v24.9.0
++nvm_resolve_alias:56> return 2
++nvm_resolve_local_alias:7> VERSION='' 
++nvm_resolve_local_alias:8> EXIT_CODE=2 
++nvm_resolve_local_alias:9> [ -z '' ']'
++nvm_resolve_local_alias:10> return 2
++nvm_ls:29> PATTERN=+nvm_ls:29> nvm_ensure_version_prefix v24.9.0
++nvm_ensure_version_prefix:1> local NVM_VERSION
++nvm_ensure_version_prefix:2> NVM_VERSION=+nvm_ensure_version_prefix:2> nvm_strip_iojs_prefix v24.9.0
++nvm_strip_iojs_prefix:1> local NVM_IOJS_PREFIX
++nvm_ensure_version_prefix:2> NVM_VERSION=+nvm_ensure_version_prefix:2> sed -e 's/^\([0-9]\)/v\1/g'
++nvm_strip_iojs_prefix:2> NVM_IOJS_PREFIX=+nvm_strip_iojs_prefix:2> nvm_iojs_prefix
++nvm_iojs_prefix:1> nvm_echo iojs
++nvm_echo:1> printf '%s\n' iojs
++nvm_strip_iojs_prefix:2> NVM_IOJS_PREFIX=iojs 
++nvm_strip_iojs_prefix:3> [ v24.9.0 '=' iojs ']'
++nvm_strip_iojs_prefix:6> nvm_echo v24.9.0
++nvm_echo:1> printf '%s\n' v24.9.0
++nvm_ensure_version_prefix:2> NVM_VERSION=v24.9.0 
++nvm_ensure_version_prefix:3> nvm_is_iojs_version v24.9.0
++nvm_is_iojs_version:1> case v24.9.0 (iojs-*)
++nvm_is_iojs_version:2> return 1
++nvm_ensure_version_prefix:6> nvm_echo v24.9.0
++nvm_echo:1> printf '%s\n' v24.9.0
++nvm_ls:29> PATTERN=v24.9.0 
++nvm_ls:32> [ v24.9.0 '=' N/A ']'
++nvm_ls:36> local NVM_PATTERN_STARTS_WITH_V
++nvm_ls:37> case v24.9.0 (v*)
++nvm_ls:38> NVM_PATTERN_STARTS_WITH_V=true 
++nvm_ls:41> [ true '=' true ']'
++nvm_ls:41> nvm_num_version_groups v24.9.0
++nvm_num_version_groups:1> local VERSION
++nvm_num_version_groups:2> VERSION=v24.9.0 
++nvm_num_version_groups:3> VERSION=24.9.0 
++nvm_num_version_groups:4> VERSION=24.9.0 
++nvm_num_version_groups:5> [ -z 24.9.0 ']'
++nvm_num_version_groups:9> local NVM_NUM_DOTS
++nvm_num_version_groups:10> NVM_NUM_DOTS=+nvm_num_version_groups:10> nvm_echo 24.9.0
++nvm_num_version_groups:10> NVM_NUM_DOTS=+nvm_num_version_groups:10> sed -e 's/[^\.]//g'
++nvm_echo:1> printf '%s\n' 24.9.0
++nvm_num_version_groups:10> NVM_NUM_DOTS=.. 
++nvm_num_version_groups:11> local NVM_NUM_GROUPS
++nvm_num_version_groups:12> NVM_NUM_GROUPS=... 
++nvm_num_version_groups:13> nvm_echo 3
++nvm_echo:1> printf '%s\n' 3
++nvm_ls:41> [ _3 '=' _3 ']'
++nvm_ls:42> nvm_is_version_installed v24.9.0
++nvm_is_version_installed:1> [ -z v24.9.0 ']'
++nvm_is_version_installed:4> local NVM_NODE_BINARY
++nvm_is_version_installed:5> NVM_NODE_BINARY=node 
++nvm_is_version_installed:6> nvm_get_os
++nvm_get_os:1> local NVM_UNAME
++nvm_get_os:2> NVM_UNAME=+nvm_get_os:2> uname -a
++nvm_get_os:2> NVM_UNAME='Darwin HN-SKY-A0650 24.4.0 Darwin Kernel Version 24.4.0: Wed Mar 19 21:16:34 PDT 2025; root:xnu-11417.101.15~1/RELEASE_ARM64_T6000 arm64' 
++nvm_get_os:3> local NVM_OS
++nvm_get_os:4> case Darwin HN-SKY-A0650 24.4.0 Darwin Kernel Version 24.4.0: Wed Mar 19 21:16:34 PDT 2025; root:xnu-11417.101.15~1/RELEASE_ARM64_T6000 arm64 (Linux\ *)
++nvm_get_os:4> case Darwin HN-SKY-A0650 24.4.0 Darwin Kernel Version 24.4.0: Wed Mar 19 21:16:34 PDT 2025; root:xnu-11417.101.15~1/RELEASE_ARM64_T6000 arm64 (Darwin\ *)
++nvm_get_os:6> NVM_OS=darwin 
++nvm_get_os:13> nvm_echo darwin
++nvm_echo:1> printf '%s\n' darwin
++nvm_is_version_installed:6> [ _darwin '=' _win ']'
++nvm_is_version_installed:9> nvm_version_path v24.9.0
++nvm_is_version_installed:9> [ -x /Users/themrb/.nvm/versions/node/v24.9.0/bin/node ']'
++nvm_is_version_installed:10> return 0
++nvm_ls:43> VERSIONS=v24.9.0 
++nvm_ls:128> [ '' '=' true ']'
++nvm_ls:136> [ -z v24.9.0 ']'
++nvm_ls:141> nvm_echo v24.9.0
++nvm_echo:1> printf '%s\n' v24.9.0
++nvm_version:21> VERSION=v24.9.0 
++nvm_version:22> [ -z v24.9.0 ']'
++nvm_version:22> [ _v24.9.0 '=' _N/A ']'
++nvm_version:26> nvm_echo v24.9.0
++nvm_echo:1> printf '%s\n' v24.9.0
++nvm:835> VERSION=v24.9.0 
++nvm:838> [ -z v24.9.0 ']'
++nvm:843> [ _v24.9.0 '=' _system ']'
++nvm:858> [ _v24.9.0 '=' _∞ ']'
++nvm:864> [ v24.9.0 '=' N/A ']'
++nvm:871> nvm_ensure_version_installed v24.9.0 0
++nvm_ensure_version_installed:1> local PROVIDED_VERSION
++nvm_ensure_version_installed:2> PROVIDED_VERSION=v24.9.0 
++nvm_ensure_version_installed:3> local IS_VERSION_FROM_NVMRC
++nvm_ensure_version_installed:4> IS_VERSION_FROM_NVMRC=0 
++nvm_ensure_version_installed:5> [ v24.9.0 '=' system ']'
++nvm_ensure_version_installed:12> local LOCAL_VERSION
++nvm_ensure_version_installed:13> local EXIT_CODE
++nvm_ensure_version_installed:14> LOCAL_VERSION=+nvm_ensure_version_installed:14> nvm_version v24.9.0
++nvm_version:1> local PATTERN
++nvm_version:2> PATTERN=v24.9.0 
++nvm_version:3> local VERSION
++nvm_version:5> [ -z v24.9.0 ']'
++nvm_version:9> [ v24.9.0 '=' current ']'
++nvm_version:14> local NVM_NODE_PREFIX
++nvm_version:15> NVM_NODE_PREFIX=+nvm_version:15> nvm_node_prefix
++nvm_node_prefix:1> nvm_echo node
++nvm_echo:1> printf '%s\n' node
++nvm_version:15> NVM_NODE_PREFIX=node 
++nvm_version:16> case _v24.9.0 (_node | _node-)
++nvm_version:21> VERSION=+nvm_version:21> nvm_ls v24.9.0
++nvm_ls:1> local PATTERN
++nvm_ls:2> PATTERN=v24.9.0 
++nvm_ls:3> local VERSIONS
++nvm_ls:4> VERSIONS='' 
++nvm_ls:5> [ v24.9.0 '=' current ']'
++nvm_ls:10> local NVM_IOJS_PREFIX
++nvm_version:21> VERSION=+nvm_ls:11> NVM_IOJS_PREFIX=+nvm_ls:11> nvm_iojs_prefix
++nvm_iojs_prefix:1> nvm_echo iojs
++nvm_version:21> tail -1
++nvm_echo:1> printf '%s\n' iojs
++nvm_ls:11> NVM_IOJS_PREFIX=iojs 
++nvm_ls:12> local NVM_NODE_PREFIX
++nvm_ls:13> NVM_NODE_PREFIX=+nvm_ls:13> nvm_node_prefix
++nvm_node_prefix:1> nvm_echo node
++nvm_echo:1> printf '%s\n' node
++nvm_ls:13> NVM_NODE_PREFIX=node 
++nvm_ls:14> local NVM_VERSION_DIR_IOJS
++nvm_ls:15> NVM_VERSION_DIR_IOJS=+nvm_ls:15> nvm_version_dir iojs
++nvm_version_dir:1> local NVM_WHICH_DIR
++nvm_version_dir:2> NVM_WHICH_DIR=iojs 
++nvm_version_dir:3> [ -z iojs ']'
++nvm_version_dir:3> [ iojs '=' new ']'
++nvm_version_dir:5> [ _iojs '=' _iojs ']'
++nvm_version_dir:6> nvm_echo /Users/themrb/.nvm/versions/io.js
++nvm_echo:1> printf '%s\n' /Users/themrb/.nvm/versions/io.js
++nvm_ls:15> NVM_VERSION_DIR_IOJS=/Users/themrb/.nvm/versions/io.js 
++nvm_ls:16> local NVM_VERSION_DIR_NEW
++nvm_ls:17> NVM_VERSION_DIR_NEW=+nvm_ls:17> nvm_version_dir new
++nvm_version_dir:1> local NVM_WHICH_DIR
++nvm_version_dir:2> NVM_WHICH_DIR=new 
++nvm_version_dir:3> [ -z new ']'
++nvm_version_dir:3> [ new '=' new ']'
++nvm_version_dir:4> nvm_echo /Users/themrb/.nvm/versions/node
++nvm_echo:1> printf '%s\n' /Users/themrb/.nvm/versions/node
++nvm_ls:17> NVM_VERSION_DIR_NEW=/Users/themrb/.nvm/versions/node 
++nvm_ls:18> local NVM_VERSION_DIR_OLD
++nvm_ls:19> NVM_VERSION_DIR_OLD=+nvm_ls:19> nvm_version_dir old
++nvm_version_dir:1> local NVM_WHICH_DIR
++nvm_version_dir:2> NVM_WHICH_DIR=old 
++nvm_version_dir:3> [ -z old ']'
++nvm_version_dir:3> [ old '=' new ']'
++nvm_version_dir:5> [ _old '=' _iojs ']'
++nvm_version_dir:7> [ _old '=' _old ']'
++nvm_version_dir:8> nvm_echo /Users/themrb/.nvm
++nvm_echo:1> printf '%s\n' /Users/themrb/.nvm
++nvm_ls:19> NVM_VERSION_DIR_OLD=/Users/themrb/.nvm 
++nvm_ls:21> case v24.9.0 (iojs | node)
++nvm_ls:21> case v24.9.0 (*)
++nvm_ls:26> nvm_resolve_local_alias v24.9.0
++nvm_resolve_local_alias:1> [ -z v24.9.0 ']'
++nvm_resolve_local_alias:5> local VERSION
++nvm_resolve_local_alias:6> local EXIT_CODE
++nvm_resolve_local_alias:7> VERSION=+nvm_resolve_local_alias:7> nvm_resolve_alias v24.9.0
++nvm_resolve_alias:1> [ -z v24.9.0 ']'
++nvm_resolve_alias:5> local PATTERN
++nvm_resolve_alias:6> PATTERN=v24.9.0 
++nvm_resolve_alias:8> local ALIAS
++nvm_resolve_alias:9> ALIAS=v24.9.0 
++nvm_resolve_alias:10> local ALIAS_TEMP
++nvm_resolve_alias:12> local SEEN_ALIASES
++nvm_resolve_alias:13> SEEN_ALIASES=v24.9.0 
++nvm_resolve_alias:14> true
++nvm_resolve_alias:15> ALIAS_TEMP=+nvm_resolve_alias:15> nvm_alias v24.9.0
++nvm_resolve_alias:15> nvm_echo
++nvm_echo:1> printf '%s\n' ''
++nvm_resolve_alias:15> ALIAS_TEMP='' 
++nvm_resolve_alias:17> [ -z '' ']'
++nvm_resolve_alias:18> break
++nvm_resolve_alias:30> [ -n v24.9.0 ']'
++nvm_resolve_alias:30> [ _v24.9.0 '!=' _v24.9.0 ']'
++nvm_resolve_alias:48> nvm_validate_implicit_alias v24.9.0
++nvm_resolve_alias:56> return 2
++nvm_resolve_local_alias:7> VERSION='' 
++nvm_resolve_local_alias:8> EXIT_CODE=2 
++nvm_resolve_local_alias:9> [ -z '' ']'
++nvm_resolve_local_alias:10> return 2
++nvm_ls:29> PATTERN=+nvm_ls:29> nvm_ensure_version_prefix v24.9.0
++nvm_ensure_version_prefix:1> local NVM_VERSION
++nvm_ensure_version_prefix:2> NVM_VERSION=+nvm_ensure_version_prefix:2> nvm_strip_iojs_prefix v24.9.0
++nvm_strip_iojs_prefix:1> local NVM_IOJS_PREFIX
++nvm_ensure_version_prefix:2> NVM_VERSION=+nvm_ensure_version_prefix:2> sed -e 's/^\([0-9]\)/v\1/g'
++nvm_strip_iojs_prefix:2> NVM_IOJS_PREFIX=+nvm_strip_iojs_prefix:2> nvm_iojs_prefix
++nvm_iojs_prefix:1> nvm_echo iojs
++nvm_echo:1> printf '%s\n' iojs
++nvm_strip_iojs_prefix:2> NVM_IOJS_PREFIX=iojs 
++nvm_strip_iojs_prefix:3> [ v24.9.0 '=' iojs ']'
++nvm_strip_iojs_prefix:6> nvm_echo v24.9.0
++nvm_echo:1> printf '%s\n' v24.9.0
++nvm_ensure_version_prefix:2> NVM_VERSION=v24.9.0 
++nvm_ensure_version_prefix:3> nvm_is_iojs_version v24.9.0
++nvm_is_iojs_version:1> case v24.9.0 (iojs-*)
++nvm_is_iojs_version:2> return 1
++nvm_ensure_version_prefix:6> nvm_echo v24.9.0
++nvm_echo:1> printf '%s\n' v24.9.0
++nvm_ls:29> PATTERN=v24.9.0 
++nvm_ls:32> [ v24.9.0 '=' N/A ']'
++nvm_ls:36> local NVM_PATTERN_STARTS_WITH_V
++nvm_ls:37> case v24.9.0 (v*)
++nvm_ls:38> NVM_PATTERN_STARTS_WITH_V=true 
++nvm_ls:41> [ true '=' true ']'
++nvm_ls:41> nvm_num_version_groups v24.9.0
++nvm_num_version_groups:1> local VERSION
++nvm_num_version_groups:2> VERSION=v24.9.0 
++nvm_num_version_groups:3> VERSION=24.9.0 
++nvm_num_version_groups:4> VERSION=24.9.0 
++nvm_num_version_groups:5> [ -z 24.9.0 ']'
++nvm_num_version_groups:9> local NVM_NUM_DOTS
++nvm_num_version_groups:10> NVM_NUM_DOTS=+nvm_num_version_groups:10> nvm_echo 24.9.0
++nvm_num_version_groups:10> NVM_NUM_DOTS=+nvm_num_version_groups:10> sed -e 's/[^\.]//g'
++nvm_echo:1> printf '%s\n' 24.9.0
++nvm_num_version_groups:10> NVM_NUM_DOTS=.. 
++nvm_num_version_groups:11> local NVM_NUM_GROUPS
++nvm_num_version_groups:12> NVM_NUM_GROUPS=... 
++nvm_num_version_groups:13> nvm_echo 3
++nvm_echo:1> printf '%s\n' 3
++nvm_ls:41> [ _3 '=' _3 ']'
++nvm_ls:42> nvm_is_version_installed v24.9.0
++nvm_is_version_installed:1> [ -z v24.9.0 ']'
++nvm_is_version_installed:4> local NVM_NODE_BINARY
++nvm_is_version_installed:5> NVM_NODE_BINARY=node 
++nvm_is_version_installed:6> nvm_get_os
++nvm_get_os:1> local NVM_UNAME
++nvm_get_os:2> NVM_UNAME=+nvm_get_os:2> uname -a
++nvm_get_os:2> NVM_UNAME='Darwin HN-SKY-A0650 24.4.0 Darwin Kernel Version 24.4.0: Wed Mar 19 21:16:34 PDT 2025; root:xnu-11417.101.15~1/RELEASE_ARM64_T6000 arm64' 
++nvm_get_os:3> local NVM_OS
++nvm_get_os:4> case Darwin HN-SKY-A0650 24.4.0 Darwin Kernel Version 24.4.0: Wed Mar 19 21:16:34 PDT 2025; root:xnu-11417.101.15~1/RELEASE_ARM64_T6000 arm64 (Linux\ *)
++nvm_get_os:4> case Darwin HN-SKY-A0650 24.4.0 Darwin Kernel Version 24.4.0: Wed Mar 19 21:16:34 PDT 2025; root:xnu-11417.101.15~1/RELEASE_ARM64_T6000 arm64 (Darwin\ *)
++nvm_get_os:6> NVM_OS=darwin 
++nvm_get_os:13> nvm_echo darwin
++nvm_echo:1> printf '%s\n' darwin
++nvm_is_version_installed:6> [ _darwin '=' _win ']'
++nvm_is_version_installed:9> nvm_version_path v24.9.0
++nvm_is_version_installed:9> [ -x /Users/themrb/.nvm/versions/node/v24.9.0/bin/node ']'
++nvm_is_version_installed:10> return 0
++nvm_ls:43> VERSIONS=v24.9.0 
++nvm_ls:128> [ '' '=' true ']'
++nvm_ls:136> [ -z v24.9.0 ']'
++nvm_ls:141> nvm_echo v24.9.0
++nvm_echo:1> printf '%s\n' v24.9.0
++nvm_version:21> VERSION=v24.9.0 
++nvm_version:22> [ -z v24.9.0 ']'
++nvm_version:22> [ _v24.9.0 '=' _N/A ']'
++nvm_version:26> nvm_echo v24.9.0
++nvm_echo:1> printf '%s\n' v24.9.0
++nvm_ensure_version_installed:14> LOCAL_VERSION=v24.9.0 
++nvm_ensure_version_installed:15> EXIT_CODE=0 
++nvm_ensure_version_installed:16> local NVM_VERSION_DIR
++nvm_ensure_version_installed:17> [ 0 '!=' 0 ']'
++nvm_ensure_version_installed:17> nvm_is_version_installed v24.9.0
++nvm_is_version_installed:1> [ -z v24.9.0 ']'
++nvm_is_version_installed:4> local NVM_NODE_BINARY
++nvm_is_version_installed:5> NVM_NODE_BINARY=node 
++nvm_is_version_installed:6> nvm_get_os
++nvm_get_os:1> local NVM_UNAME
++nvm_get_os:2> NVM_UNAME=+nvm_get_os:2> uname -a
++nvm_get_os:2> NVM_UNAME='Darwin HN-SKY-A0650 24.4.0 Darwin Kernel Version 24.4.0: Wed Mar 19 21:16:34 PDT 2025; root:xnu-11417.101.15~1/RELEASE_ARM64_T6000 arm64' 
++nvm_get_os:3> local NVM_OS
++nvm_get_os:4> case Darwin HN-SKY-A0650 24.4.0 Darwin Kernel Version 24.4.0: Wed Mar 19 21:16:34 PDT 2025; root:xnu-11417.101.15~1/RELEASE_ARM64_T6000 arm64 (Linux\ *)
++nvm_get_os:4> case Darwin HN-SKY-A0650 24.4.0 Darwin Kernel Version 24.4.0: Wed Mar 19 21:16:34 PDT 2025; root:xnu-11417.101.15~1/RELEASE_ARM64_T6000 arm64 (Darwin\ *)
++nvm_get_os:6> NVM_OS=darwin 
++nvm_get_os:13> nvm_echo darwin
++nvm_echo:1> printf '%s\n' darwin
++nvm_is_version_installed:6> [ _darwin '=' _win ']'
++nvm_is_version_installed:9> nvm_version_path v24.9.0
++nvm_is_version_installed:9> [ -x /Users/themrb/.nvm/versions/node/v24.9.0/bin/node ']'
++nvm_is_version_installed:10> return 0
++nvm:875> local NVM_VERSION_DIR
++nvm:876> NVM_VERSION_DIR=+nvm:876> nvm_version_path v24.9.0
++nvm_version_path:1> local VERSION
++nvm_version_path:2> VERSION=v24.9.0 
++nvm_version_path:3> [ -z v24.9.0 ']'
++nvm_version_path:6> nvm_is_iojs_version v24.9.0
++nvm_is_iojs_version:1> case v24.9.0 (iojs-*)
++nvm_is_iojs_version:2> return 1
++nvm_version_path:8> nvm_version_greater 0.12.0 v24.9.0
++nvm_version_greater:1> awk $'BEGIN {\n    if (ARGV[1] == "" || ARGV[2] == "") exit(1)\n    split(ARGV[1], a, /\\./);\n    split(ARGV[2], b, /\\./);\n    for (i=1; i<=3; i++) {\n      if (a[i] && a[i] !~ /^[0-9]+$/) exit(2);\n      if (b[i] && b[i] !~ /^[0-9]+$/) { exit(0); }\n      if (a[i] < b[i]) exit(3);\n      else if (a[i] > b[i]) exit(0);\n    }\n    exit(4)\n  }' 0.12.0 24.9.0
++nvm_version_path:11> nvm_version_dir new
++nvm_version_dir:1> local NVM_WHICH_DIR
++nvm_version_dir:2> NVM_WHICH_DIR=new 
++nvm_version_dir:3> [ -z new ']'
++nvm_version_dir:3> [ new '=' new ']'
++nvm_version_dir:4> nvm_echo /Users/themrb/.nvm/versions/node
++nvm_echo:1> printf '%s\n' /Users/themrb/.nvm/versions/node
++nvm_version_path:11> nvm_echo /Users/themrb/.nvm/versions/node/v24.9.0
++nvm_echo:1> printf '%s\n' /Users/themrb/.nvm/versions/node/v24.9.0
++nvm:876> NVM_VERSION_DIR=/Users/themrb/.nvm/versions/node/v24.9.0 
++nvm:879> PATH=+nvm:879> nvm_change_path '/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/.codex/tmp/arg0/codex-arg013uG0B:/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/Library/TeX/texbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/opt/podman/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/Library/pnpm:/Users/themrb/.nvm/versions/node/v22.14.0/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/Users/themrb/.cargo/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Applications/Warp.app/Contents/Resources/bin:/Users/themrb/.dotnet/tools:/Users/themrb/.local/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin' /bin /Users/themrb/.nvm/versions/node/v24.9.0
++nvm_change_path:2> [ -z '/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/.codex/tmp/arg0/codex-arg013uG0B:/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/Library/TeX/texbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/opt/podman/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/Library/pnpm:/Users/themrb/.nvm/versions/node/v22.14.0/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/Users/themrb/.cargo/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Applications/Warp.app/Contents/Resources/bin:/Users/themrb/.dotnet/tools:/Users/themrb/.local/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin' ']'
++nvm_change_path:6> nvm_grep -q '/Users/themrb/.nvm/[^/]*/bin'
++nvm_change_path:6> nvm_echo '/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/.codex/tmp/arg0/codex-arg013uG0B:/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/Library/TeX/texbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/opt/podman/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/Library/pnpm:/Users/themrb/.nvm/versions/node/v22.14.0/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/Users/themrb/.cargo/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Applications/Warp.app/Contents/Resources/bin:/Users/themrb/.dotnet/tools:/Users/themrb/.local/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin'
++nvm_echo:1> printf '%s\n' '/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/.codex/tmp/arg0/codex-arg013uG0B:/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/Library/TeX/texbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/opt/podman/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/Library/pnpm:/Users/themrb/.nvm/versions/node/v22.14.0/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/Users/themrb/.cargo/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Applications/Warp.app/Contents/Resources/bin:/Users/themrb/.dotnet/tools:/Users/themrb/.local/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin'
++nvm_grep:1> GREP_OPTIONS='' grep -q '/Users/themrb/.nvm/[^/]*/bin'
++nvm_change_path:7> nvm_echo '/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/.codex/tmp/arg0/codex-arg013uG0B:/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/Library/TeX/texbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/opt/podman/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/Library/pnpm:/Users/themrb/.nvm/versions/node/v22.14.0/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/Users/themrb/.cargo/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Applications/Warp.app/Contents/Resources/bin:/Users/themrb/.dotnet/tools:/Users/themrb/.local/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin'
++nvm_change_path:7> nvm_grep -q '/Users/themrb/.nvm/versions/[^/]*/[^/]*/bin'
++nvm_grep:1> GREP_OPTIONS='' grep -q '/Users/themrb/.nvm/versions/[^/]*/[^/]*/bin'
++nvm_echo:1> printf '%s\n' '/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/.codex/tmp/arg0/codex-arg013uG0B:/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/Library/TeX/texbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/opt/podman/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/Library/pnpm:/Users/themrb/.nvm/versions/node/v22.14.0/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/Users/themrb/.cargo/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Applications/Warp.app/Contents/Resources/bin:/Users/themrb/.dotnet/tools:/Users/themrb/.local/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin'
++nvm_change_path:13> nvm_echo '/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/.codex/tmp/arg0/codex-arg013uG0B:/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/Library/TeX/texbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/opt/podman/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/Library/pnpm:/Users/themrb/.nvm/versions/node/v22.14.0/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/Users/themrb/.cargo/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Applications/Warp.app/Contents/Resources/bin:/Users/themrb/.dotnet/tools:/Users/themrb/.local/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin'
++nvm_change_path:13> nvm_grep -Eq '(^|:)(/usr(/local)?)?/bin:.*/Users/themrb/.nvm/[^/]*/bin'
++nvm_echo:1> printf '%s\n' '/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/.codex/tmp/arg0/codex-arg013uG0B:/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/Library/TeX/texbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/opt/podman/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/Library/pnpm:/Users/themrb/.nvm/versions/node/v22.14.0/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/Users/themrb/.cargo/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Applications/Warp.app/Contents/Resources/bin:/Users/themrb/.dotnet/tools:/Users/themrb/.local/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin'
++nvm_grep:1> GREP_OPTIONS='' grep -Eq '(^|:)(/usr(/local)?)?/bin:.*/Users/themrb/.nvm/[^/]*/bin'
++nvm_change_path:14> nvm_echo '/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/.codex/tmp/arg0/codex-arg013uG0B:/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/Library/TeX/texbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/opt/podman/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/Library/pnpm:/Users/themrb/.nvm/versions/node/v22.14.0/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/Users/themrb/.cargo/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Applications/Warp.app/Contents/Resources/bin:/Users/themrb/.dotnet/tools:/Users/themrb/.local/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin'
++nvm_change_path:14> nvm_grep -Eq '(^|:)(/usr(/local)?)?/bin:.*/Users/themrb/.nvm/versions/[^/]*/[^/]*/bin'
++nvm_echo:1> printf '%s\n' '/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/.codex/tmp/arg0/codex-arg013uG0B:/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/Library/TeX/texbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/opt/podman/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/Library/pnpm:/Users/themrb/.nvm/versions/node/v22.14.0/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/Users/themrb/.cargo/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Applications/Warp.app/Contents/Resources/bin:/Users/themrb/.dotnet/tools:/Users/themrb/.local/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin'
++nvm_grep:1> GREP_OPTIONS='' grep -Eq '(^|:)(/usr(/local)?)?/bin:.*/Users/themrb/.nvm/versions/[^/]*/[^/]*/bin'
++nvm_change_path:15> nvm_echo '/Users/themrb/.nvm/versions/node/v24.9.0/bin:/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/.codex/tmp/arg0/codex-arg013uG0B:/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/Library/TeX/texbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/opt/podman/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/Library/pnpm:/Users/themrb/.nvm/versions/node/v22.14.0/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/Users/themrb/.cargo/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Applications/Warp.app/Contents/Resources/bin:/Users/themrb/.dotnet/tools:/Users/themrb/.local/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin'
++nvm_echo:1> printf '%s\n' '/Users/themrb/.nvm/versions/node/v24.9.0/bin:/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/.codex/tmp/arg0/codex-arg013uG0B:/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/Library/TeX/texbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/opt/podman/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/Library/pnpm:/Users/themrb/.nvm/versions/node/v22.14.0/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/Users/themrb/.cargo/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Applications/Warp.app/Contents/Resources/bin:/Users/themrb/.dotnet/tools:/Users/themrb/.local/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin'
++nvm:879> PATH='/Users/themrb/.nvm/versions/node/v24.9.0/bin:/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/.codex/tmp/arg0/codex-arg013uG0B:/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/Library/TeX/texbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/opt/podman/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/Library/pnpm:/Users/themrb/.nvm/versions/node/v22.14.0/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/Users/themrb/.cargo/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Applications/Warp.app/Contents/Resources/bin:/Users/themrb/.dotnet/tools:/Users/themrb/.local/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin' 
++nvm:880> nvm_has manpath
++nvm_has:1> type manpath
++nvm:881> [ -z '' ']'
++nvm:882> local MANPATH
++nvm:883> MANPATH=+nvm:883> manpath
++nvm:883> MANPATH=/Users/themrb/.nvm/versions/node/v24.9.0/share/man:/opt/homebrew/opt/libpq/share/man:/Users/themrb/.local/share/man:/opt/homebrew/opt/ruby/share/man:/Library/Frameworks/Python.framework/Versions/3.9/share/man:/opt/homebrew/share/man:/System/Cryptexes/App/usr/share/man:/usr/share/man:/Users/themrb/.nvm/versions/node/v22.14.0/share/man:/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/share/man:/Applications/Xcode.app/Contents/Developer/usr/share/man:/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/share/man 
++nvm:886> MANPATH=+nvm:886> nvm_change_path /Users/themrb/.nvm/versions/node/v24.9.0/share/man:/opt/homebrew/opt/libpq/share/man:/Users/themrb/.local/share/man:/opt/homebrew/opt/ruby/share/man:/Library/Frameworks/Python.framework/Versions/3.9/share/man:/opt/homebrew/share/man:/System/Cryptexes/App/usr/share/man:/usr/share/man:/Users/themrb/.nvm/versions/node/v22.14.0/share/man:/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/share/man:/Applications/Xcode.app/Contents/Developer/usr/share/man:/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/share/man /share/man /Users/themrb/.nvm/versions/node/v24.9.0
++nvm_change_path:2> [ -z /Users/themrb/.nvm/versions/node/v24.9.0/share/man:/opt/homebrew/opt/libpq/share/man:/Users/themrb/.local/share/man:/opt/homebrew/opt/ruby/share/man:/Library/Frameworks/Python.framework/Versions/3.9/share/man:/opt/homebrew/share/man:/System/Cryptexes/App/usr/share/man:/usr/share/man:/Users/themrb/.nvm/versions/node/v22.14.0/share/man:/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/share/man:/Applications/Xcode.app/Contents/Developer/usr/share/man:/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/share/man ']'
++nvm_change_path:6> nvm_grep -q '/Users/themrb/.nvm/[^/]*/share/man'
++nvm_change_path:6> nvm_echo /Users/themrb/.nvm/versions/node/v24.9.0/share/man:/opt/homebrew/opt/libpq/share/man:/Users/themrb/.local/share/man:/opt/homebrew/opt/ruby/share/man:/Library/Frameworks/Python.framework/Versions/3.9/share/man:/opt/homebrew/share/man:/System/Cryptexes/App/usr/share/man:/usr/share/man:/Users/themrb/.nvm/versions/node/v22.14.0/share/man:/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/share/man:/Applications/Xcode.app/Contents/Developer/usr/share/man:/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/share/man
++nvm_grep:1> GREP_OPTIONS='' grep -q '/Users/themrb/.nvm/[^/]*/share/man'
++nvm_echo:1> printf '%s\n' /Users/themrb/.nvm/versions/node/v24.9.0/share/man:/opt/homebrew/opt/libpq/share/man:/Users/themrb/.local/share/man:/opt/homebrew/opt/ruby/share/man:/Library/Frameworks/Python.framework/Versions/3.9/share/man:/opt/homebrew/share/man:/System/Cryptexes/App/usr/share/man:/usr/share/man:/Users/themrb/.nvm/versions/node/v22.14.0/share/man:/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/share/man:/Applications/Xcode.app/Contents/Developer/usr/share/man:/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/share/man
++nvm_change_path:7> nvm_grep -q '/Users/themrb/.nvm/versions/[^/]*/[^/]*/share/man'
++nvm_change_path:7> nvm_echo /Users/themrb/.nvm/versions/node/v24.9.0/share/man:/opt/homebrew/opt/libpq/share/man:/Users/themrb/.local/share/man:/opt/homebrew/opt/ruby/share/man:/Library/Frameworks/Python.framework/Versions/3.9/share/man:/opt/homebrew/share/man:/System/Cryptexes/App/usr/share/man:/usr/share/man:/Users/themrb/.nvm/versions/node/v22.14.0/share/man:/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/share/man:/Applications/Xcode.app/Contents/Developer/usr/share/man:/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/share/man
++nvm_grep:1> GREP_OPTIONS='' grep -q '/Users/themrb/.nvm/versions/[^/]*/[^/]*/share/man'
++nvm_echo:1> printf '%s\n' /Users/themrb/.nvm/versions/node/v24.9.0/share/man:/opt/homebrew/opt/libpq/share/man:/Users/themrb/.local/share/man:/opt/homebrew/opt/ruby/share/man:/Library/Frameworks/Python.framework/Versions/3.9/share/man:/opt/homebrew/share/man:/System/Cryptexes/App/usr/share/man:/usr/share/man:/Users/themrb/.nvm/versions/node/v22.14.0/share/man:/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/share/man:/Applications/Xcode.app/Contents/Developer/usr/share/man:/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/share/man
++nvm_change_path:13> nvm_grep -Eq '(^|:)(/usr(/local)?)?/share/man:.*/Users/themrb/.nvm/[^/]*/share/man'
++nvm_change_path:13> nvm_echo /Users/themrb/.nvm/versions/node/v24.9.0/share/man:/opt/homebrew/opt/libpq/share/man:/Users/themrb/.local/share/man:/opt/homebrew/opt/ruby/share/man:/Library/Frameworks/Python.framework/Versions/3.9/share/man:/opt/homebrew/share/man:/System/Cryptexes/App/usr/share/man:/usr/share/man:/Users/themrb/.nvm/versions/node/v22.14.0/share/man:/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/share/man:/Applications/Xcode.app/Contents/Developer/usr/share/man:/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/share/man
++nvm_grep:1> GREP_OPTIONS='' grep -Eq '(^|:)(/usr(/local)?)?/share/man:.*/Users/themrb/.nvm/[^/]*/share/man'
++nvm_echo:1> printf '%s\n' /Users/themrb/.nvm/versions/node/v24.9.0/share/man:/opt/homebrew/opt/libpq/share/man:/Users/themrb/.local/share/man:/opt/homebrew/opt/ruby/share/man:/Library/Frameworks/Python.framework/Versions/3.9/share/man:/opt/homebrew/share/man:/System/Cryptexes/App/usr/share/man:/usr/share/man:/Users/themrb/.nvm/versions/node/v22.14.0/share/man:/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/share/man:/Applications/Xcode.app/Contents/Developer/usr/share/man:/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/share/man
++nvm_change_path:14> nvm_echo /Users/themrb/.nvm/versions/node/v24.9.0/share/man:/opt/homebrew/opt/libpq/share/man:/Users/themrb/.local/share/man:/opt/homebrew/opt/ruby/share/man:/Library/Frameworks/Python.framework/Versions/3.9/share/man:/opt/homebrew/share/man:/System/Cryptexes/App/usr/share/man:/usr/share/man:/Users/themrb/.nvm/versions/node/v22.14.0/share/man:/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/share/man:/Applications/Xcode.app/Contents/Developer/usr/share/man:/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/share/man
++nvm_change_path:14> nvm_grep -Eq '(^|:)(/usr(/local)?)?/share/man:.*/Users/themrb/.nvm/versions/[^/]*/[^/]*/share/man'
++nvm_grep:1> GREP_OPTIONS='' grep -Eq '(^|:)(/usr(/local)?)?/share/man:.*/Users/themrb/.nvm/versions/[^/]*/[^/]*/share/man'
++nvm_echo:1> printf '%s\n' /Users/themrb/.nvm/versions/node/v24.9.0/share/man:/opt/homebrew/opt/libpq/share/man:/Users/themrb/.local/share/man:/opt/homebrew/opt/ruby/share/man:/Library/Frameworks/Python.framework/Versions/3.9/share/man:/opt/homebrew/share/man:/System/Cryptexes/App/usr/share/man:/usr/share/man:/Users/themrb/.nvm/versions/node/v22.14.0/share/man:/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/share/man:/Applications/Xcode.app/Contents/Developer/usr/share/man:/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/share/man
++nvm_change_path:15> nvm_echo /Users/themrb/.nvm/versions/node/v24.9.0/share/man:/Users/themrb/.nvm/versions/node/v24.9.0/share/man:/opt/homebrew/opt/libpq/share/man:/Users/themrb/.local/share/man:/opt/homebrew/opt/ruby/share/man:/Library/Frameworks/Python.framework/Versions/3.9/share/man:/opt/homebrew/share/man:/System/Cryptexes/App/usr/share/man:/usr/share/man:/Users/themrb/.nvm/versions/node/v22.14.0/share/man:/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/share/man:/Applications/Xcode.app/Contents/Developer/usr/share/man:/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/share/man
++nvm_echo:1> printf '%s\n' /Users/themrb/.nvm/versions/node/v24.9.0/share/man:/Users/themrb/.nvm/versions/node/v24.9.0/share/man:/opt/homebrew/opt/libpq/share/man:/Users/themrb/.local/share/man:/opt/homebrew/opt/ruby/share/man:/Library/Frameworks/Python.framework/Versions/3.9/share/man:/opt/homebrew/share/man:/System/Cryptexes/App/usr/share/man:/usr/share/man:/Users/themrb/.nvm/versions/node/v22.14.0/share/man:/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/share/man:/Applications/Xcode.app/Contents/Developer/usr/share/man:/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/share/man
++nvm:886> MANPATH=/Users/themrb/.nvm/versions/node/v24.9.0/share/man:/Users/themrb/.nvm/versions/node/v24.9.0/share/man:/opt/homebrew/opt/libpq/share/man:/Users/themrb/.local/share/man:/opt/homebrew/opt/ruby/share/man:/Library/Frameworks/Python.framework/Versions/3.9/share/man:/opt/homebrew/share/man:/System/Cryptexes/App/usr/share/man:/usr/share/man:/Users/themrb/.nvm/versions/node/v22.14.0/share/man:/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/share/man:/Applications/Xcode.app/Contents/Developer/usr/share/man:/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/share/man 
++nvm:887> export MANPATH
++nvm:889> export PATH
++nvm:890> hash -r
++nvm:891> export NVM_BIN=/Users/themrb/.nvm/versions/node/v24.9.0/bin
++nvm:892> export NVM_INC=/Users/themrb/.nvm/versions/node/v24.9.0/include/node
++nvm:893> [ '' '=' true ']'
++nvm:896> local NVM_USE_OUTPUT
++nvm:897> NVM_USE_OUTPUT='' 
++nvm:898> [ 1 -ne 1 ']'
++nvm:905> [ _v24.9.0 '!=' _system ']'
++nvm:906> local NVM_USE_CMD
++nvm:907> NVM_USE_CMD='nvm use --delete-prefix' 
++nvm:908> [ -n v24.9.0 ']'
++nvm:909> NVM_USE_CMD='nvm use --delete-prefix v24.9.0' 
++nvm:911> [ 1 -eq 1 ']'
++nvm:912> NVM_USE_CMD='nvm use --delete-prefix v24.9.0 --silent' 
++nvm:914> nvm_die_on_prefix 0 'nvm use --delete-prefix v24.9.0 --silent' /Users/themrb/.nvm/versions/node/v24.9.0
++nvm_die_on_prefix:1> local NVM_DELETE_PREFIX
++nvm_die_on_prefix:2> NVM_DELETE_PREFIX=0 
++nvm_die_on_prefix:3> case 0 (0)
++nvm_die_on_prefix:10> local NVM_COMMAND
++nvm_die_on_prefix:11> NVM_COMMAND='nvm use --delete-prefix v24.9.0 --silent' 
++nvm_die_on_prefix:12> local NVM_VERSION_DIR
++nvm_die_on_prefix:13> NVM_VERSION_DIR=/Users/themrb/.nvm/versions/node/v24.9.0 
++nvm_die_on_prefix:14> [ -z 'nvm use --delete-prefix v24.9.0 --silent' ']'
++nvm_die_on_prefix:14> [ -z /Users/themrb/.nvm/versions/node/v24.9.0 ']'
++nvm_die_on_prefix:22> [ -n '' ']'
++nvm_die_on_prefix:29> local NVM_OS
++nvm_die_on_prefix:30> NVM_OS=+nvm_die_on_prefix:30> nvm_get_os
++nvm_get_os:1> local NVM_UNAME
++nvm_get_os:2> NVM_UNAME=+nvm_get_os:2> uname -a
++nvm_get_os:2> NVM_UNAME='Darwin HN-SKY-A0650 24.4.0 Darwin Kernel Version 24.4.0: Wed Mar 19 21:16:34 PDT 2025; root:xnu-11417.101.15~1/RELEASE_ARM64_T6000 arm64' 
++nvm_get_os:3> local NVM_OS
++nvm_get_os:4> case Darwin HN-SKY-A0650 24.4.0 Darwin Kernel Version 24.4.0: Wed Mar 19 21:16:34 PDT 2025; root:xnu-11417.101.15~1/RELEASE_ARM64_T6000 arm64 (Linux\ *)
++nvm_get_os:4> case Darwin HN-SKY-A0650 24.4.0 Darwin Kernel Version 24.4.0: Wed Mar 19 21:16:34 PDT 2025; root:xnu-11417.101.15~1/RELEASE_ARM64_T6000 arm64 (Darwin\ *)
++nvm_get_os:6> NVM_OS=darwin 
++nvm_get_os:13> nvm_echo darwin
++nvm_echo:1> printf '%s\n' darwin
++nvm_die_on_prefix:30> NVM_OS=darwin 
++nvm_die_on_prefix:38> local NVM_NPM_CONFIG_x_PREFIX_ENV
++nvm_die_on_prefix:39> NVM_NPM_CONFIG_x_PREFIX_ENV=+nvm_die_on_prefix:39> awk 'BEGIN { for (name in ENVIRON) if (toupper(name) == "NPM_CONFIG_PREFIX") { print name; break } }'
++nvm_die_on_prefix:39> NVM_NPM_CONFIG_x_PREFIX_ENV='' 
++nvm_die_on_prefix:40> [ -n '' ']'
++nvm_die_on_prefix:66> local NVM_NPM_BUILTIN_NPMRC
++nvm_die_on_prefix:67> NVM_NPM_BUILTIN_NPMRC=/Users/themrb/.nvm/versions/node/v24.9.0/lib/node_modules/npm/npmrc 
++nvm_die_on_prefix:68> nvm_npmrc_bad_news_bears /Users/themrb/.nvm/versions/node/v24.9.0/lib/node_modules/npm/npmrc
++nvm_npmrc_bad_news_bears:1> local NVM_NPMRC
++nvm_npmrc_bad_news_bears:2> NVM_NPMRC=/Users/themrb/.nvm/versions/node/v24.9.0/lib/node_modules/npm/npmrc 
++nvm_npmrc_bad_news_bears:3> [ -n /Users/themrb/.nvm/versions/node/v24.9.0/lib/node_modules/npm/npmrc ']'
++nvm_npmrc_bad_news_bears:3> [ -f /Users/themrb/.nvm/versions/node/v24.9.0/lib/node_modules/npm/npmrc ']'
++nvm_npmrc_bad_news_bears:6> return 1
++nvm_die_on_prefix:80> local NVM_NPM_GLOBAL_NPMRC
++nvm_die_on_prefix:81> NVM_NPM_GLOBAL_NPMRC=/Users/themrb/.nvm/versions/node/v24.9.0/etc/npmrc 
++nvm_die_on_prefix:82> nvm_npmrc_bad_news_bears /Users/themrb/.nvm/versions/node/v24.9.0/etc/npmrc
++nvm_npmrc_bad_news_bears:1> local NVM_NPMRC
++nvm_npmrc_bad_news_bears:2> NVM_NPMRC=/Users/themrb/.nvm/versions/node/v24.9.0/etc/npmrc 
++nvm_npmrc_bad_news_bears:3> [ -n /Users/themrb/.nvm/versions/node/v24.9.0/etc/npmrc ']'
++nvm_npmrc_bad_news_bears:3> [ -f /Users/themrb/.nvm/versions/node/v24.9.0/etc/npmrc ']'
++nvm_npmrc_bad_news_bears:6> return 1
++nvm_die_on_prefix:94> local NVM_NPM_USER_NPMRC
++nvm_die_on_prefix:95> NVM_NPM_USER_NPMRC=/Users/themrb/.npmrc 
++nvm_die_on_prefix:96> nvm_npmrc_bad_news_bears /Users/themrb/.npmrc
++nvm_npmrc_bad_news_bears:1> local NVM_NPMRC
++nvm_npmrc_bad_news_bears:2> NVM_NPMRC=/Users/themrb/.npmrc 
++nvm_npmrc_bad_news_bears:3> [ -n /Users/themrb/.npmrc ']'
++nvm_npmrc_bad_news_bears:3> [ -f /Users/themrb/.npmrc ']'
++nvm_npmrc_bad_news_bears:3> nvm_grep -Ee '^(prefix|globalconfig) *='
++nvm_grep:1> GREP_OPTIONS='' grep -Ee '^(prefix|globalconfig) *='
++nvm_npmrc_bad_news_bears:6> return 1
++nvm_die_on_prefix:108> local NVM_NPM_PROJECT_NPMRC
++nvm_die_on_prefix:109> NVM_NPM_PROJECT_NPMRC=+nvm_die_on_prefix:109> nvm_find_project_dir
++nvm_find_project_dir:1> local path_
++nvm_find_project_dir:2> path_=/Users/themrb/Documents/personal/officeclaw 
++nvm_find_project_dir:3> [ /Users/themrb/Documents/personal/officeclaw '!=' '' ']'
++nvm_find_project_dir:3> [ ! -f /Users/themrb/Documents/personal/officeclaw/package.json ']'
++nvm_find_project_dir:3> [ ! -d /Users/themrb/Documents/personal/officeclaw/node_modules ']'
++nvm_find_project_dir:4> path_=/Users/themrb/Documents/personal 
++nvm_find_project_dir:3> [ /Users/themrb/Documents/personal '!=' '' ']'
++nvm_find_project_dir:3> [ ! -f /Users/themrb/Documents/personal/package.json ']'
++nvm_find_project_dir:3> [ ! -d /Users/themrb/Documents/personal/node_modules ']'
++nvm_find_project_dir:4> path_=/Users/themrb/Documents 
++nvm_find_project_dir:3> [ /Users/themrb/Documents '!=' '' ']'
++nvm_find_project_dir:3> [ ! -f /Users/themrb/Documents/package.json ']'
++nvm_find_project_dir:3> [ ! -d /Users/themrb/Documents/node_modules ']'
++nvm_find_project_dir:4> path_=/Users/themrb 
++nvm_find_project_dir:3> [ /Users/themrb '!=' '' ']'
++nvm_find_project_dir:3> [ ! -f /Users/themrb/package.json ']'
++nvm_find_project_dir:3> [ ! -d /Users/themrb/node_modules ']'
++nvm_find_project_dir:6> nvm_echo /Users/themrb
++nvm_echo:1> printf '%s\n' /Users/themrb
++nvm_die_on_prefix:109> NVM_NPM_PROJECT_NPMRC=/Users/themrb/.npmrc 
++nvm_die_on_prefix:110> nvm_npmrc_bad_news_bears /Users/themrb/.npmrc
++nvm_npmrc_bad_news_bears:1> local NVM_NPMRC
++nvm_npmrc_bad_news_bears:2> NVM_NPMRC=/Users/themrb/.npmrc 
++nvm_npmrc_bad_news_bears:3> [ -n /Users/themrb/.npmrc ']'
++nvm_npmrc_bad_news_bears:3> [ -f /Users/themrb/.npmrc ']'
++nvm_npmrc_bad_news_bears:3> nvm_grep -Ee '^(prefix|globalconfig) *='
++nvm_grep:1> GREP_OPTIONS='' grep -Ee '^(prefix|globalconfig) *='
++nvm_npmrc_bad_news_bears:6> return 1
++nvm:918> [ -n '' ']'
++nvm:34> return 0
++/opt/homebrew/opt/nvm/nvm.sh:5> [ -e /Users/themrb/.nvm ']'
++/opt/homebrew/opt/nvm/nvm.sh:6> [ -e /Users/themrb/.nvm/nvm.sh ']'
++/opt/homebrew/opt/nvm/nvm.sh:7> [ -e /Users/themrb/.nvm/nvm-exec ']'
++nvm:3> [ -s /opt/homebrew/opt/nvm/etc/bash_completion.d/nvm ']'
++nvm:3> . /opt/homebrew/opt/nvm/etc/bash_completion.d/nvm
++/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm:5> command -v nvm
++/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm:86> [[ -n 5.9 ]]
++/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm:89> command -v compinit
++/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm:96> autoload -U +X bashcompinit
++/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm:96> bashcompinit
++bashcompinit:178> unfunction bashcompinit
++bashcompinit:179> autoload -Uz bashcompinit
++bashcompinit:180> return 0
++/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm:99> complete -o default -F __nvm nvm
++complete:1> emulate -L zsh
++complete:2> local args void cmd print remove
++complete:3> args=( -o default -F __nvm nvm ) 
++complete:4> zparseopts -D -a void o: A: G: W: C: F: P: S: X: a b c d e f g j k u v 'p=print' 'r=remove'
++complete:6> [[ -n '' ]]
++complete:8> [[ -n '' ]]
++complete:13> compdef '_bash_complete -o default -F __nvm' nvm
++compdef:1> local opt autol type func delete eval new i ret=0 cmd svc
++compdef:2> local -a match mbegin mend
++compdef:4> emulate -L zsh
++compdef:5> setopt extendedglob
++compdef:9> ((  ! 2  ))
++compdef:14> getopts anpPkKde opt
++compdef:38> shift OPTIND-1
++compdef:40> ((  ! 2  ))
++compdef:45> [[ -z '' ]]
++compdef:49> [[ -z '' ]]
++compdef:49> [[ '_bash_complete -o default -F __nvm' = *=* ]]
++compdef:79> func='_bash_complete -o default -F __nvm' 
++compdef:80> [[ -n '' ]]
++compdef:81> shift
++compdef:83> case  (widgetkey)
++compdef:83> case  (key)
++compdef:83> case  (*)
++compdef:131> ((  1  ))
++compdef:132> [[ nvm = -N ]]
++compdef:134> [[ nvm = -p ]]
++compdef:136> [[ nvm = -P ]]
++compdef:139> case  (pattern)
++compdef:139> case  (postpattern)
++compdef:139> case  (*)
++compdef:155> [[ nvm = *=* ]]
++compdef:159> cmd=nvm 
++compdef:160> svc='' 
++compdef:162> [[ -z '' ]]
++compdef:163> _comps[$cmd]='_bash_complete -o default -F __nvm' 
++compdef:164> [[ -n '' ]]
++compdef:169> shift
++compdef:131> ((  0  ))
++nvm:4> nvm use default
++nvm:1> [ 2 -lt 1 ']'
++nvm:6> local DEFAULT_IFS
++nvm:7> DEFAULT_IFS=+nvm:7> nvm_echo t
++nvm:7> DEFAULT_IFS=+nvm:7> tr t '\t'
++nvm_echo:1> printf '%s\n' t
++nvm:7> DEFAULT_IFS=$' \t\n' 
++nvm:9> [ 569JNRXghkx '!=' 569JNRXghkx ']'
++nvm:16> [ 569JNRXghkx '!=' 569JNRXghkx ']'
++nvm:23> [ -n '' ']'
++nvm:32> [ $' \t\n\C-@' '!=' $' \t\n' ']'
++nvm:33> IFS=$' \t\n' +nvm:33> nvm use default
++nvm:1> [ 2 -lt 1 ']'
++nvm:6> local DEFAULT_IFS
++nvm:7> DEFAULT_IFS=+nvm:7> nvm_echo t
++nvm:7> DEFAULT_IFS=+nvm:7> tr t '\t'
++nvm_echo:1> printf '%s\n' t
++nvm:7> DEFAULT_IFS=$' \t\n' 
++nvm:9> [ 569JNRXghkx '!=' 569JNRXghkx ']'
++nvm:16> [ 569JNRXghkx '!=' 569JNRXghkx ']'
++nvm:23> [ -n '' ']'
++nvm:32> [ $' \t\n' '!=' $' \t\n' ']'
++nvm:37> local i
++nvm:38> i=use
++nvm:40> case use (--)
++nvm:40> case use (-h | help | --help)
++nvm:38> i=default
++nvm:40> case default (--)
++nvm:40> case default (-h | help | --help)
++nvm:193> local COMMAND
++nvm:194> COMMAND=use 
++nvm:195> shift
++nvm:198> local VERSION
++nvm:199> local ADDITIONAL_PARAMETERS
++nvm:201> case use (cache)
++nvm:201> case use (debug)
++nvm:201> case use (install | i)
++nvm:201> case use (uninstall)
++nvm:201> case use (deactivate)
++nvm:201> case use (use)
++nvm:791> local PROVIDED_VERSION
++nvm:792> local NVM_SILENT
++nvm:793> local NVM_SILENT_ARG
++nvm:794> local NVM_DELETE_PREFIX
++nvm:795> NVM_DELETE_PREFIX=0 
++nvm:796> local NVM_LTS
++nvm:797> local IS_VERSION_FROM_NVMRC
++nvm:798> IS_VERSION_FROM_NVMRC=0 
++nvm:800> [ 1 -ne 0 ']'
++nvm:801> case default (--silent)
++nvm:801> case default (--delete-prefix)
++nvm:801> case default (--)
++nvm:801> case default (--lts)
++nvm:801> case default (--lts=*)
++nvm:801> case default (--*)
++nvm:801> case default (*)
++nvm:812> [ -n default ']'
++nvm:813> PROVIDED_VERSION=default 
++nvm:817> shift
++nvm:800> [ 0 -ne 0 ']'
++nvm:820> [ -n '' ']'
++nvm:822> [ -z default ']'
++nvm:835> VERSION=+nvm:835> nvm_match_version default
++nvm_match_version:1> local NVM_IOJS_PREFIX
++nvm_match_version:2> NVM_IOJS_PREFIX=+nvm_match_version:2> nvm_iojs_prefix
++nvm_iojs_prefix:1> nvm_echo iojs
++nvm_echo:1> printf '%s\n' iojs
++nvm_match_version:2> NVM_IOJS_PREFIX=iojs 
++nvm_match_version:3> local PROVIDED_VERSION
++nvm_match_version:4> PROVIDED_VERSION=default 
++nvm_match_version:5> case _default (_iojs | _io.js)
++nvm_match_version:5> case _default (_system)
++nvm_match_version:5> case _default (*)
++nvm_match_version:13> nvm_version default
++nvm_version:1> local PATTERN
++nvm_version:2> PATTERN=default 
++nvm_version:3> local VERSION
++nvm_version:5> [ -z default ']'
++nvm_version:9> [ default '=' current ']'
++nvm_version:14> local NVM_NODE_PREFIX
++nvm_version:15> NVM_NODE_PREFIX=+nvm_version:15> nvm_node_prefix
++nvm_node_prefix:1> nvm_echo node
++nvm_echo:1> printf '%s\n' node
++nvm_version:15> NVM_NODE_PREFIX=node 
++nvm_version:16> case _default (_node | _node-)
++nvm_version:21> VERSION=+nvm_version:21> nvm_ls default
++nvm_ls:1> local PATTERN
++nvm_version:21> VERSION=+nvm_ls:2> PATTERN=default 
++nvm_ls:3> local VERSIONS
++nvm_ls:4> VERSIONS='' 
++nvm_version:21> tail -1
++nvm_ls:5> [ default '=' current ']'
++nvm_ls:10> local NVM_IOJS_PREFIX
++nvm_ls:11> NVM_IOJS_PREFIX=+nvm_ls:11> nvm_iojs_prefix
++nvm_iojs_prefix:1> nvm_echo iojs
++nvm_echo:1> printf '%s\n' iojs
++nvm_ls:11> NVM_IOJS_PREFIX=iojs 
++nvm_ls:12> local NVM_NODE_PREFIX
++nvm_ls:13> NVM_NODE_PREFIX=+nvm_ls:13> nvm_node_prefix
++nvm_node_prefix:1> nvm_echo node
++nvm_echo:1> printf '%s\n' node
++nvm_ls:13> NVM_NODE_PREFIX=node 
++nvm_ls:14> local NVM_VERSION_DIR_IOJS
++nvm_ls:15> NVM_VERSION_DIR_IOJS=+nvm_ls:15> nvm_version_dir iojs
++nvm_version_dir:1> local NVM_WHICH_DIR
++nvm_version_dir:2> NVM_WHICH_DIR=iojs 
++nvm_version_dir:3> [ -z iojs ']'
++nvm_version_dir:3> [ iojs '=' new ']'
++nvm_version_dir:5> [ _iojs '=' _iojs ']'
++nvm_version_dir:6> nvm_echo /Users/themrb/.nvm/versions/io.js
++nvm_echo:1> printf '%s\n' /Users/themrb/.nvm/versions/io.js
++nvm_ls:15> NVM_VERSION_DIR_IOJS=/Users/themrb/.nvm/versions/io.js 
++nvm_ls:16> local NVM_VERSION_DIR_NEW
++nvm_ls:17> NVM_VERSION_DIR_NEW=+nvm_ls:17> nvm_version_dir new
++nvm_version_dir:1> local NVM_WHICH_DIR
++nvm_version_dir:2> NVM_WHICH_DIR=new 
++nvm_version_dir:3> [ -z new ']'
++nvm_version_dir:3> [ new '=' new ']'
++nvm_version_dir:4> nvm_echo /Users/themrb/.nvm/versions/node
++nvm_echo:1> printf '%s\n' /Users/themrb/.nvm/versions/node
++nvm_ls:17> NVM_VERSION_DIR_NEW=/Users/themrb/.nvm/versions/node 
++nvm_ls:18> local NVM_VERSION_DIR_OLD
++nvm_ls:19> NVM_VERSION_DIR_OLD=+nvm_ls:19> nvm_version_dir old
++nvm_version_dir:1> local NVM_WHICH_DIR
++nvm_version_dir:2> NVM_WHICH_DIR=old 
++nvm_version_dir:3> [ -z old ']'
++nvm_version_dir:3> [ old '=' new ']'
++nvm_version_dir:5> [ _old '=' _iojs ']'
++nvm_version_dir:7> [ _old '=' _old ']'
++nvm_version_dir:8> nvm_echo /Users/themrb/.nvm
++nvm_echo:1> printf '%s\n' /Users/themrb/.nvm
++nvm_ls:19> NVM_VERSION_DIR_OLD=/Users/themrb/.nvm 
++nvm_ls:21> case default (iojs | node)
++nvm_ls:21> case default (*)
++nvm_ls:26> nvm_resolve_local_alias default
++nvm_resolve_local_alias:1> [ -z default ']'
++nvm_resolve_local_alias:5> local VERSION
++nvm_resolve_local_alias:6> local EXIT_CODE
++nvm_resolve_local_alias:7> VERSION=+nvm_resolve_local_alias:7> nvm_resolve_alias default
++nvm_resolve_alias:1> [ -z default ']'
++nvm_resolve_alias:5> local PATTERN
++nvm_resolve_alias:6> PATTERN=default 
++nvm_resolve_alias:8> local ALIAS
++nvm_resolve_alias:9> ALIAS=default 
++nvm_resolve_alias:10> local ALIAS_TEMP
++nvm_resolve_alias:12> local SEEN_ALIASES
++nvm_resolve_alias:13> SEEN_ALIASES=default 
++nvm_resolve_alias:14> true
++nvm_resolve_alias:15> ALIAS_TEMP=+nvm_resolve_alias:15> nvm_alias default
++nvm_resolve_alias:15> ALIAS_TEMP=24 
++nvm_resolve_alias:17> [ -z 24 ']'
++nvm_resolve_alias:21> nvm_grep -q -e '^24$'
++nvm_resolve_alias:21> printf default
++nvm_grep:1> GREP_OPTIONS='' grep -q -e '^24$'
++nvm_resolve_alias:26> SEEN_ALIASES='default\n24' 
++nvm_resolve_alias:27> ALIAS=24 
++nvm_resolve_alias:14> true
++nvm_resolve_alias:15> ALIAS_TEMP=+nvm_resolve_alias:15> nvm_alias 24
++nvm_resolve_alias:15> nvm_echo
++nvm_echo:1> printf '%s\n' ''
++nvm_resolve_alias:15> ALIAS_TEMP='' 
++nvm_resolve_alias:17> [ -z '' ']'
++nvm_resolve_alias:18> break
++nvm_resolve_alias:30> [ -n 24 ']'
++nvm_resolve_alias:30> [ _24 '!=' _default ']'
++nvm_resolve_alias:31> local NVM_IOJS_PREFIX
++nvm_resolve_alias:32> NVM_IOJS_PREFIX=+nvm_resolve_alias:32> nvm_iojs_prefix
++nvm_iojs_prefix:1> nvm_echo iojs
++nvm_echo:1> printf '%s\n' iojs
++nvm_resolve_alias:32> NVM_IOJS_PREFIX=iojs 
++nvm_resolve_alias:33> local NVM_NODE_PREFIX
++nvm_resolve_alias:34> NVM_NODE_PREFIX=+nvm_resolve_alias:34> nvm_node_prefix
++nvm_node_prefix:1> nvm_echo node
++nvm_echo:1> printf '%s\n' node
++nvm_resolve_alias:34> NVM_NODE_PREFIX=node 
++nvm_resolve_alias:35> case 24 (∞ | iojs | iojs- | node)
++nvm_resolve_alias:35> case 24 (*)
++nvm_resolve_alias:42> nvm_ensure_version_prefix 24
++nvm_ensure_version_prefix:1> local NVM_VERSION
++nvm_ensure_version_prefix:2> NVM_VERSION=+nvm_ensure_version_prefix:2> nvm_strip_iojs_prefix 24
++nvm_strip_iojs_prefix:1> local NVM_IOJS_PREFIX
++nvm_ensure_version_prefix:2> NVM_VERSION=+nvm_strip_iojs_prefix:2> NVM_IOJS_PREFIX=+nvm_strip_iojs_prefix:2> nvm_iojs_prefix
++nvm_iojs_prefix:1> nvm_echo iojs
++nvm_ensure_version_prefix:2> sed -e 's/^\([0-9]\)/v\1/g'
++nvm_echo:1> printf '%s\n' iojs
++nvm_strip_iojs_prefix:2> NVM_IOJS_PREFIX=iojs 
++nvm_strip_iojs_prefix:3> [ 24 '=' iojs ']'
++nvm_strip_iojs_prefix:6> nvm_echo 24
++nvm_echo:1> printf '%s\n' 24
++nvm_ensure_version_prefix:2> NVM_VERSION=v24 
++nvm_ensure_version_prefix:3> nvm_is_iojs_version 24
++nvm_is_iojs_version:1> case 24 (iojs-*)
++nvm_is_iojs_version:2> return 1
++nvm_ensure_version_prefix:6> nvm_echo v24
++nvm_echo:1> printf '%s\n' v24
++nvm_resolve_alias:45> return 0
++nvm_resolve_local_alias:7> VERSION=v24 
++nvm_resolve_local_alias:8> EXIT_CODE=0 
++nvm_resolve_local_alias:9> [ -z v24 ']'
++nvm_resolve_local_alias:12> [ _v24 '!=' _∞ ']'
++nvm_resolve_local_alias:13> nvm_version v24
++nvm_version:1> local PATTERN
++nvm_version:2> PATTERN=v24 
++nvm_version:3> local VERSION
++nvm_version:5> [ -z v24 ']'
++nvm_version:9> [ v24 '=' current ']'
++nvm_version:14> local NVM_NODE_PREFIX
++nvm_version:15> NVM_NODE_PREFIX=+nvm_version:15> nvm_node_prefix
++nvm_node_prefix:1> nvm_echo node
++nvm_echo:1> printf '%s\n' node
++nvm_version:15> NVM_NODE_PREFIX=node 
++nvm_version:16> case _v24 (_node | _node-)
++nvm_version:21> VERSION=+nvm_version:21> nvm_ls v24
++nvm_ls:1> local PATTERN
++nvm_ls:2> PATTERN=v24 
++nvm_ls:3> local VERSIONS
++nvm_ls:4> VERSIONS='' 
++nvm_ls:5> [ v24 '=' current ']'
++nvm_ls:10> local NVM_IOJS_PREFIX
++nvm_version:21> VERSION=+nvm_version:21> tail -1
++nvm_ls:11> NVM_IOJS_PREFIX=+nvm_ls:11> nvm_iojs_prefix
++nvm_iojs_prefix:1> nvm_echo iojs
++nvm_echo:1> printf '%s\n' iojs
++nvm_ls:11> NVM_IOJS_PREFIX=iojs 
++nvm_ls:12> local NVM_NODE_PREFIX
++nvm_ls:13> NVM_NODE_PREFIX=+nvm_ls:13> nvm_node_prefix
++nvm_node_prefix:1> nvm_echo node
++nvm_echo:1> printf '%s\n' node
++nvm_ls:13> NVM_NODE_PREFIX=node 
++nvm_ls:14> local NVM_VERSION_DIR_IOJS
++nvm_ls:15> NVM_VERSION_DIR_IOJS=+nvm_ls:15> nvm_version_dir iojs
++nvm_version_dir:1> local NVM_WHICH_DIR
++nvm_version_dir:2> NVM_WHICH_DIR=iojs 
++nvm_version_dir:3> [ -z iojs ']'
++nvm_version_dir:3> [ iojs '=' new ']'
++nvm_version_dir:5> [ _iojs '=' _iojs ']'
++nvm_version_dir:6> nvm_echo /Users/themrb/.nvm/versions/io.js
++nvm_echo:1> printf '%s\n' /Users/themrb/.nvm/versions/io.js
++nvm_ls:15> NVM_VERSION_DIR_IOJS=/Users/themrb/.nvm/versions/io.js 
++nvm_ls:16> local NVM_VERSION_DIR_NEW
++nvm_ls:17> NVM_VERSION_DIR_NEW=+nvm_ls:17> nvm_version_dir new
++nvm_version_dir:1> local NVM_WHICH_DIR
++nvm_version_dir:2> NVM_WHICH_DIR=new 
++nvm_version_dir:3> [ -z new ']'
++nvm_version_dir:3> [ new '=' new ']'
++nvm_version_dir:4> nvm_echo /Users/themrb/.nvm/versions/node
++nvm_echo:1> printf '%s\n' /Users/themrb/.nvm/versions/node
++nvm_ls:17> NVM_VERSION_DIR_NEW=/Users/themrb/.nvm/versions/node 
++nvm_ls:18> local NVM_VERSION_DIR_OLD
++nvm_ls:19> NVM_VERSION_DIR_OLD=+nvm_ls:19> nvm_version_dir old
++nvm_version_dir:1> local NVM_WHICH_DIR
++nvm_version_dir:2> NVM_WHICH_DIR=old 
++nvm_version_dir:3> [ -z old ']'
++nvm_version_dir:3> [ old '=' new ']'
++nvm_version_dir:5> [ _old '=' _iojs ']'
++nvm_version_dir:7> [ _old '=' _old ']'
++nvm_version_dir:8> nvm_echo /Users/themrb/.nvm
++nvm_echo:1> printf '%s\n' /Users/themrb/.nvm
++nvm_ls:19> NVM_VERSION_DIR_OLD=/Users/themrb/.nvm 
++nvm_ls:21> case v24 (iojs | node)
++nvm_ls:21> case v24 (*)
++nvm_ls:26> nvm_resolve_local_alias v24
++nvm_resolve_local_alias:1> [ -z v24 ']'
++nvm_resolve_local_alias:5> local VERSION
++nvm_resolve_local_alias:6> local EXIT_CODE
++nvm_resolve_local_alias:7> VERSION=+nvm_resolve_local_alias:7> nvm_resolve_alias v24
++nvm_resolve_alias:1> [ -z v24 ']'
++nvm_resolve_alias:5> local PATTERN
++nvm_resolve_alias:6> PATTERN=v24 
++nvm_resolve_alias:8> local ALIAS
++nvm_resolve_alias:9> ALIAS=v24 
++nvm_resolve_alias:10> local ALIAS_TEMP
++nvm_resolve_alias:12> local SEEN_ALIASES
++nvm_resolve_alias:13> SEEN_ALIASES=v24 
++nvm_resolve_alias:14> true
++nvm_resolve_alias:15> ALIAS_TEMP=+nvm_resolve_alias:15> nvm_alias v24
++nvm_resolve_alias:15> nvm_echo
++nvm_echo:1> printf '%s\n' ''
++nvm_resolve_alias:15> ALIAS_TEMP='' 
++nvm_resolve_alias:17> [ -z '' ']'
++nvm_resolve_alias:18> break
++nvm_resolve_alias:30> [ -n v24 ']'
++nvm_resolve_alias:30> [ _v24 '!=' _v24 ']'
++nvm_resolve_alias:48> nvm_validate_implicit_alias v24
++nvm_resolve_alias:56> return 2
++nvm_resolve_local_alias:7> VERSION='' 
++nvm_resolve_local_alias:8> EXIT_CODE=2 
++nvm_resolve_local_alias:9> [ -z '' ']'
++nvm_resolve_local_alias:10> return 2
++nvm_ls:29> PATTERN=+nvm_ls:29> nvm_ensure_version_prefix v24
++nvm_ensure_version_prefix:1> local NVM_VERSION
++nvm_ensure_version_prefix:2> NVM_VERSION=+nvm_ensure_version_prefix:2> nvm_strip_iojs_prefix v24
++nvm_strip_iojs_prefix:1> local NVM_IOJS_PREFIX
++nvm_ensure_version_prefix:2> NVM_VERSION=+nvm_ensure_version_prefix:2> sed -e 's/^\([0-9]\)/v\1/g'
++nvm_strip_iojs_prefix:2> NVM_IOJS_PREFIX=+nvm_strip_iojs_prefix:2> nvm_iojs_prefix
++nvm_iojs_prefix:1> nvm_echo iojs
++nvm_echo:1> printf '%s\n' iojs
++nvm_strip_iojs_prefix:2> NVM_IOJS_PREFIX=iojs 
++nvm_strip_iojs_prefix:3> [ v24 '=' iojs ']'
++nvm_strip_iojs_prefix:6> nvm_echo v24
++nvm_echo:1> printf '%s\n' v24
++nvm_ensure_version_prefix:2> NVM_VERSION=v24 
++nvm_ensure_version_prefix:3> nvm_is_iojs_version v24
++nvm_is_iojs_version:1> case v24 (iojs-*)
++nvm_is_iojs_version:2> return 1
++nvm_ensure_version_prefix:6> nvm_echo v24
++nvm_echo:1> printf '%s\n' v24
++nvm_ls:29> PATTERN=v24 
++nvm_ls:32> [ v24 '=' N/A ']'
++nvm_ls:36> local NVM_PATTERN_STARTS_WITH_V
++nvm_ls:37> case v24 (v*)
++nvm_ls:38> NVM_PATTERN_STARTS_WITH_V=true 
++nvm_ls:41> [ true '=' true ']'
++nvm_ls:41> nvm_num_version_groups v24
++nvm_num_version_groups:1> local VERSION
++nvm_num_version_groups:2> VERSION=v24 
++nvm_num_version_groups:3> VERSION=24 
++nvm_num_version_groups:4> VERSION=24 
++nvm_num_version_groups:5> [ -z 24 ']'
++nvm_num_version_groups:9> local NVM_NUM_DOTS
++nvm_num_version_groups:10> NVM_NUM_DOTS=+nvm_num_version_groups:10> nvm_echo 24
++nvm_echo:1> printf '%s\n' 24
++nvm_num_version_groups:10> NVM_NUM_DOTS=+nvm_num_version_groups:10> sed -e 's/[^\.]//g'
++nvm_num_version_groups:10> NVM_NUM_DOTS='' 
++nvm_num_version_groups:11> local NVM_NUM_GROUPS
++nvm_num_version_groups:12> NVM_NUM_GROUPS=. 
++nvm_num_version_groups:13> nvm_echo 1
++nvm_echo:1> printf '%s\n' 1
++nvm_ls:41> [ _1 '=' _3 ']'
++nvm_ls:48> case v24 (iojs- | node- | system)
++nvm_ls:48> case v24 (*)
++nvm_ls:51> local NUM_VERSION_GROUPS
++nvm_ls:52> NUM_VERSION_GROUPS=+nvm_ls:52> nvm_num_version_groups v24
++nvm_num_version_groups:1> local VERSION
++nvm_num_version_groups:2> VERSION=v24 
++nvm_num_version_groups:3> VERSION=24 
++nvm_num_version_groups:4> VERSION=24 
++nvm_num_version_groups:5> [ -z 24 ']'
++nvm_num_version_groups:9> local NVM_NUM_DOTS
++nvm_num_version_groups:10> NVM_NUM_DOTS=+nvm_num_version_groups:10> nvm_echo 24
++nvm_num_version_groups:10> NVM_NUM_DOTS=+nvm_num_version_groups:10> sed -e 's/[^\.]//g'
++nvm_echo:1> printf '%s\n' 24
++nvm_num_version_groups:10> NVM_NUM_DOTS='' 
++nvm_num_version_groups:11> local NVM_NUM_GROUPS
++nvm_num_version_groups:12> NVM_NUM_GROUPS=. 
++nvm_num_version_groups:13> nvm_echo 1
++nvm_echo:1> printf '%s\n' 1
++nvm_ls:52> NUM_VERSION_GROUPS=1 
++nvm_ls:53> [ 1 '=' 2 ']'
++nvm_ls:53> [ 1 '=' 1 ']'
++nvm_ls:54> PATTERN=v24. 
++nvm_ls:59> nvm_is_zsh
++nvm_is_zsh:1> [ -n 5.9 ']'
++nvm_ls:59> setopt local_options shwordsplit
++nvm_ls:60> nvm_is_zsh
++nvm_is_zsh:1> [ -n 5.9 ']'
++nvm_ls:60> unsetopt local_options markdirs
++nvm_ls:62> local NVM_DIRS_TO_SEARCH1
++nvm_ls:63> NVM_DIRS_TO_SEARCH1='' 
++nvm_ls:64> local NVM_DIRS_TO_SEARCH2
++nvm_ls:65> NVM_DIRS_TO_SEARCH2='' 
++nvm_ls:66> local NVM_DIRS_TO_SEARCH3
++nvm_ls:67> NVM_DIRS_TO_SEARCH3='' 
++nvm_ls:68> local NVM_ADD_SYSTEM
++nvm_ls:69> NVM_ADD_SYSTEM=false 
++nvm_ls:70> nvm_is_iojs_version v24.
++nvm_is_iojs_version:1> case v24. (iojs-*)
++nvm_is_iojs_version:2> return 1
++nvm_ls:76> [ v24. '=' node- ']'
++nvm_ls:84> NVM_DIRS_TO_SEARCH1=/Users/themrb/.nvm 
++nvm_ls:85> NVM_DIRS_TO_SEARCH2=/Users/themrb/.nvm/versions/node 
++nvm_ls:86> NVM_DIRS_TO_SEARCH3=/Users/themrb/.nvm/versions/io.js 
++nvm_ls:87> nvm_has_system_iojs
++nvm_has_system_iojs:1> nvm deactivate
++nvm_has_system_iojs:1> command -v iojs
++nvm_has_system_iojs:1> [ '' '!=' '' ']'
++nvm_ls:87> nvm_has_system_node
++nvm_has_system_node:1> nvm deactivate
++nvm_has_system_node:1> command -v node
++nvm_has_system_node:1> [ /opt/homebrew/bin/node '!=' '' ']'
++nvm_ls:88> NVM_ADD_SYSTEM=true 
++nvm_ls:92> [ -d /Users/themrb/.nvm ']'
++nvm_ls:92> nvm_grep -q .
++nvm_ls:92> ls -1qA /Users/themrb/.nvm
++nvm_grep:1> GREP_OPTIONS='' grep -q .
++nvm_ls:95> [ -d /Users/themrb/.nvm/versions/node ']'
++nvm_ls:95> nvm_grep -q .
++nvm_ls:95> ls -1qA /Users/themrb/.nvm/versions/node
++nvm_grep:1> GREP_OPTIONS='' grep -q .
++nvm_ls:98> [ -d /Users/themrb/.nvm/versions/io.js ']'
++nvm_ls:99> NVM_DIRS_TO_SEARCH3=/Users/themrb/.nvm/versions/node 
++nvm_ls:102> local SEARCH_PATTERN
++nvm_ls:103> [ -z v24. ']'
++nvm_ls:107> SEARCH_PATTERN=+nvm_ls:107> nvm_echo v24.
++nvm_ls:107> SEARCH_PATTERN=+nvm_echo:1> printf '%s\n' v24.
++nvm_ls:107> sed 's#\.#\\\.#g;'
++nvm_ls:107> SEARCH_PATTERN='v24\.' 
++nvm_ls:109> [ -n /Users/themrb/.nvm/Users/themrb/.nvm/versions/node/Users/themrb/.nvm/versions/node ']'
++nvm_ls:110> VERSIONS=+nvm_ls:110> VERSIONS=+nvm_ls:110> VERSIONS=+nvm_ls:111> sed -e $'\n            s#/Users/themrb/.nvm/versions/io.js/#versions/iojs/#;\n            s#^/Users/themrb/.nvm/##;\n            \\#^[^v]# d;\n            \\#^versions$# d;\n            s#^versions/##;\n            s#^v#node/v#;\n            \\#v24\\.# !d;\n          ' -e 's#^\([^/]\{1,\}\)/\(.*\)$#\2.\1#;'
++nvm_ls:110> find /Users/themrb/.nvm/alias /Users/themrb/.nvm/nvm-exec /Users/themrb/.nvm/nvm.sh /Users/themrb/.nvm/versions /Users/themrb/.nvm/versions/node/v14.17.4 /Users/themrb/.nvm/versions/node/v18.14.0 /Users/themrb/.nvm/versions/node/v18.17.0 /Users/themrb/.nvm/versions/node/v18.19.1 /Users/themrb/.nvm/versions/node/v18.20.0 /Users/themrb/.nvm/versions/node/v20.17.0 /Users/themrb/.nvm/versions/node/v22.14.0 /Users/themrb/.nvm/versions/node/v24.9.0 /Users/themrb/.nvm/versions/node/v14.17.4 /Users/themrb/.nvm/versions/node/v18.14.0 /Users/themrb/.nvm/versions/node/v18.17.0 /Users/themrb/.nvm/versions/node/v18.19.1 /Users/themrb/.nvm/versions/node/v18.20.0 /Users/themrb/.nvm/versions/node/v20.17.0 /Users/themrb/.nvm/versions/node/v22.14.0 /Users/themrb/.nvm/versions/node/v24.9.0 -name . -o -type d -prune -o -path 'v24.*'
++nvm_ls:121> sort -t. -u -k 1.2,1n -k 2,2n -k 3,3n
++nvm_ls:110> VERSIONS=+nvm_ls:122> sed -e 's#\(.*\)\.\([^\.]\{1,\}\)$#\2-\1#;' -e 's#^node-##;'
++nvm_ls:110> VERSIONS=v24.9.0 
++nvm_ls:128> [ true '=' true ']'
++nvm_ls:129> [ -z v24. ']'
++nvm_ls:129> [ v24. '=' v ']'
++nvm_ls:131> [ v24. '=' system ']'
++nvm_ls:136> [ -z v24.9.0 ']'
++nvm_ls:141> nvm_echo v24.9.0
++nvm_echo:1> printf '%s\n' v24.9.0
++nvm_version:21> VERSION=v24.9.0 
++nvm_version:22> [ -z v24.9.0 ']'
++nvm_version:22> [ _v24.9.0 '=' _N/A ']'
++nvm_version:26> nvm_echo v24.9.0
++nvm_echo:1> printf '%s\n' v24.9.0
++nvm_ls:27> return
++nvm_version:21> VERSION=v24.9.0 
++nvm_version:22> [ -z v24.9.0 ']'
++nvm_version:22> [ _v24.9.0 '=' _N/A ']'
++nvm_version:26> nvm_echo v24.9.0
++nvm_echo:1> printf '%s\n' v24.9.0
++nvm:835> VERSION=v24.9.0 
++nvm:838> [ -z v24.9.0 ']'
++nvm:843> [ _v24.9.0 '=' _system ']'
++nvm:858> [ _v24.9.0 '=' _∞ ']'
++nvm:864> [ v24.9.0 '=' N/A ']'
++nvm:871> nvm_ensure_version_installed v24.9.0 0
++nvm_ensure_version_installed:1> local PROVIDED_VERSION
++nvm_ensure_version_installed:2> PROVIDED_VERSION=v24.9.0 
++nvm_ensure_version_installed:3> local IS_VERSION_FROM_NVMRC
++nvm_ensure_version_installed:4> IS_VERSION_FROM_NVMRC=0 
++nvm_ensure_version_installed:5> [ v24.9.0 '=' system ']'
++nvm_ensure_version_installed:12> local LOCAL_VERSION
++nvm_ensure_version_installed:13> local EXIT_CODE
++nvm_ensure_version_installed:14> LOCAL_VERSION=+nvm_ensure_version_installed:14> nvm_version v24.9.0
++nvm_version:1> local PATTERN
++nvm_version:2> PATTERN=v24.9.0 
++nvm_version:3> local VERSION
++nvm_version:5> [ -z v24.9.0 ']'
++nvm_version:9> [ v24.9.0 '=' current ']'
++nvm_version:14> local NVM_NODE_PREFIX
++nvm_version:15> NVM_NODE_PREFIX=+nvm_version:15> nvm_node_prefix
++nvm_node_prefix:1> nvm_echo node
++nvm_echo:1> printf '%s\n' node
++nvm_version:15> NVM_NODE_PREFIX=node 
++nvm_version:16> case _v24.9.0 (_node | _node-)
++nvm_version:21> VERSION=+nvm_version:21> nvm_ls v24.9.0
++nvm_ls:1> local PATTERN
++nvm_ls:2> PATTERN=v24.9.0 
++nvm_version:21> VERSION=+nvm_ls:3> local VERSIONS
++nvm_ls:4> VERSIONS='' 
++nvm_version:21> tail -1
++nvm_ls:5> [ v24.9.0 '=' current ']'
++nvm_ls:10> local NVM_IOJS_PREFIX
++nvm_ls:11> NVM_IOJS_PREFIX=+nvm_ls:11> nvm_iojs_prefix
++nvm_iojs_prefix:1> nvm_echo iojs
++nvm_echo:1> printf '%s\n' iojs
++nvm_ls:11> NVM_IOJS_PREFIX=iojs 
++nvm_ls:12> local NVM_NODE_PREFIX
++nvm_ls:13> NVM_NODE_PREFIX=+nvm_ls:13> nvm_node_prefix
++nvm_node_prefix:1> nvm_echo node
++nvm_echo:1> printf '%s\n' node
++nvm_ls:13> NVM_NODE_PREFIX=node 
++nvm_ls:14> local NVM_VERSION_DIR_IOJS
++nvm_ls:15> NVM_VERSION_DIR_IOJS=+nvm_ls:15> nvm_version_dir iojs
++nvm_version_dir:1> local NVM_WHICH_DIR
++nvm_version_dir:2> NVM_WHICH_DIR=iojs 
++nvm_version_dir:3> [ -z iojs ']'
++nvm_version_dir:3> [ iojs '=' new ']'
++nvm_version_dir:5> [ _iojs '=' _iojs ']'
++nvm_version_dir:6> nvm_echo /Users/themrb/.nvm/versions/io.js
++nvm_echo:1> printf '%s\n' /Users/themrb/.nvm/versions/io.js
++nvm_ls:15> NVM_VERSION_DIR_IOJS=/Users/themrb/.nvm/versions/io.js 
++nvm_ls:16> local NVM_VERSION_DIR_NEW
++nvm_ls:17> NVM_VERSION_DIR_NEW=+nvm_ls:17> nvm_version_dir new
++nvm_version_dir:1> local NVM_WHICH_DIR
++nvm_version_dir:2> NVM_WHICH_DIR=new 
++nvm_version_dir:3> [ -z new ']'
++nvm_version_dir:3> [ new '=' new ']'
++nvm_version_dir:4> nvm_echo /Users/themrb/.nvm/versions/node
++nvm_echo:1> printf '%s\n' /Users/themrb/.nvm/versions/node
++nvm_ls:17> NVM_VERSION_DIR_NEW=/Users/themrb/.nvm/versions/node 
++nvm_ls:18> local NVM_VERSION_DIR_OLD
++nvm_ls:19> NVM_VERSION_DIR_OLD=+nvm_ls:19> nvm_version_dir old
++nvm_version_dir:1> local NVM_WHICH_DIR
++nvm_version_dir:2> NVM_WHICH_DIR=old 
++nvm_version_dir:3> [ -z old ']'
++nvm_version_dir:3> [ old '=' new ']'
++nvm_version_dir:5> [ _old '=' _iojs ']'
++nvm_version_dir:7> [ _old '=' _old ']'
++nvm_version_dir:8> nvm_echo /Users/themrb/.nvm
++nvm_echo:1> printf '%s\n' /Users/themrb/.nvm
++nvm_ls:19> NVM_VERSION_DIR_OLD=/Users/themrb/.nvm 
++nvm_ls:21> case v24.9.0 (iojs | node)
++nvm_ls:21> case v24.9.0 (*)
++nvm_ls:26> nvm_resolve_local_alias v24.9.0
++nvm_resolve_local_alias:1> [ -z v24.9.0 ']'
++nvm_resolve_local_alias:5> local VERSION
++nvm_resolve_local_alias:6> local EXIT_CODE
++nvm_resolve_local_alias:7> VERSION=+nvm_resolve_local_alias:7> nvm_resolve_alias v24.9.0
++nvm_resolve_alias:1> [ -z v24.9.0 ']'
++nvm_resolve_alias:5> local PATTERN
++nvm_resolve_alias:6> PATTERN=v24.9.0 
++nvm_resolve_alias:8> local ALIAS
++nvm_resolve_alias:9> ALIAS=v24.9.0 
++nvm_resolve_alias:10> local ALIAS_TEMP
++nvm_resolve_alias:12> local SEEN_ALIASES
++nvm_resolve_alias:13> SEEN_ALIASES=v24.9.0 
++nvm_resolve_alias:14> true
++nvm_resolve_alias:15> ALIAS_TEMP=+nvm_resolve_alias:15> nvm_alias v24.9.0
++nvm_resolve_alias:15> nvm_echo
++nvm_echo:1> printf '%s\n' ''
++nvm_resolve_alias:15> ALIAS_TEMP='' 
++nvm_resolve_alias:17> [ -z '' ']'
++nvm_resolve_alias:18> break
++nvm_resolve_alias:30> [ -n v24.9.0 ']'
++nvm_resolve_alias:30> [ _v24.9.0 '!=' _v24.9.0 ']'
++nvm_resolve_alias:48> nvm_validate_implicit_alias v24.9.0
++nvm_resolve_alias:56> return 2
++nvm_resolve_local_alias:7> VERSION='' 
++nvm_resolve_local_alias:8> EXIT_CODE=2 
++nvm_resolve_local_alias:9> [ -z '' ']'
++nvm_resolve_local_alias:10> return 2
++nvm_ls:29> PATTERN=+nvm_ls:29> nvm_ensure_version_prefix v24.9.0
++nvm_ensure_version_prefix:1> local NVM_VERSION
++nvm_ensure_version_prefix:2> NVM_VERSION=+nvm_ensure_version_prefix:2> nvm_strip_iojs_prefix v24.9.0
++nvm_strip_iojs_prefix:1> local NVM_IOJS_PREFIX
++nvm_ensure_version_prefix:2> NVM_VERSION=+nvm_strip_iojs_prefix:2> NVM_IOJS_PREFIX=+nvm_ensure_version_prefix:2> sed -e 's/^\([0-9]\)/v\1/g'
++nvm_strip_iojs_prefix:2> nvm_iojs_prefix
++nvm_iojs_prefix:1> nvm_echo iojs
++nvm_echo:1> printf '%s\n' iojs
++nvm_strip_iojs_prefix:2> NVM_IOJS_PREFIX=iojs 
++nvm_strip_iojs_prefix:3> [ v24.9.0 '=' iojs ']'
++nvm_strip_iojs_prefix:6> nvm_echo v24.9.0
++nvm_echo:1> printf '%s\n' v24.9.0
++nvm_ensure_version_prefix:2> NVM_VERSION=v24.9.0 
++nvm_ensure_version_prefix:3> nvm_is_iojs_version v24.9.0
++nvm_is_iojs_version:1> case v24.9.0 (iojs-*)
++nvm_is_iojs_version:2> return 1
++nvm_ensure_version_prefix:6> nvm_echo v24.9.0
++nvm_echo:1> printf '%s\n' v24.9.0
++nvm_ls:29> PATTERN=v24.9.0 
++nvm_ls:32> [ v24.9.0 '=' N/A ']'
++nvm_ls:36> local NVM_PATTERN_STARTS_WITH_V
++nvm_ls:37> case v24.9.0 (v*)
++nvm_ls:38> NVM_PATTERN_STARTS_WITH_V=true 
++nvm_ls:41> [ true '=' true ']'
++nvm_ls:41> nvm_num_version_groups v24.9.0
++nvm_num_version_groups:1> local VERSION
++nvm_num_version_groups:2> VERSION=v24.9.0 
++nvm_num_version_groups:3> VERSION=24.9.0 
++nvm_num_version_groups:4> VERSION=24.9.0 
++nvm_num_version_groups:5> [ -z 24.9.0 ']'
++nvm_num_version_groups:9> local NVM_NUM_DOTS
++nvm_num_version_groups:10> NVM_NUM_DOTS=+nvm_num_version_groups:10> nvm_echo 24.9.0
++nvm_num_version_groups:10> NVM_NUM_DOTS=+nvm_num_version_groups:10> sed -e 's/[^\.]//g'
++nvm_echo:1> printf '%s\n' 24.9.0
++nvm_num_version_groups:10> NVM_NUM_DOTS=.. 
++nvm_num_version_groups:11> local NVM_NUM_GROUPS
++nvm_num_version_groups:12> NVM_NUM_GROUPS=... 
++nvm_num_version_groups:13> nvm_echo 3
++nvm_echo:1> printf '%s\n' 3
++nvm_ls:41> [ _3 '=' _3 ']'
++nvm_ls:42> nvm_is_version_installed v24.9.0
++nvm_is_version_installed:1> [ -z v24.9.0 ']'
++nvm_is_version_installed:4> local NVM_NODE_BINARY
++nvm_is_version_installed:5> NVM_NODE_BINARY=node 
++nvm_is_version_installed:6> nvm_get_os
++nvm_get_os:1> local NVM_UNAME
++nvm_get_os:2> NVM_UNAME=+nvm_get_os:2> uname -a
++nvm_get_os:2> NVM_UNAME='Darwin HN-SKY-A0650 24.4.0 Darwin Kernel Version 24.4.0: Wed Mar 19 21:16:34 PDT 2025; root:xnu-11417.101.15~1/RELEASE_ARM64_T6000 arm64' 
++nvm_get_os:3> local NVM_OS
++nvm_get_os:4> case Darwin HN-SKY-A0650 24.4.0 Darwin Kernel Version 24.4.0: Wed Mar 19 21:16:34 PDT 2025; root:xnu-11417.101.15~1/RELEASE_ARM64_T6000 arm64 (Linux\ *)
++nvm_get_os:4> case Darwin HN-SKY-A0650 24.4.0 Darwin Kernel Version 24.4.0: Wed Mar 19 21:16:34 PDT 2025; root:xnu-11417.101.15~1/RELEASE_ARM64_T6000 arm64 (Darwin\ *)
++nvm_get_os:6> NVM_OS=darwin 
++nvm_get_os:13> nvm_echo darwin
++nvm_echo:1> printf '%s\n' darwin
++nvm_is_version_installed:6> [ _darwin '=' _win ']'
++nvm_is_version_installed:9> nvm_version_path v24.9.0
++nvm_is_version_installed:9> [ -x /Users/themrb/.nvm/versions/node/v24.9.0/bin/node ']'
++nvm_is_version_installed:10> return 0
++nvm_ls:43> VERSIONS=v24.9.0 
++nvm_ls:128> [ '' '=' true ']'
++nvm_ls:136> [ -z v24.9.0 ']'
++nvm_ls:141> nvm_echo v24.9.0
++nvm_echo:1> printf '%s\n' v24.9.0
++nvm_version:21> VERSION=v24.9.0 
++nvm_version:22> [ -z v24.9.0 ']'
++nvm_version:22> [ _v24.9.0 '=' _N/A ']'
++nvm_version:26> nvm_echo v24.9.0
++nvm_echo:1> printf '%s\n' v24.9.0
++nvm_ensure_version_installed:14> LOCAL_VERSION=v24.9.0 
++nvm_ensure_version_installed:15> EXIT_CODE=0 
++nvm_ensure_version_installed:16> local NVM_VERSION_DIR
++nvm_ensure_version_installed:17> [ 0 '!=' 0 ']'
++nvm_ensure_version_installed:17> nvm_is_version_installed v24.9.0
++nvm_is_version_installed:1> [ -z v24.9.0 ']'
++nvm_is_version_installed:4> local NVM_NODE_BINARY
++nvm_is_version_installed:5> NVM_NODE_BINARY=node 
++nvm_is_version_installed:6> nvm_get_os
++nvm_get_os:1> local NVM_UNAME
++nvm_get_os:2> NVM_UNAME=+nvm_get_os:2> uname -a
++nvm_get_os:2> NVM_UNAME='Darwin HN-SKY-A0650 24.4.0 Darwin Kernel Version 24.4.0: Wed Mar 19 21:16:34 PDT 2025; root:xnu-11417.101.15~1/RELEASE_ARM64_T6000 arm64' 
++nvm_get_os:3> local NVM_OS
++nvm_get_os:4> case Darwin HN-SKY-A0650 24.4.0 Darwin Kernel Version 24.4.0: Wed Mar 19 21:16:34 PDT 2025; root:xnu-11417.101.15~1/RELEASE_ARM64_T6000 arm64 (Linux\ *)
++nvm_get_os:4> case Darwin HN-SKY-A0650 24.4.0 Darwin Kernel Version 24.4.0: Wed Mar 19 21:16:34 PDT 2025; root:xnu-11417.101.15~1/RELEASE_ARM64_T6000 arm64 (Darwin\ *)
++nvm_get_os:6> NVM_OS=darwin 
++nvm_get_os:13> nvm_echo darwin
++nvm_echo:1> printf '%s\n' darwin
++nvm_is_version_installed:6> [ _darwin '=' _win ']'
++nvm_is_version_installed:9> nvm_version_path v24.9.0
++nvm_is_version_installed:9> [ -x /Users/themrb/.nvm/versions/node/v24.9.0/bin/node ']'
++nvm_is_version_installed:10> return 0
++nvm:875> local NVM_VERSION_DIR
++nvm:876> NVM_VERSION_DIR=+nvm:876> nvm_version_path v24.9.0
++nvm_version_path:1> local VERSION
++nvm_version_path:2> VERSION=v24.9.0 
++nvm_version_path:3> [ -z v24.9.0 ']'
++nvm_version_path:6> nvm_is_iojs_version v24.9.0
++nvm_is_iojs_version:1> case v24.9.0 (iojs-*)
++nvm_is_iojs_version:2> return 1
++nvm_version_path:8> nvm_version_greater 0.12.0 v24.9.0
++nvm_version_greater:1> awk $'BEGIN {\n    if (ARGV[1] == "" || ARGV[2] == "") exit(1)\n    split(ARGV[1], a, /\\./);\n    split(ARGV[2], b, /\\./);\n    for (i=1; i<=3; i++) {\n      if (a[i] && a[i] !~ /^[0-9]+$/) exit(2);\n      if (b[i] && b[i] !~ /^[0-9]+$/) { exit(0); }\n      if (a[i] < b[i]) exit(3);\n      else if (a[i] > b[i]) exit(0);\n    }\n    exit(4)\n  }' 0.12.0 24.9.0
++nvm_version_path:11> nvm_version_dir new
++nvm_version_dir:1> local NVM_WHICH_DIR
++nvm_version_dir:2> NVM_WHICH_DIR=new 
++nvm_version_dir:3> [ -z new ']'
++nvm_version_dir:3> [ new '=' new ']'
++nvm_version_dir:4> nvm_echo /Users/themrb/.nvm/versions/node
++nvm_echo:1> printf '%s\n' /Users/themrb/.nvm/versions/node
++nvm_version_path:11> nvm_echo /Users/themrb/.nvm/versions/node/v24.9.0
++nvm_echo:1> printf '%s\n' /Users/themrb/.nvm/versions/node/v24.9.0
++nvm:876> NVM_VERSION_DIR=/Users/themrb/.nvm/versions/node/v24.9.0 
++nvm:879> PATH=+nvm:879> nvm_change_path '/Users/themrb/.nvm/versions/node/v24.9.0/bin:/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/.codex/tmp/arg0/codex-arg013uG0B:/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/Library/TeX/texbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/opt/podman/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/Library/pnpm:/Users/themrb/.nvm/versions/node/v22.14.0/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/Users/themrb/.cargo/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Applications/Warp.app/Contents/Resources/bin:/Users/themrb/.dotnet/tools:/Users/themrb/.local/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin' /bin /Users/themrb/.nvm/versions/node/v24.9.0
++nvm_change_path:2> [ -z '/Users/themrb/.nvm/versions/node/v24.9.0/bin:/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/.codex/tmp/arg0/codex-arg013uG0B:/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/Library/TeX/texbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/opt/podman/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/Library/pnpm:/Users/themrb/.nvm/versions/node/v22.14.0/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/Users/themrb/.cargo/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Applications/Warp.app/Contents/Resources/bin:/Users/themrb/.dotnet/tools:/Users/themrb/.local/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin' ']'
++nvm_change_path:6> nvm_echo '/Users/themrb/.nvm/versions/node/v24.9.0/bin:/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/.codex/tmp/arg0/codex-arg013uG0B:/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/Library/TeX/texbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/opt/podman/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/Library/pnpm:/Users/themrb/.nvm/versions/node/v22.14.0/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/Users/themrb/.cargo/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Applications/Warp.app/Contents/Resources/bin:/Users/themrb/.dotnet/tools:/Users/themrb/.local/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin'
++nvm_change_path:6> nvm_grep -q '/Users/themrb/.nvm/[^/]*/bin'
++nvm_echo:1> printf '%s\n' '/Users/themrb/.nvm/versions/node/v24.9.0/bin:/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/.codex/tmp/arg0/codex-arg013uG0B:/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/Library/TeX/texbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/opt/podman/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/Library/pnpm:/Users/themrb/.nvm/versions/node/v22.14.0/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/Users/themrb/.cargo/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Applications/Warp.app/Contents/Resources/bin:/Users/themrb/.dotnet/tools:/Users/themrb/.local/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin'
++nvm_grep:1> GREP_OPTIONS='' grep -q '/Users/themrb/.nvm/[^/]*/bin'
++nvm_change_path:7> nvm_grep -q '/Users/themrb/.nvm/versions/[^/]*/[^/]*/bin'
++nvm_change_path:7> nvm_echo '/Users/themrb/.nvm/versions/node/v24.9.0/bin:/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/.codex/tmp/arg0/codex-arg013uG0B:/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/Library/TeX/texbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/opt/podman/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/Library/pnpm:/Users/themrb/.nvm/versions/node/v22.14.0/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/Users/themrb/.cargo/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Applications/Warp.app/Contents/Resources/bin:/Users/themrb/.dotnet/tools:/Users/themrb/.local/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin'
++nvm_echo:1> printf '%s\n' '/Users/themrb/.nvm/versions/node/v24.9.0/bin:/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/.codex/tmp/arg0/codex-arg013uG0B:/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/Library/TeX/texbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/opt/podman/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/Library/pnpm:/Users/themrb/.nvm/versions/node/v22.14.0/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/Users/themrb/.cargo/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Applications/Warp.app/Contents/Resources/bin:/Users/themrb/.dotnet/tools:/Users/themrb/.local/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin'
++nvm_grep:1> GREP_OPTIONS='' grep -q '/Users/themrb/.nvm/versions/[^/]*/[^/]*/bin'
++nvm_change_path:13> nvm_grep -Eq '(^|:)(/usr(/local)?)?/bin:.*/Users/themrb/.nvm/[^/]*/bin'
++nvm_change_path:13> nvm_echo '/Users/themrb/.nvm/versions/node/v24.9.0/bin:/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/.codex/tmp/arg0/codex-arg013uG0B:/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/Library/TeX/texbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/opt/podman/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/Library/pnpm:/Users/themrb/.nvm/versions/node/v22.14.0/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/Users/themrb/.cargo/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Applications/Warp.app/Contents/Resources/bin:/Users/themrb/.dotnet/tools:/Users/themrb/.local/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin'
++nvm_grep:1> GREP_OPTIONS='' grep -Eq '(^|:)(/usr(/local)?)?/bin:.*/Users/themrb/.nvm/[^/]*/bin'
++nvm_echo:1> printf '%s\n' '/Users/themrb/.nvm/versions/node/v24.9.0/bin:/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/.codex/tmp/arg0/codex-arg013uG0B:/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/Library/TeX/texbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/opt/podman/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/Library/pnpm:/Users/themrb/.nvm/versions/node/v22.14.0/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/Users/themrb/.cargo/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Applications/Warp.app/Contents/Resources/bin:/Users/themrb/.dotnet/tools:/Users/themrb/.local/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin'
++nvm_change_path:14> nvm_grep -Eq '(^|:)(/usr(/local)?)?/bin:.*/Users/themrb/.nvm/versions/[^/]*/[^/]*/bin'
++nvm_change_path:14> nvm_echo '/Users/themrb/.nvm/versions/node/v24.9.0/bin:/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/.codex/tmp/arg0/codex-arg013uG0B:/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/Library/TeX/texbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/opt/podman/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/Library/pnpm:/Users/themrb/.nvm/versions/node/v22.14.0/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/Users/themrb/.cargo/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Applications/Warp.app/Contents/Resources/bin:/Users/themrb/.dotnet/tools:/Users/themrb/.local/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin'
++nvm_grep:1> GREP_OPTIONS='' grep -Eq '(^|:)(/usr(/local)?)?/bin:.*/Users/themrb/.nvm/versions/[^/]*/[^/]*/bin'
++nvm_echo:1> printf '%s\n' '/Users/themrb/.nvm/versions/node/v24.9.0/bin:/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/.codex/tmp/arg0/codex-arg013uG0B:/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/Library/TeX/texbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/opt/podman/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/Library/pnpm:/Users/themrb/.nvm/versions/node/v22.14.0/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/Users/themrb/.cargo/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Applications/Warp.app/Contents/Resources/bin:/Users/themrb/.dotnet/tools:/Users/themrb/.local/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin'
++nvm_change_path:15> nvm_echo '/Users/themrb/.nvm/versions/node/v24.9.0/bin:/Users/themrb/.nvm/versions/node/v24.9.0/bin:/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/.codex/tmp/arg0/codex-arg013uG0B:/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/Library/TeX/texbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/opt/podman/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/Library/pnpm:/Users/themrb/.nvm/versions/node/v22.14.0/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/Users/themrb/.cargo/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Applications/Warp.app/Contents/Resources/bin:/Users/themrb/.dotnet/tools:/Users/themrb/.local/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin'
++nvm_echo:1> printf '%s\n' '/Users/themrb/.nvm/versions/node/v24.9.0/bin:/Users/themrb/.nvm/versions/node/v24.9.0/bin:/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/.codex/tmp/arg0/codex-arg013uG0B:/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/Library/TeX/texbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/opt/podman/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/Library/pnpm:/Users/themrb/.nvm/versions/node/v22.14.0/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/Users/themrb/.cargo/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Applications/Warp.app/Contents/Resources/bin:/Users/themrb/.dotnet/tools:/Users/themrb/.local/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin'
++nvm:879> PATH='/Users/themrb/.nvm/versions/node/v24.9.0/bin:/Users/themrb/.nvm/versions/node/v24.9.0/bin:/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/.codex/tmp/arg0/codex-arg013uG0B:/opt/homebrew/opt/libpq/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/Library/TeX/texbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/opt/podman/bin:/Users/themrb/.local/bin:/Users/themrb/.codeium/windsurf/bin:/Users/themrb/.bun/bin:/opt/homebrew/lib/ruby/gems/3.3.0/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/openjdk/bin:/Users/themrb/Library/pnpm:/Users/themrb/.nvm/versions/node/v22.14.0/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/Users/themrb/.cargo/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Applications/Warp.app/Contents/Resources/bin:/Users/themrb/.dotnet/tools:/Users/themrb/.local/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin:/Users/themrb/.dotnet/tools:/Users/themrb/go/bin:/Users/themrb/.pulumi/bin' 
++nvm:880> nvm_has manpath
++nvm_has:1> type manpath
++nvm:881> [ -z '' ']'
++nvm:882> local MANPATH
++nvm:883> MANPATH=+nvm:883> manpath
++nvm:883> MANPATH=/Users/themrb/.nvm/versions/node/v24.9.0/share/man:/opt/homebrew/opt/libpq/share/man:/Users/themrb/.local/share/man:/opt/homebrew/opt/ruby/share/man:/Library/Frameworks/Python.framework/Versions/3.9/share/man:/opt/homebrew/share/man:/System/Cryptexes/App/usr/share/man:/usr/share/man:/Users/themrb/.nvm/versions/node/v22.14.0/share/man:/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/share/man:/Applications/Xcode.app/Contents/Developer/usr/share/man:/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/share/man 
++nvm:886> MANPATH=+nvm:886> nvm_change_path /Users/themrb/.nvm/versions/node/v24.9.0/share/man:/opt/homebrew/opt/libpq/share/man:/Users/themrb/.local/share/man:/opt/homebrew/opt/ruby/share/man:/Library/Frameworks/Python.framework/Versions/3.9/share/man:/opt/homebrew/share/man:/System/Cryptexes/App/usr/share/man:/usr/share/man:/Users/themrb/.nvm/versions/node/v22.14.0/share/man:/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/share/man:/Applications/Xcode.app/Contents/Developer/usr/share/man:/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/share/man /share/man /Users/themrb/.nvm/versions/node/v24.9.0
++nvm_change_path:2> [ -z /Users/themrb/.nvm/versions/node/v24.9.0/share/man:/opt/homebrew/opt/libpq/share/man:/Users/themrb/.local/share/man:/opt/homebrew/opt/ruby/share/man:/Library/Frameworks/Python.framework/Versions/3.9/share/man:/opt/homebrew/share/man:/System/Cryptexes/App/usr/share/man:/usr/share/man:/Users/themrb/.nvm/versions/node/v22.14.0/share/man:/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/share/man:/Applications/Xcode.app/Contents/Developer/usr/share/man:/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/share/man ']'
++nvm_change_path:6> nvm_grep -q '/Users/themrb/.nvm/[^/]*/share/man'
++nvm_change_path:6> nvm_echo /Users/themrb/.nvm/versions/node/v24.9.0/share/man:/opt/homebrew/opt/libpq/share/man:/Users/themrb/.local/share/man:/opt/homebrew/opt/ruby/share/man:/Library/Frameworks/Python.framework/Versions/3.9/share/man:/opt/homebrew/share/man:/System/Cryptexes/App/usr/share/man:/usr/share/man:/Users/themrb/.nvm/versions/node/v22.14.0/share/man:/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/share/man:/Applications/Xcode.app/Contents/Developer/usr/share/man:/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/share/man
++nvm_grep:1> GREP_OPTIONS='' grep -q '/Users/themrb/.nvm/[^/]*/share/man'
++nvm_echo:1> printf '%s\n' /Users/themrb/.nvm/versions/node/v24.9.0/share/man:/opt/homebrew/opt/libpq/share/man:/Users/themrb/.local/share/man:/opt/homebrew/opt/ruby/share/man:/Library/Frameworks/Python.framework/Versions/3.9/share/man:/opt/homebrew/share/man:/System/Cryptexes/App/usr/share/man:/usr/share/man:/Users/themrb/.nvm/versions/node/v22.14.0/share/man:/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/share/man:/Applications/Xcode.app/Contents/Developer/usr/share/man:/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/share/man
++nvm_change_path:7> nvm_echo /Users/themrb/.nvm/versions/node/v24.9.0/share/man:/opt/homebrew/opt/libpq/share/man:/Users/themrb/.local/share/man:/opt/homebrew/opt/ruby/share/man:/Library/Frameworks/Python.framework/Versions/3.9/share/man:/opt/homebrew/share/man:/System/Cryptexes/App/usr/share/man:/usr/share/man:/Users/themrb/.nvm/versions/node/v22.14.0/share/man:/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/share/man:/Applications/Xcode.app/Contents/Developer/usr/share/man:/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/share/man
++nvm_change_path:7> nvm_grep -q '/Users/themrb/.nvm/versions/[^/]*/[^/]*/share/man'
++nvm_grep:1> GREP_OPTIONS='' grep -q '/Users/themrb/.nvm/versions/[^/]*/[^/]*/share/man'
++nvm_echo:1> printf '%s\n' /Users/themrb/.nvm/versions/node/v24.9.0/share/man:/opt/homebrew/opt/libpq/share/man:/Users/themrb/.local/share/man:/opt/homebrew/opt/ruby/share/man:/Library/Frameworks/Python.framework/Versions/3.9/share/man:/opt/homebrew/share/man:/System/Cryptexes/App/usr/share/man:/usr/share/man:/Users/themrb/.nvm/versions/node/v22.14.0/share/man:/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/share/man:/Applications/Xcode.app/Contents/Developer/usr/share/man:/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/share/man
++nvm_change_path:13> nvm_echo /Users/themrb/.nvm/versions/node/v24.9.0/share/man:/opt/homebrew/opt/libpq/share/man:/Users/themrb/.local/share/man:/opt/homebrew/opt/ruby/share/man:/Library/Frameworks/Python.framework/Versions/3.9/share/man:/opt/homebrew/share/man:/System/Cryptexes/App/usr/share/man:/usr/share/man:/Users/themrb/.nvm/versions/node/v22.14.0/share/man:/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/share/man:/Applications/Xcode.app/Contents/Developer/usr/share/man:/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/share/man
++nvm_change_path:13> nvm_grep -Eq '(^|:)(/usr(/local)?)?/share/man:.*/Users/themrb/.nvm/[^/]*/share/man'
++nvm_echo:1> printf '%s\n' /Users/themrb/.nvm/versions/node/v24.9.0/share/man:/opt/homebrew/opt/libpq/share/man:/Users/themrb/.local/share/man:/opt/homebrew/opt/ruby/share/man:/Library/Frameworks/Python.framework/Versions/3.9/share/man:/opt/homebrew/share/man:/System/Cryptexes/App/usr/share/man:/usr/share/man:/Users/themrb/.nvm/versions/node/v22.14.0/share/man:/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/share/man:/Applications/Xcode.app/Contents/Developer/usr/share/man:/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/share/man
++nvm_grep:1> GREP_OPTIONS='' grep -Eq '(^|:)(/usr(/local)?)?/share/man:.*/Users/themrb/.nvm/[^/]*/share/man'
++nvm_change_path:14> nvm_grep -Eq '(^|:)(/usr(/local)?)?/share/man:.*/Users/themrb/.nvm/versions/[^/]*/[^/]*/share/man'
++nvm_change_path:14> nvm_echo /Users/themrb/.nvm/versions/node/v24.9.0/share/man:/opt/homebrew/opt/libpq/share/man:/Users/themrb/.local/share/man:/opt/homebrew/opt/ruby/share/man:/Library/Frameworks/Python.framework/Versions/3.9/share/man:/opt/homebrew/share/man:/System/Cryptexes/App/usr/share/man:/usr/share/man:/Users/themrb/.nvm/versions/node/v22.14.0/share/man:/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/share/man:/Applications/Xcode.app/Contents/Developer/usr/share/man:/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/share/man
++nvm_grep:1> GREP_OPTIONS='' grep -Eq '(^|:)(/usr(/local)?)?/share/man:.*/Users/themrb/.nvm/versions/[^/]*/[^/]*/share/man'
++nvm_echo:1> printf '%s\n' /Users/themrb/.nvm/versions/node/v24.9.0/share/man:/opt/homebrew/opt/libpq/share/man:/Users/themrb/.local/share/man:/opt/homebrew/opt/ruby/share/man:/Library/Frameworks/Python.framework/Versions/3.9/share/man:/opt/homebrew/share/man:/System/Cryptexes/App/usr/share/man:/usr/share/man:/Users/themrb/.nvm/versions/node/v22.14.0/share/man:/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/share/man:/Applications/Xcode.app/Contents/Developer/usr/share/man:/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/share/man
++nvm_change_path:15> nvm_echo /Users/themrb/.nvm/versions/node/v24.9.0/share/man:/Users/themrb/.nvm/versions/node/v24.9.0/share/man:/opt/homebrew/opt/libpq/share/man:/Users/themrb/.local/share/man:/opt/homebrew/opt/ruby/share/man:/Library/Frameworks/Python.framework/Versions/3.9/share/man:/opt/homebrew/share/man:/System/Cryptexes/App/usr/share/man:/usr/share/man:/Users/themrb/.nvm/versions/node/v22.14.0/share/man:/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/share/man:/Applications/Xcode.app/Contents/Developer/usr/share/man:/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/share/man
++nvm_echo:1> printf '%s\n' /Users/themrb/.nvm/versions/node/v24.9.0/share/man:/Users/themrb/.nvm/versions/node/v24.9.0/share/man:/opt/homebrew/opt/libpq/share/man:/Users/themrb/.local/share/man:/opt/homebrew/opt/ruby/share/man:/Library/Frameworks/Python.framework/Versions/3.9/share/man:/opt/homebrew/share/man:/System/Cryptexes/App/usr/share/man:/usr/share/man:/Users/themrb/.nvm/versions/node/v22.14.0/share/man:/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/share/man:/Applications/Xcode.app/Contents/Developer/usr/share/man:/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/share/man
++nvm:886> MANPATH=/Users/themrb/.nvm/versions/node/v24.9.0/share/man:/Users/themrb/.nvm/versions/node/v24.9.0/share/man:/opt/homebrew/opt/libpq/share/man:/Users/themrb/.local/share/man:/opt/homebrew/opt/ruby/share/man:/Library/Frameworks/Python.framework/Versions/3.9/share/man:/opt/homebrew/share/man:/System/Cryptexes/App/usr/share/man:/usr/share/man:/Users/themrb/.nvm/versions/node/v22.14.0/share/man:/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/share/man:/Applications/Xcode.app/Contents/Developer/usr/share/man:/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/share/man 
++nvm:887> export MANPATH
++nvm:889> export PATH
++nvm:890> hash -r
++nvm:891> export NVM_BIN=/Users/themrb/.nvm/versions/node/v24.9.0/bin
++nvm:892> export NVM_INC=/Users/themrb/.nvm/versions/node/v24.9.0/include/node
++nvm:893> [ '' '=' true ']'
++nvm:896> local NVM_USE_OUTPUT
++nvm:897> NVM_USE_OUTPUT='' 
++nvm:898> [ 0 -ne 1 ']'
++nvm:899> nvm_is_iojs_version v24.9.0
++nvm_is_iojs_version:1> case v24.9.0 (iojs-*)
++nvm_is_iojs_version:2> return 1
++nvm:902> NVM_USE_OUTPUT=+nvm:902> nvm_print_npm_version
++nvm_print_npm_version:1> nvm_has npm
++nvm_has:1> type npm
++nvm_print_npm_version:2> npm --version
++nvm_print_npm_version:2> printf ' (npm v11.6.0)'
++nvm:902> NVM_USE_OUTPUT='Now using node v24.9.0 (npm v11.6.0)' 
++nvm:905> [ _v24.9.0 '!=' _system ']'
++nvm:906> local NVM_USE_CMD
++nvm:907> NVM_USE_CMD='nvm use --delete-prefix' 
++nvm:908> [ -n default ']'
++nvm:909> NVM_USE_CMD='nvm use --delete-prefix v24.9.0' 
++nvm:911> [ 0 -eq 1 ']'
++nvm:914> nvm_die_on_prefix 0 'nvm use --delete-prefix v24.9.0' /Users/themrb/.nvm/versions/node/v24.9.0
++nvm_die_on_prefix:1> local NVM_DELETE_PREFIX
++nvm_die_on_prefix:2> NVM_DELETE_PREFIX=0 
++nvm_die_on_prefix:3> case 0 (0)
++nvm_die_on_prefix:10> local NVM_COMMAND
++nvm_die_on_prefix:11> NVM_COMMAND='nvm use --delete-prefix v24.9.0' 
++nvm_die_on_prefix:12> local NVM_VERSION_DIR
++nvm_die_on_prefix:13> NVM_VERSION_DIR=/Users/themrb/.nvm/versions/node/v24.9.0 
++nvm_die_on_prefix:14> [ -z 'nvm use --delete-prefix v24.9.0' ']'
++nvm_die_on_prefix:14> [ -z /Users/themrb/.nvm/versions/node/v24.9.0 ']'
++nvm_die_on_prefix:22> [ -n '' ']'
++nvm_die_on_prefix:29> local NVM_OS
++nvm_die_on_prefix:30> NVM_OS=+nvm_die_on_prefix:30> nvm_get_os
++nvm_get_os:1> local NVM_UNAME
++nvm_get_os:2> NVM_UNAME=+nvm_get_os:2> uname -a
++nvm_get_os:2> NVM_UNAME='Darwin HN-SKY-A0650 24.4.0 Darwin Kernel Version 24.4.0: Wed Mar 19 21:16:34 PDT 2025; root:xnu-11417.101.15~1/RELEASE_ARM64_T6000 arm64' 
++nvm_get_os:3> local NVM_OS
++nvm_get_os:4> case Darwin HN-SKY-A0650 24.4.0 Darwin Kernel Version 24.4.0: Wed Mar 19 21:16:34 PDT 2025; root:xnu-11417.101.15~1/RELEASE_ARM64_T6000 arm64 (Linux\ *)
++nvm_get_os:4> case Darwin HN-SKY-A0650 24.4.0 Darwin Kernel Version 24.4.0: Wed Mar 19 21:16:34 PDT 2025; root:xnu-11417.101.15~1/RELEASE_ARM64_T6000 arm64 (Darwin\ *)
++nvm_get_os:6> NVM_OS=darwin 
++nvm_get_os:13> nvm_echo darwin
++nvm_echo:1> printf '%s\n' darwin
++nvm_die_on_prefix:30> NVM_OS=darwin 
++nvm_die_on_prefix:38> local NVM_NPM_CONFIG_x_PREFIX_ENV
++nvm_die_on_prefix:39> NVM_NPM_CONFIG_x_PREFIX_ENV=+nvm_die_on_prefix:39> awk 'BEGIN { for (name in ENVIRON) if (toupper(name) == "NPM_CONFIG_PREFIX") { print name; break } }'
++nvm_die_on_prefix:39> NVM_NPM_CONFIG_x_PREFIX_ENV='' 
++nvm_die_on_prefix:40> [ -n '' ']'
++nvm_die_on_prefix:66> local NVM_NPM_BUILTIN_NPMRC
++nvm_die_on_prefix:67> NVM_NPM_BUILTIN_NPMRC=/Users/themrb/.nvm/versions/node/v24.9.0/lib/node_modules/npm/npmrc 
++nvm_die_on_prefix:68> nvm_npmrc_bad_news_bears /Users/themrb/.nvm/versions/node/v24.9.0/lib/node_modules/npm/npmrc
++nvm_npmrc_bad_news_bears:1> local NVM_NPMRC
++nvm_npmrc_bad_news_bears:2> NVM_NPMRC=/Users/themrb/.nvm/versions/node/v24.9.0/lib/node_modules/npm/npmrc 
++nvm_npmrc_bad_news_bears:3> [ -n /Users/themrb/.nvm/versions/node/v24.9.0/lib/node_modules/npm/npmrc ']'
++nvm_npmrc_bad_news_bears:3> [ -f /Users/themrb/.nvm/versions/node/v24.9.0/lib/node_modules/npm/npmrc ']'
++nvm_npmrc_bad_news_bears:6> return 1
++nvm_die_on_prefix:80> local NVM_NPM_GLOBAL_NPMRC
++nvm_die_on_prefix:81> NVM_NPM_GLOBAL_NPMRC=/Users/themrb/.nvm/versions/node/v24.9.0/etc/npmrc 
++nvm_die_on_prefix:82> nvm_npmrc_bad_news_bears /Users/themrb/.nvm/versions/node/v24.9.0/etc/npmrc
++nvm_npmrc_bad_news_bears:1> local NVM_NPMRC
++nvm_npmrc_bad_news_bears:2> NVM_NPMRC=/Users/themrb/.nvm/versions/node/v24.9.0/etc/npmrc 
++nvm_npmrc_bad_news_bears:3> [ -n /Users/themrb/.nvm/versions/node/v24.9.0/etc/npmrc ']'
++nvm_npmrc_bad_news_bears:3> [ -f /Users/themrb/.nvm/versions/node/v24.9.0/etc/npmrc ']'
++nvm_npmrc_bad_news_bears:6> return 1
++nvm_die_on_prefix:94> local NVM_NPM_USER_NPMRC
++nvm_die_on_prefix:95> NVM_NPM_USER_NPMRC=/Users/themrb/.npmrc 
++nvm_die_on_prefix:96> nvm_npmrc_bad_news_bears /Users/themrb/.npmrc
++nvm_npmrc_bad_news_bears:1> local NVM_NPMRC
++nvm_npmrc_bad_news_bears:2> NVM_NPMRC=/Users/themrb/.npmrc 
++nvm_npmrc_bad_news_bears:3> [ -n /Users/themrb/.npmrc ']'
++nvm_npmrc_bad_news_bears:3> [ -f /Users/themrb/.npmrc ']'
++nvm_npmrc_bad_news_bears:3> nvm_grep -Ee '^(prefix|globalconfig) *='
++nvm_grep:1> GREP_OPTIONS='' grep -Ee '^(prefix|globalconfig) *='
++nvm_npmrc_bad_news_bears:6> return 1
++nvm_die_on_prefix:108> local NVM_NPM_PROJECT_NPMRC
++nvm_die_on_prefix:109> NVM_NPM_PROJECT_NPMRC=+nvm_die_on_prefix:109> nvm_find_project_dir
++nvm_find_project_dir:1> local path_
++nvm_find_project_dir:2> path_=/Users/themrb/Documents/personal/officeclaw 
++nvm_find_project_dir:3> [ /Users/themrb/Documents/personal/officeclaw '!=' '' ']'
++nvm_find_project_dir:3> [ ! -f /Users/themrb/Documents/personal/officeclaw/package.json ']'
++nvm_find_project_dir:3> [ ! -d /Users/themrb/Documents/personal/officeclaw/node_modules ']'
++nvm_find_project_dir:4> path_=/Users/themrb/Documents/personal 
++nvm_find_project_dir:3> [ /Users/themrb/Documents/personal '!=' '' ']'
++nvm_find_project_dir:3> [ ! -f /Users/themrb/Documents/personal/package.json ']'
++nvm_find_project_dir:3> [ ! -d /Users/themrb/Documents/personal/node_modules ']'
++nvm_find_project_dir:4> path_=/Users/themrb/Documents 
++nvm_find_project_dir:3> [ /Users/themrb/Documents '!=' '' ']'
++nvm_find_project_dir:3> [ ! -f /Users/themrb/Documents/package.json ']'
++nvm_find_project_dir:3> [ ! -d /Users/themrb/Documents/node_modules ']'
++nvm_find_project_dir:4> path_=/Users/themrb 
++nvm_find_project_dir:3> [ /Users/themrb '!=' '' ']'
++nvm_find_project_dir:3> [ ! -f /Users/themrb/package.json ']'
++nvm_find_project_dir:3> [ ! -d /Users/themrb/node_modules ']'
++nvm_find_project_dir:6> nvm_echo /Users/themrb
++nvm_echo:1> printf '%s\n' /Users/themrb
++nvm_die_on_prefix:109> NVM_NPM_PROJECT_NPMRC=/Users/themrb/.npmrc 
++nvm_die_on_prefix:110> nvm_npmrc_bad_news_bears /Users/themrb/.npmrc
++nvm_npmrc_bad_news_bears:1> local NVM_NPMRC
++nvm_npmrc_bad_news_bears:2> NVM_NPMRC=/Users/themrb/.npmrc 
++nvm_npmrc_bad_news_bears:3> [ -n /Users/themrb/.npmrc ']'
++nvm_npmrc_bad_news_bears:3> [ -f /Users/themrb/.npmrc ']'
++nvm_npmrc_bad_news_bears:3> nvm_grep -Ee '^(prefix|globalconfig) *='
++nvm_grep:1> GREP_OPTIONS='' grep -Ee '^(prefix|globalconfig) *='
++nvm_npmrc_bad_news_bears:6> return 1
++nvm:918> [ -n 'Now using node v24.9.0 (npm v11.6.0)' ']'
++nvm:918> [ 0 -ne 1 ']'
++nvm:919> nvm_echo 'Now using node v24.9.0 (npm v11.6.0)'
++nvm_echo:1> printf '%s\n' 'Now using node v24.9.0 (npm v11.6.0)'
++nvm:34> return 0
++npm:0> unset -f npm
+npm:unset: no such hash table element: npm
++npm:0> npm --prefix apps/client-web run assets:sync

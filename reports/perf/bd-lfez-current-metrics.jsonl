@@ -1,0 +1,6 @@
+{"fps":5.3,"frameP95Ms":401.8,"hotspotPercent":94.9,"drawCalls":11,"triangles":292678,"runtimeStatus":"loaded (complete 100%)","runtimeIssues":0,"ts":"2026-02-15T13:48:48.358Z","scenario":"idle"}
+{"fps":4.9,"frameP95Ms":401.8,"hotspotPercent":96.2,"drawCalls":11,"triangles":292678,"runtimeStatus":"loaded (complete 100%)","runtimeIssues":0,"ts":"2026-02-15T13:48:51.761Z","scenario":"idle"}
+{"fps":4.7,"frameP95Ms":401.8,"hotspotPercent":97,"drawCalls":11,"triangles":292678,"runtimeStatus":"loaded (complete 100%)","runtimeIssues":0,"ts":"2026-02-15T13:48:55.202Z","scenario":"idle"}
+{"fps":3.6,"frameP95Ms":506.1,"hotspotPercent":98.9,"drawCalls":19,"triangles":488034,"runtimeStatus":"loaded (complete 100%)","runtimeIssues":0,"ts":"2026-02-15T13:49:30.995Z","scenario":"interaction"}
+{"fps":3.4,"frameP95Ms":526.4,"hotspotPercent":98.9,"drawCalls":19,"triangles":488034,"runtimeStatus":"loaded (complete 100%)","runtimeIssues":0,"ts":"2026-02-15T13:49:34.611Z","scenario":"interaction"}
+{"fps":3.2,"frameP95Ms":532.2,"hotspotPercent":99,"drawCalls":19,"triangles":488034,"runtimeStatus":"loaded (complete 100%)","runtimeIssues":0,"ts":"2026-02-15T13:49:38.379Z","scenario":"interaction"}

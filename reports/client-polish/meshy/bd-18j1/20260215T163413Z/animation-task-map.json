@@ -1,0 +1,29 @@
+{
+  "tasks": {
+    "Idle": {
+      "action_id": 0,
+      "task_id": "019c6227-1d24-76dd-b90d-cb11a7551279",
+      "download": "/Users/themrb/Documents/personal/officeclaw/assets/glb/agent_animation_bundle_Idle.glb"
+    },
+    "Walk": {
+      "action_id": 30,
+      "task_id": "019c6227-74df-7cdb-b9ab-41cac59e792e",
+      "download": "/Users/themrb/Documents/personal/officeclaw/assets/glb/agent_animation_bundle_Walk.glb"
+    },
+    "Work_Typing": {
+      "action_id": 33,
+      "task_id": "019c6228-0a81-7d15-8581-2416a22cda66",
+      "download": "/Users/themrb/Documents/personal/officeclaw/assets/glb/agent_animation_bundle_Work_Typing.glb"
+    },
+    "Think": {
+      "action_id": 36,
+      "task_id": "019c6228-f20f-7c75-9071-357f4999fe7c",
+      "download": "/Users/themrb/Documents/personal/officeclaw/assets/glb/agent_animation_bundle_Think.glb"
+    },
+    "Carry": {
+      "action_id": 43,
+      "task_id": "019c6229-b0f0-7c8d-8250-b416254d6059",
+      "download": "/Users/themrb/Documents/personal/officeclaw/assets/glb/agent_animation_bundle_Carry.glb"
+    }
+  }
+}

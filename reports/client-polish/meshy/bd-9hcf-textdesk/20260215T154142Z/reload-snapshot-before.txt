@@ -1,0 +1,54 @@
+  - complementary:
+    - heading "OfficeClaw v0" [ref=e1] [level=1]
+    - paragraph: Client scaffold with render loop + state boundaries.
+    - heading "Quick Start" [ref=e2] [level=2]
+    - paragraph: "Goal for your first run: submit a request, watch tasks populate, inspect agents, and resolve blockers."
+    - paragraph: Click floor to move. Click POIs to open Inbox, Task Board, or Delivery Shelf. Use Event Feed for traceability.
+      - listitem: Submit a request from Inbox to create kickoff and tasks.
+      - listitem: Use Task Board to assign and monitor work state.
+      - listitem: Review artifacts and resolve decisions to unblock flow.
+    - paragraph: "Onboarding metrics: visits inbox:0 task_board:0 artifact_viewer:0 decision_panel:0"
+    - button "Start Guided Flow" [ref=e3]
+    - button "Replay" [ref=e4]
+    - button "Dismiss" [ref=e5]
+    - paragraph: "Connection: connected"
+    - paragraph: Connected. Live world updates are active.
+    - paragraph: "Reconnect attempts: 0"
+    - paragraph: "Resume cursor seq: 2"
+    - paragraph: "Last snapshot id: offline_snapshot_001"
+    - paragraph: "Startup assets: 0/0 loaded=0 failed=0"
+    - heading "Scene Runtime" [ref=e6] [level=2]
+      - strong: "Status: loaded (complete 100%)"
+    - paragraph: Loaded
+    - paragraph: "Load policy: shell -> critical (5/5) -> decor (2/2)"
+    - paragraph: No provider issues detected.
+    - button "Reload Scene Runtime" [ref=e7]
+    - paragraph: "Agents in store: 3"
+    - paragraph: "Hovered: none"
+    - paragraph: "Focused POI: none"
+    - paragraph: "Focused agent: none"
+    - paragraph: "Player: [0.00, 0.00, 0.00]"
+    - paragraph: "Player path nodes: 0"
+    - paragraph: "Local nav: idle"
+    - paragraph: "Nav grid: 24x24 cells, cell=0.25, blocked=108, occupied=0"
+    - heading "Debug HUD" [ref=e8] [level=2]
+    - checkbox "Enable dev HUD" [ref=e9]
+    - text: Enable dev HUD
+    - button "Hide Event Feed" [ref=e10]
+    - button "Show Inbox" [ref=e11]
+    - button "Show BD Chat" [ref=e12]
+    - button "Show Task Board" [ref=e13]
+    - button "Show Agent Inspector" [ref=e14]
+    - button "Show Artifact Viewer" [ref=e15]
+    - button "Show Decisions" [ref=e16]
+    - button "Clear Focus (Esc)" [ref=e17]
+    - button "Show Help" [ref=e18] [disabled]
+    - heading "Accessibility" [ref=e19] [level=2]
+    - checkbox "Reduced motion mode" [ref=e20]
+    - text: Reduced motion mode
+    - paragraph: "Keyboard shortcuts: Alt+1..7 open panels, Alt+0 clears focus, Esc clears scene focus."
+  - article:
+    - heading "Event Feed" [ref=e21] [level=2]
+    - 'button "Tasks Created 10:47:08 PM POI: poi_task_board • Agent: agent_design_1 • Task: task_offline_wireframe • Seq: 2"'
+    - 'button "Kickoff Started 10:47:08 PM POI: poi_reception_inbox • Agent: agent_bd • Task: task_offline_research • Seq: 1"'
+    - 'button "Snapshot Correction 10:47:11 PM Agent: agent_design_1 • Task: task_offline_wireframe"'

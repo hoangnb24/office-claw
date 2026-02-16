@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "exported_at_ts": 1771163912136,
+  "include_sensitive": false,
+  "max_events": 5000,
+  "max_commands": 5000,
+  "sources": {
+    "events_path": "reports/client-polish/qa/offline-bd-t9jf/20260215T135153Z/events.jsonl",
+    "commands_path": "reports/client-polish/qa/offline-bd-t9jf/20260215T135153Z/commands.jsonl"
+  },
+  "events": [
+    {
+      "index": 0,
+      "meta": "Task: task_offline_wireframe • Seq: 4",
+      "time": "08:57:02 PM",
+      "title": "Task Assigned"
+    },
+    {
+      "index": 1,
+      "meta": "Agent: agent_design_1 • Task: task_offline_wireframe",
+      "time": "08:57:01 PM",
+      "title": "Snapshot Correction"
+    },
+    {
+      "index": 2,
+      "meta": "Task: task_offline_wireframe • Seq: 3",
+      "time": "08:57:00 PM",
+      "title": "Task Done"
+    },
+    {
+      "index": 3,
+      "meta": "Agent: agent_design_1 • Task: task_offline_wireframe",
+      "time": "08:56:59 PM",
+      "title": "Snapshot Correction"
+    },
+    {
+      "index": 4,
+      "meta": "Seq: 2",
+      "time": "08:56:56 PM",
+      "title": "Tasks Created"
+    },
+    {
+      "index": 5,
+      "meta": "Seq: 1",
+      "time": "08:56:56 PM",
+      "title": "Kickoff Started"
+    }
+  ],
+  "commands": [
+    {
+      "step": "launch_offline_client",
+      "command": "VITE_OFFLINE_MOCK_WORLD=1 VITE_WORLD_WS_AUTO_CONNECT=0 VITE_SCENE_ID=cozy_office_v0 VITE_DEBUG_HUD=1 npm --prefix apps/client-web run dev -- --host 127.0.0.1 --port 4180"
+    },
+    {
+      "step": "open_app",
+      "command": "agent-browser open http://127.0.0.1:4180/"
+    },
+    {
+      "step": "capture_vqa01",
+      "command": "agent-browser screenshot VQA-01-hitbox-target-resolution.png"
+    },
+    {
+      "step": "capture_vqa02",
+      "command": "event_feed_item[0].click + screenshot VQA-02-camera-focus-panel-anchor.png"
+    },
+    {
+      "step": "capture_vqa03",
+      "command": "event_feed_item[1].click then event_feed_item[0].click + screenshot VQA-03-highlight-lifecycle.png"
+    },
+    {
+      "step": "capture_vqa04",
+      "command": "event_feed_item[0..4].click + screenshot VQA-04-event-feed-linkage.png"
+    },
+    {
+      "step": "capture_vqa05",
+      "command": "enable debug HUD + overlay toggles + canvas nav clicks + screenshot VQA-05-navigation-debug-overlays.png"
+    },
+    {
+      "step": "capture_vqa06",
+      "command": "Alt+5 + screenshot VQA-06-agent-inspector.png"
+    },
+    {
+      "step": "capture_metrics_and_logs",
+      "command": "agent-browser eval HUD metrics + console/errors export"
+    }
+  ]
+}

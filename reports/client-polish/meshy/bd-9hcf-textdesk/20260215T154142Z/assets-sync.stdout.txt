@@ -1,0 +1,22 @@
+
+> @officeclaw/client-web@0.1.0 assets:sync
+> node ../../tools/sync-runtime-assets.mjs --source-glb ../../assets/glb --source-scenes ../../assets/scenes --target-assets public/assets --target-scenes public/scenes
+
+Mode: sync
+Prune stale outputs: no
+Source files scanned: 22
+Copied: 7
+Updated: 1
+Unchanged: 14
+Stale: 0
+Pruned: 0
+
+Synced entries:
+- [glb] copied: desk.pre_text2desk_20260215T154142Z.glb
+- [glb] copied: office_shell_generated.glb
+- [glb] copied: prop_delivery_shelf_generated.glb
+- [glb] copied: prop_dev_desk_generated.glb
+- [glb] copied: prop_dev_desk_text_generated.glb
+- [glb] copied: prop_inbox_generated.glb
+- [glb] copied: prop_task_board_generated.glb
+- [glb] updated: desk.glb

@@ -1,0 +1,9 @@
+[provenance-gate] FAIL: 8 asset(s) blocked.
+[provenance-gate] office_shell: hash reused by asset IDs: office_shell, prop_inbox, prop_task_board, prop_blocker_cone; tiny GLB size (1664 bytes); missing Meshy manifest evidence (expected reports/meshy-office_shell-manifest.json)
+[provenance-gate] prop_inbox: hash reused by asset IDs: office_shell, prop_inbox, prop_task_board, prop_blocker_cone; tiny GLB size (1664 bytes); missing Meshy manifest evidence (expected reports/meshy-prop_inbox-manifest.json)
+[provenance-gate] prop_task_board: hash reused by asset IDs: office_shell, prop_inbox, prop_task_board, prop_blocker_cone; tiny GLB size (1664 bytes); missing Meshy manifest evidence (expected reports/meshy-prop_task_board-manifest.json)
+[provenance-gate] prop_delivery_shelf: hash reused by asset IDs: prop_delivery_shelf, prop_dev_desk, agent_base_skeleton; missing Meshy manifest evidence (expected reports/meshy-prop_delivery_shelf-manifest.json)
+[provenance-gate] prop_dev_desk: hash reused by asset IDs: prop_delivery_shelf, prop_dev_desk, agent_base_skeleton; missing Meshy manifest evidence (expected reports/meshy-prop_dev_desk-manifest.json)
+[provenance-gate] prop_blocker_cone: hash reused by asset IDs: office_shell, prop_inbox, prop_task_board, prop_blocker_cone; tiny GLB size (1664 bytes); missing Meshy manifest evidence (expected reports/meshy-prop_blocker_cone-manifest.json)
+[provenance-gate] agent_base_skeleton: hash reused by asset IDs: prop_delivery_shelf, prop_dev_desk, agent_base_skeleton; missing Meshy manifest evidence (expected reports/meshy-agent_base_skeleton-manifest.json)
+[provenance-gate] agent_animation_bundle: missing Meshy manifest evidence (expected reports/meshy-agent_animation_bundle-manifest.json)

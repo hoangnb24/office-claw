@@ -1,0 +1,51 @@
+{
+  "asset_id": "agent_animation_bundle",
+  "images": [
+    "/Users/themrb/Documents/personal/officeclaw/images/agent_front.jpeg",
+    "/Users/themrb/Documents/personal/officeclaw/images/agent_back.jpeg"
+  ],
+  "output_dir": "/Users/themrb/Documents/personal/officeclaw/assets/glb",
+  "tasks": {
+    "generation": {
+      "endpoint": "/openapi/v1/multi-image-to-3d",
+      "task_id": "019c6223-3128-7be7-bed7-a80f9af5491a"
+    },
+    "rigging": {
+      "endpoint": "/openapi/v1/rigging",
+      "task_id": "019c6224-b964-7c2e-a4c4-f6bebb2aa7ad"
+    },
+    "animations": {
+      "Idle": {
+        "action_id": 0,
+        "task_id": "019c6227-1d24-76dd-b90d-cb11a7551279"
+      },
+      "Walk": {
+        "action_id": 30,
+        "task_id": "019c6227-74df-7cdb-b9ab-41cac59e792e"
+      },
+      "Work_Typing": {
+        "action_id": 33,
+        "task_id": "019c6228-0a81-7d15-8581-2416a22cda66"
+      },
+      "Think": {
+        "action_id": 36,
+        "task_id": "019c6228-f20f-7c75-9071-357f4999fe7c"
+      },
+      "Carry": {
+        "action_id": 43,
+        "task_id": "019c6229-b0f0-7c8d-8250-b416254d6059"
+      }
+    }
+  },
+  "downloads": {
+    "canonical_bundle_glb": "/Users/themrb/Documents/personal/officeclaw/assets/glb/agent1_animations.glb",
+    "animations": {
+      "Idle": "/Users/themrb/Documents/personal/officeclaw/reports/client-polish/meshy/bd-18j1/20260215T163413Z/generated/agent_animation_bundle_Idle.glb",
+      "Walk": "/Users/themrb/Documents/personal/officeclaw/reports/client-polish/meshy/bd-18j1/20260215T163413Z/generated/agent_animation_bundle_Walk.glb",
+      "Work_Typing": "/Users/themrb/Documents/personal/officeclaw/reports/client-polish/meshy/bd-18j1/20260215T163413Z/generated/agent_animation_bundle_Work_Typing.glb",
+      "Think": "/Users/themrb/Documents/personal/officeclaw/reports/client-polish/meshy/bd-18j1/20260215T163413Z/generated/agent_animation_bundle_Think.glb",
+      "Carry": "/Users/themrb/Documents/personal/officeclaw/reports/client-polish/meshy/bd-18j1/20260215T163413Z/generated/agent_animation_bundle_Carry.glb"
+    },
+    "generated_base_glb": "/Users/themrb/Documents/personal/officeclaw/reports/client-polish/meshy/bd-18j1/20260215T163413Z/generated/agent_animation_bundle_generated.glb"
+  }
+}

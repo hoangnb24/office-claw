@@ -1,0 +1,21 @@
+{
+  "asset_id": "agent_base_skeleton",
+  "images": [
+    "/Users/themrb/Documents/personal/officeclaw/images/agent_front.jpeg",
+    "/Users/themrb/Documents/personal/officeclaw/images/agent_back.jpeg"
+  ],
+  "output_dir": "/Users/themrb/Documents/personal/officeclaw/assets/glb",
+  "tasks": {
+    "generation": {
+      "endpoint": "/openapi/v1/multi-image-to-3d",
+      "task_id": "019c6223-3128-7be7-bed7-a80f9af5491a"
+    },
+    "rigging": {
+      "endpoint": "/openapi/v1/rigging",
+      "task_id": "019c6224-b964-7c2e-a4c4-f6bebb2aa7ad"
+    }
+  },
+  "downloads": {
+    "generated_glb": "/Users/themrb/Documents/personal/officeclaw/reports/client-polish/meshy/bd-18j1/20260215T163413Z/generated/agent_base_skeleton_generated.glb"
+  }
+}

@@ -1,0 +1,119 @@
+  - complementary:
+    - heading "OfficeClaw v0" [ref=e1] [level=1]
+    - paragraph: Client scaffold with render loop + state boundaries.
+    - heading "Quick Start" [ref=e2] [level=2]
+    - paragraph: "Goal for your first run: submit a request, watch tasks populate, inspect agents, and resolve blockers."
+    - paragraph: Click floor to move. Click POIs to open Inbox, Task Board, or Delivery Shelf. Use Event Feed for traceability.
+      - listitem: Submit a request from Inbox to create kickoff and tasks.
+      - listitem: Use Task Board to assign and monitor work state.
+      - listitem: Review artifacts and resolve decisions to unblock flow.
+    - paragraph: "Onboarding metrics: visits inbox:0 task_board:0 artifact_viewer:0 decision_panel:0"
+    - button "Start Guided Flow" [ref=e3]
+    - button "Replay" [ref=e4]
+    - button "Dismiss" [ref=e5]
+    - paragraph: "Connection: connected"
+    - paragraph: Connected. Live world updates are active.
+    - paragraph: "Reconnect attempts: 0"
+    - paragraph: "Resume cursor seq: 9"
+    - paragraph: "Last snapshot id: offline_snapshot_001"
+    - paragraph: "Startup assets: 0/0 loaded=0 failed=0"
+    - heading "Scene Runtime" [ref=e6] [level=2]
+      - strong: "Status: loaded (complete 100%)"
+    - paragraph: Loaded
+    - paragraph: "Load policy: shell -> critical (5/5) -> decor (2/2)"
+    - paragraph: No provider issues detected.
+    - button "Reload Scene Runtime" [ref=e7]
+    - paragraph: "Agents in store: 3"
+    - paragraph: "Hovered: none"
+    - paragraph: "Focused POI: none"
+    - paragraph: "Focused agent: none"
+    - paragraph: "Player: [0.00, 0.00, 0.00]"
+    - paragraph: "Player path nodes: 0"
+    - paragraph: "Local nav: idle"
+    - paragraph: "Nav grid: 24x24 cells, cell=0.25, blocked=108, occupied=0"
+    - heading "Debug HUD" [ref=e8] [level=2]
+    - checkbox "Enable dev HUD" [ref=e9] [checked]
+    - text: Enable dev HUD
+    - paragraph: "FPS: n/a"
+    - paragraph: "Frame avg: n/a ms"
+    - paragraph: "Frame p95: n/a ms"
+    - paragraph: "Frame hotspots (>20ms): 0/0 (0.0%)"
+    - paragraph: "Draw calls: n/a"
+    - paragraph: "Triangles: n/a"
+    - paragraph: "Render primitives: lines=n/a points=n/a"
+    - paragraph: "Perf alert level: healthy"
+    - paragraph: "Asset startup duration: n/a ms"
+    - paragraph: "Scene runtime: loaded (complete 100%)"
+    - paragraph: "Scene runtime issues: 0"
+    - checkbox "Path nodes overlay" [ref=e10]
+    - text: Path nodes overlay
+    - checkbox "Blocked cells overlay" [ref=e11]
+    - text: Blocked cells overlay
+    - checkbox "Anchor issue overlay" [ref=e12]
+    - text: Anchor issue overlay
+      - text: "Authoring capture: press"
+      - code: C
+      - text: over a POI to capture anchor patch JSON. Press
+      - code: Shift+C
+      - text: over a POI/object to capture collider/object transform patch JSON.
+    - paragraph: "Last capture: none"
+    - button "Hide Event Feed" [ref=e13]
+    - button "Show Inbox" [ref=e14]
+    - button "Show BD Chat" [ref=e15]
+    - button "Show Task Board" [ref=e16]
+    - button "Show Agent Inspector" [ref=e17]
+    - button "Show Artifact Viewer" [ref=e18]
+    - button "Hide Decisions" [ref=e19]
+    - button "Clear Focus (Esc)" [ref=e20]
+    - button "Show Help" [ref=e21] [disabled]
+    - heading "Accessibility" [ref=e22] [level=2]
+    - checkbox "Reduced motion mode" [ref=e23]
+    - text: Reduced motion mode
+    - paragraph: "Keyboard shortcuts: Alt+1..7 open panels, Alt+0 clears focus, Esc clears scene focus."
+  - article:
+    - heading "Event Feed" [ref=e24] [level=2]
+    - 'button "Task Done 08:58:42 PM Task: task_offline_wireframe • Seq: 9"'
+    - 'button "Snapshot Correction 08:58:41 PM Agent: agent_research_1 • Task: task_offline_research"'
+    - 'button "Snapshot Correction 08:58:40 PM Agent: agent_design_1 • Task: task_offline_wireframe"'
+    - 'button "Snapshot Correction 08:58:40 PM Agent: agent_research_1 • Task: task_offline_research"'
+    - 'button "Decision Requested 08:58:39 PM Task: task_offline_copy • Seq: 8"'
+    - 'button "Snapshot Correction 08:58:39 PM Agent: agent_research_1 • Task: task_offline_research"'
+    - 'button "Snapshot Correction 08:58:38 PM Agent: agent_design_1 • Task: task_offline_wireframe"'
+    - 'button "Snapshot Correction 08:58:38 PM Agent: agent_research_1 • Task: task_offline_research"'
+    - 'button "Task Done 08:58:37 PM Task: task_offline_wireframe • Seq: 7"'
+    - 'button "Snapshot Correction 08:58:36 PM Agent: agent_research_1 • Task: task_offline_research"'
+    - 'button "Snapshot Correction 08:58:35 PM Agent: agent_design_1 • Task: task_offline_wireframe"'
+    - 'button "Snapshot Correction 08:58:35 PM Agent: agent_research_1 • Task: task_offline_research"'
+    - 'button "Snapshot Correction 08:58:34 PM Agent: agent_research_1 • Task: task_offline_research"'
+    - 'button "Task Assigned 08:58:34 PM Task: task_offline_wireframe • Seq: 6"'
+    - 'button "Snapshot Correction 08:58:33 PM Agent: agent_design_1 • Task: task_offline_wireframe"'
+    - 'button "Decision Requested 08:58:32 PM Task: task_offline_copy • Seq: 5"'
+    - 'button "Snapshot Correction 08:58:30 PM Agent: agent_design_1 • Task: task_offline_wireframe"'
+    - 'button "Task Assigned 08:58:30 PM Task: task_offline_wireframe • Seq: 4"'
+    - 'button "Snapshot Correction 08:58:28 PM Agent: agent_design_1 • Task: task_offline_wireframe"'
+    - 'button "Snapshot Correction 08:58:26 PM Agent: agent_design_1 • Task: task_offline_wireframe"'
+    - 'button "Task Done 08:58:26 PM Task: task_offline_wireframe • Seq: 3"'
+    - 'button "Snapshot Correction 08:58:24 PM Agent: agent_design_1 • Task: task_offline_wireframe"'
+    - 'button "Tasks Created 08:58:22 PM Seq: 2"'
+    - 'button "Kickoff Started 08:58:22 PM Seq: 1"'
+  - article:
+    - heading "Decisions" [ref=e25] [level=2]
+    - paragraph: task_offline_copy needs dec_offline_scope. Open Decisions to unblock progress.
+    - heading "Open (1)" [ref=e26] [level=3]
+    - button "dec_offline_scope task_offline_copy" [ref=e27]
+      - strong: "ID:"
+      - text: dec_offline_scope
+      - strong: "Status:"
+      - text: Open
+      - strong: "Project:"
+      - text: proj_offline_001
+      - strong: "Task:"
+      - text: task_offline_copy
+      - strong: "Prompt:"
+      - text: Decision pending
+    - strong: Choice
+    - textbox "Choice" [ref=e28]:
+      - /placeholder: Provide decision outcome...
+    - 'button "Quick: Approve"'
+    - 'button "Quick: Needs Changes"'
+    - button "Resolve Decision" [ref=e29]

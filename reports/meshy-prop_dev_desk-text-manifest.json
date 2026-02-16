@@ -1,0 +1,13 @@
+{
+  "asset_id": "prop_dev_desk_text",
+  "source": "meshy_text_to_3d",
+  "prompt": "Modern developer desk workstation for a cozy startup office, warm wood desktop, matte dark metal legs, one monitor stand, compact keyboard area, clean cable management, stylized realism, readable silhouette, game-ready proportions, single object focus, neutral studio backdrop",
+  "negative_prompt": "people, person, character, text, logo, watermark, cluttered background, blurry, broken geometry",
+  "task": {
+    "endpoint": "/openapi/v2/text-to-3d",
+    "task_id": "019c61f5-6a05-7cab-9acc-230847f2ec91"
+  },
+  "downloads": {
+    "generated_glb": "/Users/themrb/Documents/personal/officeclaw/assets/glb/prop_dev_desk_text_generated.glb"
+  }
+}

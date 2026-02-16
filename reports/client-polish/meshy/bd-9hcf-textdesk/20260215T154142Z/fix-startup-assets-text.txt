@@ -1,0 +1,1 @@
+"Startup assets: 8/8 loaded=8 failed=0\n\nScene Runtime\n\nStatus: loaded (complete 100%)\n\nLoaded\n\nLoad policy: shell -> crit"

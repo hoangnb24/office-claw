@@ -1,0 +1,18 @@
+{
+  "vqa01_eventCount": 6,
+  "vqa01_hasPanels": true,
+  "vqa02_focusedPoi_after": "none",
+  "vqa02_focusedPoi_after_escape": "none",
+  "vqa02_focusedPoi_before": "none",
+  "vqa03_focus_sequence": [
+    "none",
+    "none"
+  ],
+  "vqa04_focusedAgent_after": "none",
+  "vqa04_focusedAgent_before": "none",
+  "vqa05_anchor_issues": true,
+  "vqa05_blocked_cells": true,
+  "vqa05_hud_enabled": true,
+  "vqa05_path_nodes": true,
+  "vqa06_agentInspector_visible": true
+}

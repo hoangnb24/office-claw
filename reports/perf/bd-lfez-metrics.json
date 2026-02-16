@@ -1,0 +1,222 @@
+{
+  "captureMode": "offline-baseline-profile-with-agent-browser",
+  "generatedAt": "2026-02-15T13:52:36.773Z",
+  "baseUrl": "http://127.0.0.1:4174/",
+  "session": "bdlfez",
+  "rawSamples": {
+    "idle": [
+      {
+        "drawCalls": 11,
+        "fps": 4.6,
+        "frameP95Ms": 376.6,
+        "hotspotPercent": 98.9,
+        "runtimeIssues": "0",
+        "runtimeStatus": "loaded (complete 100%)",
+        "timestamp": "2026-02-15T13:50:31.184Z",
+        "triangles": 292678
+      },
+      {
+        "drawCalls": 11,
+        "fps": 4.4,
+        "frameP95Ms": 376.6,
+        "hotspotPercent": 98.9,
+        "runtimeIssues": "0",
+        "runtimeStatus": "loaded (complete 100%)",
+        "timestamp": "2026-02-15T13:50:34.512Z",
+        "triangles": 292678
+      },
+      {
+        "drawCalls": 11,
+        "fps": 4.3,
+        "frameP95Ms": 318.2,
+        "hotspotPercent": 99,
+        "runtimeIssues": "0",
+        "runtimeStatus": "loaded (complete 100%)",
+        "timestamp": "2026-02-15T13:50:37.993Z",
+        "triangles": 292678
+      }
+    ],
+    "interaction": [
+      {
+        "drawCalls": 19,
+        "fps": 3.5,
+        "frameP95Ms": 537.6,
+        "hotspotPercent": 99.4,
+        "runtimeIssues": "0",
+        "runtimeStatus": "loaded (complete 100%)",
+        "timestamp": "2026-02-15T13:51:14.076Z",
+        "triangles": 488034
+      },
+      {
+        "drawCalls": 19,
+        "fps": 3.4,
+        "frameP95Ms": 559.3,
+        "hotspotPercent": 99.4,
+        "runtimeIssues": "0",
+        "runtimeStatus": "loaded (complete 100%)",
+        "timestamp": "2026-02-15T13:51:17.403Z",
+        "triangles": 488034
+      },
+      {
+        "drawCalls": 19,
+        "fps": 3.3,
+        "frameP95Ms": 562.5,
+        "hotspotPercent": 99.4,
+        "runtimeIssues": "0",
+        "runtimeStatus": "loaded (complete 100%)",
+        "timestamp": "2026-02-15T13:51:20.785Z",
+        "triangles": 488034
+      }
+    ]
+  },
+  "averages": {
+    "idle": {
+      "fps": 4.433333333333334,
+      "frameP95Ms": 357.1333333333334,
+      "hotspotPercent": 98.93333333333334,
+      "drawCalls": 11,
+      "triangles": 292678
+    },
+    "interaction": {
+      "fps": 3.4,
+      "frameP95Ms": 553.1333333333333,
+      "hotspotPercent": 99.40000000000002,
+      "drawCalls": 19,
+      "triangles": 488034
+    }
+  },
+  "comparisons": {
+    "vsBaseline": {
+      "baseline": {
+        "idle": {
+          "fps": 72.1,
+          "frameP95Ms": 16,
+          "hotspotPercent": 2.9,
+          "drawCalls": 124,
+          "triangles": 6046
+        },
+        "interaction": {
+          "fps": 14.3,
+          "frameP95Ms": 90.8,
+          "hotspotPercent": 98,
+          "drawCalls": 122,
+          "triangles": 489006
+        }
+      },
+      "idle": {
+        "fps": {
+          "absolute": -67.66666666666666,
+          "percent": -93.85113268608414
+        },
+        "frameP95Ms": {
+          "absolute": 341.1333333333334,
+          "percent": 2132.0833333333335
+        },
+        "hotspotPercent": {
+          "absolute": 96.03333333333333,
+          "percent": 3311.4942528735633
+        },
+        "drawCalls": {
+          "absolute": -113,
+          "percent": -91.12903225806451
+        },
+        "triangles": {
+          "absolute": 286632,
+          "percent": 4740.853456830962
+        }
+      },
+      "interaction": {
+        "fps": {
+          "absolute": -10.9,
+          "percent": -76.22377622377621
+        },
+        "frameP95Ms": {
+          "absolute": 462.3333333333333,
+          "percent": 509.1776798825257
+        },
+        "hotspotPercent": {
+          "absolute": 1.40000000000002,
+          "percent": 1.4285714285714488
+        },
+        "drawCalls": {
+          "absolute": -103,
+          "percent": -84.42622950819673
+        },
+        "triangles": {
+          "absolute": -972,
+          "percent": -0.1987705672323039
+        }
+      }
+    },
+    "vsBd50t4": {
+      "previous": {
+        "idle": {
+          "fps": 3.6,
+          "frameP95Ms": 683.9666666666667,
+          "hotspotPercent": 93.89999999999999,
+          "drawCalls": 14,
+          "triangles": 487710
+        },
+        "interaction": {
+          "fps": 2.6,
+          "frameP95Ms": 699.2000000000002,
+          "hotspotPercent": 98.10000000000001,
+          "drawCalls": 14,
+          "triangles": 487710
+        }
+      },
+      "idle": {
+        "fps": {
+          "absolute": 0.8333333333333335,
+          "percent": 23.148148148148152
+        },
+        "frameP95Ms": {
+          "absolute": -326.8333333333333,
+          "percent": -47.784979774842824
+        },
+        "hotspotPercent": {
+          "absolute": 5.033333333333346,
+          "percent": 5.360312389066396
+        },
+        "drawCalls": {
+          "absolute": -3,
+          "percent": -21.428571428571427
+        },
+        "triangles": {
+          "absolute": -195032,
+          "percent": -39.98933792622665
+        }
+      },
+      "interaction": {
+        "fps": {
+          "absolute": 0.7999999999999998,
+          "percent": 30.76923076923076
+        },
+        "frameP95Ms": {
+          "absolute": -146.06666666666683,
+          "percent": -20.890541571319623
+        },
+        "hotspotPercent": {
+          "absolute": 1.3000000000000114,
+          "percent": 1.3251783893985842
+        },
+        "drawCalls": {
+          "absolute": 5,
+          "percent": 35.714285714285715
+        },
+        "triangles": {
+          "absolute": 324,
+          "percent": 0.06643292120317403
+        }
+      }
+    }
+  },
+  "artifacts": {
+    "idleSamples": "reports/client-polish/benchmarks/bd-lfez/idle-samples.jsonl",
+    "interactionSamples": "reports/client-polish/benchmarks/bd-lfez/interaction-samples.jsonl",
+    "debugHud": "reports/client-polish/benchmarks/bd-lfez/debug-hud.txt",
+    "screenshot": "reports/client-polish/benchmarks/bd-lfez/final-runtime.png",
+    "console": "reports/client-polish/benchmarks/bd-lfez/console.log",
+    "pageErrors": "reports/client-polish/benchmarks/bd-lfez/page-errors.log"
+  }
+}

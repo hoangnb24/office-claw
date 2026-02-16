@@ -1,0 +1,24 @@
+{
+  "baseUrl": "http://127.0.0.1:4190",
+  "sceneOnly": true,
+  "capturedAt": "2026-02-16T02:30:36.267Z",
+  "screenshots": [
+    {
+      "id": "VQA-01",
+      "file": "VQA-01-scene-only-default-view.png",
+      "notes": "Default scene framing without overlay chrome."
+    },
+    {
+      "id": "VQA-02",
+      "file": "VQA-02-scene-only-camera-focus.png",
+      "notes": "Scene-only framing after deterministic event-feed focus."
+    },
+    {
+      "id": "VQA-03",
+      "file": "VQA-03-scene-only-navigation.png",
+      "notes": "Scene-only framing after deterministic canvas navigation clicks."
+    }
+  ],
+  "walkthrough": null,
+  "metrics": null
+}

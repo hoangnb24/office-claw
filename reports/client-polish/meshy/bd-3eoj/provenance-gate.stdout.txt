@@ -1,0 +1,1 @@
+Wrote provenance ledger: reports/asset-provenance-ledger.md

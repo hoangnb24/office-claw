@@ -1,0 +1,56 @@
+{
+  "captureMode": "offline-baseline-profile",
+  "baseUrl": "http://127.0.0.1:4175/",
+  "idle": [
+    {
+      "drawCalls": 14,
+      "fps": 4,
+      "frameP95Ms": 570.5,
+      "hotspotPercent": 93,
+      "triangles": 487710,
+      "ts": "2026-02-15T13:37:22.549Z"
+    },
+    {
+      "drawCalls": 14,
+      "fps": 3.5,
+      "frameP95Ms": 698.2,
+      "hotspotPercent": 94,
+      "triangles": 487710,
+      "ts": "2026-02-15T13:37:25.874Z"
+    },
+    {
+      "drawCalls": 14,
+      "fps": 3.3,
+      "frameP95Ms": 783.2,
+      "hotspotPercent": 94.7,
+      "triangles": 487710,
+      "ts": "2026-02-15T13:37:29.160Z"
+    }
+  ],
+  "interaction": [
+    {
+      "drawCalls": 14,
+      "fps": 2.6,
+      "frameP95Ms": 698.2,
+      "hotspotPercent": 98,
+      "triangles": 487710,
+      "ts": "2026-02-15T13:38:10.314Z"
+    },
+    {
+      "drawCalls": 14,
+      "fps": 2.6,
+      "frameP95Ms": 699.7,
+      "hotspotPercent": 98.1,
+      "triangles": 487710,
+      "ts": "2026-02-15T13:38:13.781Z"
+    },
+    {
+      "drawCalls": 14,
+      "fps": 2.6,
+      "frameP95Ms": 699.7,
+      "hotspotPercent": 98.2,
+      "triangles": 487710,
+      "ts": "2026-02-15T13:38:17.236Z"
+    }
+  ]
+}

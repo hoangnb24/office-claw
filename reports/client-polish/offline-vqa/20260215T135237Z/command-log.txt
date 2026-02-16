@@ -1,0 +1,56 @@
+== 2026-02-15T13:52:37Z offline vqa validation ==
+VITE_OFFLINE_MOCK_WORLD=1 npm --prefix apps/client-web run typecheck
+
+> @officeclaw/client-web@0.1.0 typecheck
+> tsc --noEmit
+
+VITE_OFFLINE_MOCK_WORLD=1 npm --prefix apps/client-web run build
+
+> @officeclaw/client-web@0.1.0 build
+> tsc -b && vite build
+
+vite v5.4.21 building for production...
+transforming...
+✓ 115 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                     0.40 kB │ gzip:   0.27 kB
+dist/assets/index-Cv6-YH5F.css      7.87 kB │ gzip:   2.02 kB
+dist/assets/index-CmUIFWt5.js   1,172.06 kB │ gzip: 326.17 kB
+✓ built in 2.01s
+tools/qa/run-visual-qa.sh --mode offline --validate
+[qa] Running client validation...
+
+> @officeclaw/client-web@0.1.0 typecheck
+> tsc --noEmit
+
+
+> @officeclaw/client-web@0.1.0 build
+> tsc -b && vite build
+
+vite v5.4.21 building for production...
+transforming...
+✓ 115 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                     0.40 kB │ gzip:   0.27 kB
+dist/assets/index-Cv6-YH5F.css      7.87 kB │ gzip:   2.02 kB
+dist/assets/index-Bye1mCaS.js   1,172.00 kB │ gzip: 326.15 kB
+✓ built in 2.27s
+
+[qa] Visual checklist: docs/visual-qa-checklist.md
+[qa] Capture findings with scenario ids (VQA-01..VQA-06).
+
+[qa] OFFLINE scenario launch
+  Terminal:
+    VITE_WORLD_WS_AUTO_CONNECT=0 npm --prefix apps/client-web run dev
+
+[qa] Deterministic scenario order
+  1) VQA-01 Hitbox target resolution
+  2) VQA-02 Camera focus framing + panel anchoring
+  3) VQA-03 Highlight lifecycle reset behavior
+  4) VQA-04 Event feed -> focus/inspector linkage
+  5) VQA-05 Navigation interaction + overlay diagnostics
+  6) VQA-06 Agent inspector live state/task/blocker rendering
+node tools/glb-preflight.mjs --scene assets/scenes/cozy_office_v0.scene.json --asset-root assets/glb --report reports/client-polish/offline-vqa/20260215T135237Z/scene-issues.md
+GLB preflight passed. Report: reports/client-polish/offline-vqa/20260215T135237Z/scene-issues.md

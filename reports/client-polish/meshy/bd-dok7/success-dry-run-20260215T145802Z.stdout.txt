@@ -1,0 +1,8 @@
+Dry run summary:
+- images: ['/Users/themrb/Documents/personal/officeclaw/reports/client-polish/qa/followup-bd-2jtf/20260215T142555Z/offline/offline-focus-check.png']
+- asset_id: credcheck
+- output_dir: /private/tmp/meshy-credcheck
+- generation_mode: image-to-3d
+- rigging: False
+- animation actions: (none)
+- No Meshy API calls were made.

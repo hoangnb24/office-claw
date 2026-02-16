@@ -1,0 +1,16 @@
+{
+  "asset_id": "prop_delivery_shelf",
+  "images": [
+    "/Users/themrb/Documents/personal/officeclaw/reports/client-polish/affordance-audit/20260215T131640Z/08-guided-flow-step3.png"
+  ],
+  "output_dir": "/Users/themrb/Documents/personal/officeclaw/assets/glb",
+  "tasks": {
+    "generation": {
+      "endpoint": "/openapi/v1/image-to-3d",
+      "task_id": "019c61d8-e5ec-7238-b66d-04dc26deb2b1"
+    }
+  },
+  "downloads": {
+    "generated_glb": "/Users/themrb/Documents/personal/officeclaw/assets/glb/prop_delivery_shelf_generated.glb"
+  }
+}

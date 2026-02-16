@@ -1,0 +1,17 @@
+{
+  "asset_id": "prop_blocker_cone",
+  "images": [],
+  "output_dir": "/Users/themrb/Documents/personal/officeclaw/assets/glb",
+  "source": "meshy_text_to_3d",
+  "tasks": {
+    "generation": {
+      "endpoint": "/openapi/v2/text-to-3d",
+      "task_id": "019c6215-12a5-792a-9f53-03c2ece0f1cb"
+    }
+  },
+  "downloads": {
+    "generated_glb": "/Users/themrb/Documents/personal/officeclaw/assets/glb/prop_blocker_cone_text_generated.glb"
+  },
+  "prompt": "Stylized safety blocker cone for a cozy office, matte orange cone body with white reflective stripe, small black rubber base, clean silhouette, game-ready, single object, neutral studio background",
+  "negative_prompt": "people, characters, text, logo, watermark, clutter, blurry, broken geometry, multiple objects"
+}

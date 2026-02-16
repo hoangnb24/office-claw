@@ -1,0 +1,10 @@
+{
+  "drawCalls": 120,
+  "fps": 1.3,
+  "frameAvgMs": 776.66,
+  "frameP95Ms": 1231.5,
+  "hotspotPercent": 98.9,
+  "perfAlert": "critical (fps_low, frame_p95_high, frame_hotspots_high)",
+  "triangles": 294734,
+  "ts": "2026-02-15T13:54:01.023Z"
+}

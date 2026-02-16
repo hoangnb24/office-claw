@@ -1,0 +1,188 @@
+- document:
+  - status: "Focused: Deliverables"
+  - complementary:
+    - heading "OfficeClaw v0" [ref=e1] [level=1]
+    - paragraph: Client scaffold with render loop + state boundaries.
+    - heading "Quick Start" [ref=e2] [level=2]
+    - paragraph: "Goal for your first run: submit a request, watch tasks populate, inspect agents, and resolve blockers."
+    - paragraph: Click floor to move. Click POIs to open Inbox, Task Board, or Delivery Shelf. Use Event Feed for traceability.
+    - list:
+      - listitem: Submit a request from Inbox to create kickoff and tasks.
+      - listitem: Use Task Board to assign and monitor work state.
+      - listitem: Review artifacts and resolve decisions to unblock flow.
+    - paragraph: "Onboarding metrics: visits inbox:0 task_board:0 artifact_viewer:0 decision_panel:0"
+    - button "Start Guided Flow" [ref=e3]
+    - button "Replay" [ref=e4]
+    - button "Dismiss" [ref=e5]
+    - paragraph: "Connection: connected"
+    - paragraph: Connected. Live world updates are active.
+    - paragraph: "Reconnect attempts: 0"
+    - paragraph: "Resume cursor seq: 5"
+    - paragraph: "Last snapshot id: offline_snapshot_001"
+    - paragraph: "Startup assets: 8/8 loaded=8 failed=0"
+    - heading "Scene Runtime" [ref=e6] [level=2]
+    - paragraph:
+      - strong: "Status: loaded (complete 100%)"
+    - paragraph: Loaded
+    - paragraph: "Load policy: shell -> critical (5/5) -> decor (2/2)"
+    - paragraph: No provider issues detected.
+    - button "Reload Scene Runtime" [ref=e7]
+    - paragraph: "Agents in store: 3"
+    - paragraph: "Hovered: none"
+    - paragraph: "Focused POI: poi_delivery_shelf"
+    - paragraph: "Focused agent: agent_research_1"
+    - paragraph: "Player: [0.00, 0.00, 0.00]"
+    - paragraph: "Player path nodes: 0"
+    - paragraph: "Local nav: idle"
+    - paragraph: "Nav grid: 24x24 cells, cell=0.25, blocked=108, occupied=0"
+    - heading "Debug HUD" [ref=e8] [level=2]
+    - checkbox "Enable dev HUD" [ref=e9] [checked]
+    - text: Enable dev HUD
+    - paragraph: "FPS: 7.8"
+    - paragraph: "Frame avg: 128.17 ms"
+    - paragraph: "Frame p95: 201.70 ms"
+    - paragraph: "Frame hotspots (>20ms): 198/213 (93.0%)"
+    - paragraph: "Draw calls: 18"
+    - paragraph: "Triangles: 1278559"
+    - paragraph: "Render primitives: lines=42 points=0"
+    - paragraph: "Perf alert level: critical (fps_low, frame_p95_high, frame_hotspots_high, triangles_high)"
+    - paragraph: "Asset startup duration: 2135 ms (slowest: decor_cone_cluster_b 0 ms)"
+    - paragraph: "Scene runtime: loaded (complete 100%)"
+    - paragraph: "Scene runtime issues: 0"
+    - checkbox "Path nodes overlay" [ref=e10]
+    - text: Path nodes overlay
+    - checkbox "Blocked cells overlay" [ref=e11]
+    - text: Blocked cells overlay
+    - checkbox "Anchor issue overlay" [ref=e12]
+    - text: Anchor issue overlay
+    - paragraph:
+      - text: "Authoring capture: press"
+      - code: C
+      - text: over a POI to capture anchor patch JSON. Press
+      - code: Shift+C
+      - text: over a POI/object to capture collider/object transform patch JSON.
+    - paragraph: "Last capture: none"
+    - button "Hide Event Feed" [ref=e13]
+    - button "Hide Inbox" [ref=e14]
+    - button "Show BD Chat" [ref=e15]
+    - button "Show Task Board" [ref=e16]
+    - button "Hide Agent Inspector" [ref=e17]
+    - button "Hide Artifact Viewer" [ref=e18]
+    - button "Show Decisions" [ref=e19]
+    - button "Clear Focus (Esc)" [ref=e20]
+    - button "Show Help" [ref=e21] [disabled]
+    - heading "Accessibility" [ref=e22] [level=2]
+    - checkbox "Reduced motion mode" [ref=e23]
+    - text: Reduced motion mode
+    - paragraph: "Keyboard shortcuts: Alt+1..7 open panels, Alt+0 clears focus, Esc clears scene focus."
+  - article:
+    - heading "Event Feed" [ref=e24] [level=2]
+    - 'button "Task Assigned 08:58:57 AM POI: poi_task_board • Agent: agent_research_1 • Task: task_offline_wireframe • Seq: 5"'
+    - 'button "Task Done 08:58:45 AM POI: poi_delivery_shelf • Agent: agent_research_1 • Task: task_offline_wireframe • Seq: 4"'
+    - 'button "Task Assigned 08:58:36 AM POI: poi_dev_desk_1 • Agent: agent_bd • Task: task_offline_copy • Seq: 3"'
+    - 'button "Tasks Created 08:58:33 AM POI: poi_task_board • Agent: agent_design_1 • Task: task_offline_wireframe • Seq: 2"'
+    - 'button "Kickoff Started 08:58:33 AM POI: poi_reception_inbox • Agent: agent_bd • Task: task_offline_research • Seq: 1"'
+    - 'button "Snapshot Correction 08:58:58 AM Agent: agent_design_1 • Task: task_offline_wireframe"'
+    - 'button "Snapshot Correction 08:58:55 AM Agent: agent_design_1 • Task: task_offline_wireframe"'
+    - 'button "Snapshot Correction 08:58:53 AM Agent: agent_design_1 • Task: task_offline_wireframe"'
+    - 'button "Snapshot Correction 08:58:50 AM Agent: agent_design_1 • Task: task_offline_wireframe"'
+    - 'button "Snapshot Correction 08:58:49 AM Agent: agent_research_1 • Task: task_offline_research"'
+    - 'button "Snapshot Correction 08:58:48 AM Agent: agent_design_1 • Task: task_offline_wireframe"'
+    - 'button "Snapshot Correction 08:58:48 AM Agent: agent_research_1 • Task: task_offline_research"'
+    - 'button "Snapshot Correction 08:58:47 AM Agent: agent_research_1 • Task: task_offline_research"'
+    - 'button "Snapshot Correction 08:58:45 AM Agent: agent_design_1 • Task: task_offline_wireframe"'
+    - 'button "Snapshot Correction 08:58:45 AM Agent: agent_research_1 • Task: task_offline_research"'
+    - 'button "Snapshot Correction 08:58:43 AM Agent: agent_research_1 • Task: task_offline_research"'
+    - 'button "Snapshot Correction 08:58:43 AM Agent: agent_design_1 • Task: task_offline_wireframe"'
+    - 'button "Snapshot Correction 08:58:42 AM Agent: agent_research_1 • Task: task_offline_research"'
+    - 'button "Snapshot Correction 08:58:40 AM Agent: agent_design_1 • Task: task_offline_wireframe"'
+    - 'button "Snapshot Correction 08:58:38 AM Agent: agent_design_1 • Task: task_offline_wireframe"'
+    - 'button "Snapshot Correction 08:58:36 AM Agent: agent_bd"'
+    - 'button "Snapshot Correction 08:58:36 AM Agent: agent_bd"'
+    - 'button "Snapshot Correction 08:58:35 AM Agent: agent_design_1 • Task: task_offline_wireframe"'
+    - 'button "Snapshot Correction 08:58:34 AM Agent: agent_bd"'
+  - article:
+    - heading "Inbox" [ref=e25] [level=2]
+    - text: Request
+    - textbox "Request" [ref=e26]:
+      - /placeholder: Describe what you want OfficeClaw to do...
+    - button "Submit Request" [ref=e27]
+  - article:
+    - heading "Agent Inspector" [ref=e28] [level=2]
+    - paragraph:
+      - strong: "Agent:"
+      - text: agent_research_1
+    - paragraph:
+      - strong: "Role:"
+      - text: Specialist
+    - paragraph:
+      - strong: "State:"
+      - text: Walking
+    - paragraph:
+      - strong: "Position:"
+      - text: "[1.26, 0.00, -0.56]"
+    - paragraph:
+      - strong: "Task:"
+      - text: task_offline_research (In Progress)
+    - paragraph:
+      - strong: "Blocker:"
+      - text: none
+    - paragraph:
+      - strong: "Needs:"
+      - text: none
+    - paragraph:
+      - strong: "Why this state:"
+      - text: Task Assigned @ 08:58:57 AM
+    - button "Focus Agent" [ref=e29]
+    - button "Open Task Board" [ref=e30]
+    - button "Open Event Feed" [ref=e31]
+    - button "Open Decision/Chat Inbox" [ref=e32]
+    - paragraph:
+      - strong: Override Controls
+    - button "Pause Dispatch" [ref=e33]
+    - button "Resume Dispatch" [ref=e34]
+    - button "Reassign" [ref=e35] [disabled]
+    - button "Cancel" [ref=e36]
+    - button "Rerun" [ref=e37] [disabled]
+  - article:
+    - heading "Artifact Viewer" [ref=e38] [level=2]
+    - heading "Artifacts (1)" [ref=e39] [level=3]
+    - paragraph: 1 review-active • 0 historical
+    - button "artifact_offline_wireframe_v1 v1 • Delivered wireframe • task_offline_wireframe" [ref=e40]
+    - paragraph:
+      - strong: "ID:"
+      - text: artifact_offline_wireframe_v1
+    - paragraph:
+      - strong: "Status:"
+      - text: Delivered
+    - paragraph:
+      - strong: "Version:"
+      - text: "1"
+    - paragraph:
+      - strong: "Project:"
+      - text: proj_offline_001
+    - paragraph:
+      - strong: "Task:"
+      - text: task_offline_wireframe
+    - paragraph:
+      - strong: "POI:"
+      - text: poi_delivery_shelf
+    - paragraph:
+      - strong: "Type:"
+      - text: Wireframe
+    - paragraph:
+      - strong: "Provenance:"
+      - text: from task_offline_wireframe assigned to agent_design_1
+    - paragraph:
+      - strong: "Timeline Trace:"
+      - text: Snapshot Correction @ 08:58:58 AM
+    - button "Trace in timeline" [ref=e41]
+    - strong: Change Instructions
+    - textbox "Change Instructions" [ref=e42]:
+      - /placeholder: Describe requested revisions...
+    - strong: Split Into Tasks
+    - textbox "Split Into Tasks" [ref=e43]:
+      - /placeholder: "One task title per line\nDraft 3 headline variants\nCreate 2 CTA options"
+    - button "Approve Artifact" [ref=e44]
+    - button "Request Changes" [ref=e45]
+    - button "Split Into Tasks" [ref=e46]

@@ -1,0 +1,16 @@
+{
+  "asset_id": "office_shell",
+  "images": [
+    "/Users/themrb/Documents/personal/officeclaw/reports/client-polish/affordance-audit/20260215T131640Z/01-landing.png"
+  ],
+  "output_dir": "/Users/themrb/Documents/personal/officeclaw/assets/glb",
+  "tasks": {
+    "generation": {
+      "endpoint": "/openapi/v1/image-to-3d",
+      "task_id": "019c61d2-0aa1-7d90-bf5f-88b6b2546583"
+    }
+  },
+  "downloads": {
+    "generated_glb": "/Users/themrb/Documents/personal/officeclaw/assets/glb/office_shell_generated.glb"
+  }
+}

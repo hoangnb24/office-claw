@@ -1,0 +1,1 @@
+"Startup assets: 0/0 loaded=0 failed=0\n\nScene Runtime\n\nStatus: loaded (complete 100%)\n\nLoaded\n\nLoad p"

@@ -1,0 +1,5 @@
+launch_offline_client: VITE_OFFLINE_MOCK_WORLD=1 VITE_WORLD_WS_AUTO_CONNECT=0 VITE_SCENE_ID=cozy_office_v0 VITE_DEBUG_HUD=1 npm --prefix apps/client-web run dev -- --host 127.0.0.1 --port 4180
+open_app: agent-browser open http://127.0.0.1:4180/
+capture_vqa02: event_feed_item[0].click + screenshot
+capture_vqa03: event_feed_item[1].click then event_feed_item[0].click
+capture_vqa04: event_feed_item[0..4].click + screenshot

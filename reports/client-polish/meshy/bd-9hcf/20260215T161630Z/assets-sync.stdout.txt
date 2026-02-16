@@ -1,0 +1,20 @@
+
+> @officeclaw/client-web@0.1.0 assets:sync
+> node ../../tools/sync-runtime-assets.mjs --source-glb ../../assets/glb --source-scenes ../../assets/scenes --target-assets public/assets --target-scenes public/scenes
+
+Mode: sync
+Prune stale outputs: no
+Source files scanned: 24
+Copied: 1
+Updated: 5
+Unchanged: 18
+Stale: 0
+Pruned: 0
+
+Synced entries:
+- [glb] copied: prop_blocker_cone_text_generated.glb
+- [glb] updated: blocker_cone.glb
+- [glb] updated: inbox.glb
+- [glb] updated: office_shell.glb
+- [glb] updated: shelf.glb
+- [glb] updated: task_board.glb

@@ -1,0 +1,49 @@
+agent-browser "--session" "scene-only-mlok4bnl" "open" "http://127.0.0.1:4190"
+✓ OfficeClaw Client
+  http://127.0.0.1:4190/
+agent-browser "--session" "scene-only-mlok4bnl" "wait" "4500"
+✓ Done
+agent-browser "--session" "scene-only-mlok4bnl" "errors" "--clear"
+✓ Request log cleared
+agent-browser "--session" "scene-only-mlok4bnl" "console" "--clear"
+✓ Request log cleared
+agent-browser "--session" "scene-only-mlok4bnl" "press" "Escape"
+✓ Done
+agent-browser "--session" "scene-only-mlok4bnl" "press" "Alt+0"
+✓ Done
+agent-browser "--session" "scene-only-mlok4bnl" "wait" "500"
+✓ Done
+agent-browser "--session" "scene-only-mlok4bnl" "eval" "(() => {\n    const root = document.querySelector('.overlay-root');\n    if (!root) return 'overlay-missing';\n    root.setAttribute('data-scene-capture-hidden', '1');\n    root.style.visibility = 'hidden';\n    return 'overlay-hidden';\n  })()"
+"overlay-hidden"
+agent-browser "--session" "scene-only-mlok4bnl" "wait" "150"
+✓ Done
+agent-browser "--session" "scene-only-mlok4bnl" "screenshot" "reports/client-polish/qa/scene-only-bd-1mob/20260216T023021Z/screenshots/VQA-01-scene-only-default-view.png"
+✓ Screenshot saved to reports/client-polish/qa/scene-only-bd-1mob/20260216T023021Z/screenshots/VQA-01-scene-only-default-view.png
+agent-browser "--session" "scene-only-mlok4bnl" "eval" "(() => {\n    const root = document.querySelector('.overlay-root');\n    if (!root) return 'overlay-missing';\n    if (root.getAttribute('data-scene-capture-hidden') === '1') {\n      root.style.visibility = '';\n      root.removeAttribute('data-scene-capture-hidden');\n    }\n    return 'overlay-shown';\n  })()"
+"overlay-shown"
+agent-browser "--session" "scene-only-mlok4bnl" "eval" "(() => {\n          const btn = document.querySelector('button.event-feed-item');\n          if (!btn) return 'missing-event-item';\n          btn.click();\n          return 'clicked-event-0';\n        })()"
+"clicked-event-0"
+agent-browser "--session" "scene-only-mlok4bnl" "wait" "800"
+✓ Done
+agent-browser "--session" "scene-only-mlok4bnl" "eval" "(() => {\n    const root = document.querySelector('.overlay-root');\n    if (!root) return 'overlay-missing';\n    root.setAttribute('data-scene-capture-hidden', '1');\n    root.style.visibility = 'hidden';\n    return 'overlay-hidden';\n  })()"
+"overlay-hidden"
+agent-browser "--session" "scene-only-mlok4bnl" "wait" "150"
+✓ Done
+agent-browser "--session" "scene-only-mlok4bnl" "screenshot" "reports/client-polish/qa/scene-only-bd-1mob/20260216T023021Z/screenshots/VQA-02-scene-only-camera-focus.png"
+✓ Screenshot saved to reports/client-polish/qa/scene-only-bd-1mob/20260216T023021Z/screenshots/VQA-02-scene-only-camera-focus.png
+agent-browser "--session" "scene-only-mlok4bnl" "eval" "(() => {\n    const root = document.querySelector('.overlay-root');\n    if (!root) return 'overlay-missing';\n    if (root.getAttribute('data-scene-capture-hidden') === '1') {\n      root.style.visibility = '';\n      root.removeAttribute('data-scene-capture-hidden');\n    }\n    return 'overlay-shown';\n  })()"
+"overlay-shown"
+agent-browser "--session" "scene-only-mlok4bnl" "eval" "(() => {\n          const canvas = document.querySelector('canvas');\n          if (!canvas) return 'missing-canvas';\n          const rect = canvas.getBoundingClientRect();\n          const points = [\n            [rect.left + rect.width * 0.58, rect.top + rect.height * 0.72],\n            [rect.left + rect.width * 0.42, rect.top + rect.height * 0.58]\n          ];\n          for (const [x, y] of points) {\n            const target = document.elementFromPoint(x, y) ?? canvas;\n            target.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, clientX: x, clientY: y, button: 0 }));\n            target.dispatchEvent(new PointerEvent('pointerup', { bubbles: true, clientX: x, clientY: y, button: 0 }));\n            target.dispatchEvent(new MouseEvent('click', { bubbles: true, clientX: x, clientY: y, button: 0 }));\n          }\n          return 'canvas-clicks-dispatched';\n        })()"
+"canvas-clicks-dispatched"
+agent-browser "--session" "scene-only-mlok4bnl" "wait" "450"
+✓ Done
+agent-browser "--session" "scene-only-mlok4bnl" "eval" "(() => {\n    const root = document.querySelector('.overlay-root');\n    if (!root) return 'overlay-missing';\n    root.setAttribute('data-scene-capture-hidden', '1');\n    root.style.visibility = 'hidden';\n    return 'overlay-hidden';\n  })()"
+"overlay-hidden"
+agent-browser "--session" "scene-only-mlok4bnl" "wait" "150"
+✓ Done
+agent-browser "--session" "scene-only-mlok4bnl" "screenshot" "reports/client-polish/qa/scene-only-bd-1mob/20260216T023021Z/screenshots/VQA-03-scene-only-navigation.png"
+✓ Screenshot saved to reports/client-polish/qa/scene-only-bd-1mob/20260216T023021Z/screenshots/VQA-03-scene-only-navigation.png
+agent-browser "--session" "scene-only-mlok4bnl" "eval" "(() => {\n    const root = document.querySelector('.overlay-root');\n    if (!root) return 'overlay-missing';\n    if (root.getAttribute('data-scene-capture-hidden') === '1') {\n      root.style.visibility = '';\n      root.removeAttribute('data-scene-capture-hidden');\n    }\n    return 'overlay-shown';\n  })()"
+"overlay-shown"
+agent-browser "--session" "scene-only-mlok4bnl" "errors"
+agent-browser "--session" "scene-only-mlok4bnl" "console"

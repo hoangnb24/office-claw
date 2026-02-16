@@ -1,0 +1,16 @@
+{
+  "asset_id": "prop_inbox",
+  "images": [
+    "/Users/themrb/Documents/personal/officeclaw/reports/client-polish/affordance-audit/20260215T131640Z/02-inbox-panel.png"
+  ],
+  "output_dir": "/Users/themrb/Documents/personal/officeclaw/assets/glb",
+  "tasks": {
+    "generation": {
+      "endpoint": "/openapi/v1/image-to-3d",
+      "task_id": "019c61d4-0970-7de9-b7d1-7d5518282563"
+    }
+  },
+  "downloads": {
+    "generated_glb": "/Users/themrb/Documents/personal/officeclaw/assets/glb/prop_inbox_generated.glb"
+  }
+}

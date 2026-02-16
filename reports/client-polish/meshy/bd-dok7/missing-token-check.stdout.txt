@@ -1,0 +1,1 @@
+ERROR: Missing API key. Set environment variable MESHY_API_KEY with your Meshy bearer token.

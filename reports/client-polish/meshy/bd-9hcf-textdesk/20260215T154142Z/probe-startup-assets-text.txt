@@ -1,0 +1,1 @@
+"Startup assets: 1/1 loaded=1 failed=0\n\nScene Runtime\n\nStatus: degraded (complete 100%)\n\nLoaded with non-fatal validation"

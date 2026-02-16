@@ -1,0 +1,67 @@
+== 2026-02-15T13:14:15Z baseline validation ==
+VITE_OFFLINE_MOCK_WORLD=1 npm --prefix apps/client-web run typecheck
+
+> @officeclaw/client-web@0.1.0 typecheck
+> tsc --noEmit
+
+VITE_OFFLINE_MOCK_WORLD=1 npm --prefix apps/client-web run build
+
+> @officeclaw/client-web@0.1.0 build
+> tsc -b && vite build
+
+vite v5.4.21 building for production...
+transforming...
+✓ 114 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                     0.40 kB │ gzip:   0.27 kB
+dist/assets/index-D8E3V95j.css      7.30 kB │ gzip:   1.93 kB
+dist/assets/index-B2j2WZEB.js   1,164.36 kB │ gzip: 323.73 kB
+✓ built in 1.63s
+tools/qa/run-visual-qa.sh --mode offline --validate
+[qa] Running client validation...
+
+> @officeclaw/client-web@0.1.0 typecheck
+> tsc --noEmit
+
+
+> @officeclaw/client-web@0.1.0 build
+> tsc -b && vite build
+
+vite v5.4.21 building for production...
+transforming...
+✓ 114 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                     0.40 kB │ gzip:   0.27 kB
+dist/assets/index-D8E3V95j.css      7.30 kB │ gzip:   1.93 kB
+dist/assets/index-CuJXOBPV.js   1,164.30 kB │ gzip: 323.72 kB
+✓ built in 1.85s
+
+[qa] Visual checklist: docs/visual-qa-checklist.md
+[qa] Capture findings with scenario ids (VQA-01..VQA-06).
+
+[qa] OFFLINE scenario launch
+  Terminal:
+    VITE_WORLD_WS_AUTO_CONNECT=0 npm --prefix apps/client-web run dev
+
+[qa] Deterministic scenario order
+  1) VQA-01 Hitbox target resolution
+  2) VQA-02 Camera focus framing + panel anchoring
+  3) VQA-03 Highlight lifecycle reset behavior
+  4) VQA-04 Event feed -> focus/inspector linkage
+  5) VQA-05 Navigation interaction + overlay diagnostics
+  6) VQA-06 Agent inspector live state/task/blocker rendering
+node tools/glb-preflight.mjs --scene assets/scenes/cozy_office_v0.scene.json --asset-root assets/glb --report reports/client-polish/baseline/20260215T131415Z/scene-issues.md
+GLB preflight passed. Report: reports/client-polish/baseline/20260215T131415Z/scene-issues.md
+== 2026-02-15T13:16:00Z agent-browser capture ==
+agent-browser --cdp 9223 open http://127.0.0.1:4173
+agent-browser --cdp 9223 screenshot reports/client-polish/baseline/20260215T131415Z/screenshots/VQA-01-hitbox-target-resolution.png
+agent-browser --cdp 9223 screenshot reports/client-polish/baseline/20260215T131415Z/screenshots/VQA-02-camera-focus-panel-anchor.png
+agent-browser --cdp 9223 screenshot reports/client-polish/baseline/20260215T131415Z/screenshots/VQA-03-highlight-lifecycle.png
+agent-browser --cdp 9223 screenshot reports/client-polish/baseline/20260215T131415Z/screenshots/VQA-04-event-feed-linkage.png
+agent-browser --cdp 9223 screenshot reports/client-polish/baseline/20260215T131415Z/screenshots/VQA-05-navigation-debug-overlays.png
+agent-browser --cdp 9223 screenshot reports/client-polish/baseline/20260215T131415Z/screenshots/VQA-06-agent-inspector-state.png
+agent-browser --cdp 9223 record start reports/client-polish/baseline/20260215T131415Z/walkthrough/baseline-walkthrough.webm
+agent-browser --cdp 9223 record stop
+agent-browser --cdp 9223 get text .debug-hud > reports/client-polish/baseline/20260215T131415Z/debug-hud.txt
