@@ -281,3 +281,19 @@ OFFICECLAW_NON_PROD=1 node tools/session-trace.mjs import \
 - `docs/qa-gate-command-suite.md`
 - `docs/contracts-validation-gates.md`
 - `docs/operations-runbook.md`
+
+## Agent Navigation
+
+Agent lookup index:
+
+```bash
+node tools/agent-lookup.mjs --list
+node tools/agent-lookup.mjs --search websocket
+node tools/agent-lookup.mjs --topic contracts-validation
+```
+
+Agent navigation references:
+
+- `docs/AGENT_NAVIGATION.md`
+- `docs/agent-lookup-map.json`
+- Subfolder `AGENTS.md` files under `apps/`, `contracts/`, `tools/`, `packages/`, `assets/`, and `docs/`.

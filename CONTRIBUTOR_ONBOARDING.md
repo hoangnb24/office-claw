@@ -6,6 +6,18 @@ Last updated: 2026-02-16
 
 This guide gets a contributor from zero context to productive delivery in OfficeClaw with concrete runtime, workflow, and validation steps.
 
+## 0) Agent Context Discovery
+
+Use the lookup index before broad scanning:
+
+```bash
+node tools/agent-lookup.mjs --list
+node tools/agent-lookup.mjs --search <keyword>
+node tools/agent-lookup.mjs --topic <topic-id>
+```
+
+When working in a folder subtree, read that subtree's `AGENTS.md` first.
+
 ## 1) Architecture Map Summary
 
 ### Runtime model
