@@ -192,7 +192,11 @@ def create_animation_task(
     action_id: str,
 ) -> str:
     endpoint = "/openapi/v1/animations"
-    payload = {"rigging_task_id": rigging_task_id, "action_id": action_id}
+    action_value: Any = action_id
+    # Meshy animation API expects action_id as an integer.
+    if isinstance(action_id, str) and action_id.strip().isdigit():
+        action_value = int(action_id.strip())
+    payload = {"rig_task_id": rigging_task_id, "action_id": action_value}
     response = http_json(
         session=session,
         method="POST",
@@ -412,6 +416,10 @@ def main() -> int:
                 raise MeshyError(f"Animation task for {clip_name} ended with status {anim_status}")
 
             anim_glb_url = anim_task.get("animation_glb_url")
+            if not anim_glb_url and isinstance(anim_task.get("model_urls"), dict):
+                anim_glb_url = anim_task.get("model_urls", {}).get("glb")
+            if not anim_glb_url:
+                anim_glb_url = anim_task.get("glb_url")
             if not anim_glb_url:
                 raise MeshyError(f"Animation task for {clip_name} succeeded but animation_glb_url missing")
 

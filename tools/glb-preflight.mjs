@@ -266,8 +266,8 @@ function run() {
       .filter((name) => typeof name === "string");
 
     const basename = path.basename(filePath).toLowerCase();
-    const isAgentAsset = basename.includes("agent");
-    if (isAgentAsset) {
+    const isAgentAnimationAsset = basename.includes("agent") && basename.includes("animation");
+    if (isAgentAnimationAsset) {
       if (animationNames.length === 0) {
         addIssue(
           issues,
