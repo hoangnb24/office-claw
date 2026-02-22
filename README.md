@@ -154,6 +154,20 @@ node tools/qa/capture-baseline-visuals.mjs --out-dir reports/client-polish/basel
 node tools/qa/capture-baseline-visuals.mjs --out-dir reports/client-polish/baseline/scene-only --scene-only
 ```
 
+## Server Load Benchmark Guardrail
+
+Run a deterministic multi-client benchmark against the authoritative world server:
+
+```bash
+node tools/load/world-server-benchmark.mjs --clients 24 --settle-ms 4000 --command-spacing-ms 10 --out reports/perf/world-server-benchmark.json
+```
+
+Validate benchmark thresholds (latency/throughput/memory) for regression guarding:
+
+```bash
+node tools/load/check-world-server-benchmark-thresholds.mjs --in reports/perf/world-server-benchmark.json
+```
+
 ## Asset and Scene Tooling
 
 Sync canonical assets into runtime-served directories:
