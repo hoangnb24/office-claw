@@ -79,6 +79,30 @@ interface SceneDecorAnchor {
   facing?: Vec3;
 }
 
+export interface SceneLightingProfile {
+  mood?: "cozy_day" | "cozy_evening" | "focused_night" | "neutral";
+  ambient_intensity?: number;
+  key_intensity?: number;
+  fill_intensity?: number;
+  key_color?: string;
+  fill_color?: string;
+  fog_near_scale?: number;
+  fog_far_scale?: number;
+}
+
+export interface SceneAmbienceProfile {
+  motion_intensity?: number;
+  cue_duration_ms?: number;
+  cue_pulse_hz?: number;
+}
+
+export interface SceneFxAnchor {
+  id: string;
+  pos: Vec3;
+  kind?: string;
+  radius_m?: number;
+}
+
 export interface SceneManifest {
   scene_id: string;
   version?: number;
@@ -93,6 +117,9 @@ export interface SceneManifest {
   };
   spawns?: SceneSpawns;
   decor_anchors?: Record<string, SceneDecorAnchor[]>;
+  lighting_profile?: SceneLightingProfile;
+  ambience_profile?: SceneAmbienceProfile;
+  fx_anchors?: Record<string, SceneFxAnchor[]>;
 }
 
 interface LoadedAsset {
@@ -113,6 +140,9 @@ export interface SceneRuntimeData {
   navigationGrid: SceneNavigationGrid;
   spawns: SceneSpawns;
   decorAnchors: Record<string, SceneDecorAnchor[]>;
+  lightingProfile?: SceneLightingProfile;
+  ambienceProfile?: SceneAmbienceProfile;
+  fxAnchors?: Record<string, SceneFxAnchor[]>;
   issues: string[];
 }
 
@@ -146,6 +176,26 @@ function asOptionalPositiveNumber(value: unknown, label: string): number | undef
   }
   if (typeof value !== "number" || Number.isNaN(value) || value <= 0) {
     throw new Error(`${label} must be a number > 0`);
+  }
+  return value;
+}
+
+function asOptionalString(value: unknown, label: string): string | undefined {
+  if (value === undefined) {
+    return undefined;
+  }
+  if (typeof value !== "string" || value.trim().length === 0) {
+    throw new Error(`${label} must be a non-empty string`);
+  }
+  return value.trim();
+}
+
+function asOptionalFiniteNumber(value: unknown, label: string): number | undefined {
+  if (value === undefined) {
+    return undefined;
+  }
+  if (typeof value !== "number" || Number.isNaN(value)) {
+    throw new Error(`${label} must be a finite number`);
   }
   return value;
 }
@@ -391,6 +441,87 @@ export function parseSceneManifest(raw: unknown): SceneManifest {
     ])
   ) as Record<string, SceneDecorAnchor[]>;
 
+  const lightingProfileRaw =
+    root.lighting_profile && typeof root.lighting_profile === "object"
+      ? (root.lighting_profile as Record<string, unknown>)
+      : null;
+  const lighting_profile = lightingProfileRaw
+    ? ({
+        mood:
+          lightingProfileRaw.mood === "cozy_day" ||
+          lightingProfileRaw.mood === "cozy_evening" ||
+          lightingProfileRaw.mood === "focused_night" ||
+          lightingProfileRaw.mood === "neutral"
+            ? lightingProfileRaw.mood
+            : undefined,
+        ambient_intensity: asOptionalFiniteNumber(
+          lightingProfileRaw.ambient_intensity,
+          "lighting_profile.ambient_intensity"
+        ),
+        key_intensity: asOptionalFiniteNumber(
+          lightingProfileRaw.key_intensity,
+          "lighting_profile.key_intensity"
+        ),
+        fill_intensity: asOptionalFiniteNumber(
+          lightingProfileRaw.fill_intensity,
+          "lighting_profile.fill_intensity"
+        ),
+        key_color: asOptionalString(lightingProfileRaw.key_color, "lighting_profile.key_color"),
+        fill_color: asOptionalString(lightingProfileRaw.fill_color, "lighting_profile.fill_color"),
+        fog_near_scale: asOptionalPositiveNumber(
+          lightingProfileRaw.fog_near_scale,
+          "lighting_profile.fog_near_scale"
+        ),
+        fog_far_scale: asOptionalPositiveNumber(
+          lightingProfileRaw.fog_far_scale,
+          "lighting_profile.fog_far_scale"
+        )
+      } satisfies SceneLightingProfile)
+    : undefined;
+
+  const ambienceProfileRaw =
+    root.ambience_profile && typeof root.ambience_profile === "object"
+      ? (root.ambience_profile as Record<string, unknown>)
+      : null;
+  const ambience_profile = ambienceProfileRaw
+    ? ({
+        motion_intensity: asOptionalPositiveNumber(
+          ambienceProfileRaw.motion_intensity,
+          "ambience_profile.motion_intensity"
+        ),
+        cue_duration_ms: asOptionalPositiveNumber(
+          ambienceProfileRaw.cue_duration_ms,
+          "ambience_profile.cue_duration_ms"
+        ),
+        cue_pulse_hz: asOptionalPositiveNumber(
+          ambienceProfileRaw.cue_pulse_hz,
+          "ambience_profile.cue_pulse_hz"
+        )
+      } satisfies SceneAmbienceProfile)
+    : undefined;
+
+  const fxAnchorsRaw =
+    root.fx_anchors && typeof root.fx_anchors === "object"
+      ? (root.fx_anchors as Record<string, unknown>)
+      : {};
+  const fx_anchors = Object.fromEntries(
+    Object.entries(fxAnchorsRaw).map(([groupId, anchors]) => [
+      groupId,
+      (Array.isArray(anchors) ? anchors : []).map((anchor, index) => {
+        const anchorObj = asObject(anchor, `fx_anchors.${groupId}[${index}]`);
+        return {
+          id: asString(anchorObj.id, `fx_anchors.${groupId}[${index}].id`),
+          pos: asVec3(anchorObj.pos, `fx_anchors.${groupId}[${index}].pos`),
+          kind: asOptionalString(anchorObj.kind, `fx_anchors.${groupId}[${index}].kind`),
+          radius_m: asOptionalPositiveNumber(
+            anchorObj.radius_m,
+            `fx_anchors.${groupId}[${index}].radius_m`
+          )
+        };
+      })
+    ])
+  ) as Record<string, SceneFxAnchor[]>;
+
   const parsed: SceneManifest = {
     scene_id,
     version: typeof root.version === "number" ? root.version : undefined,
@@ -399,7 +530,10 @@ export function parseSceneManifest(raw: unknown): SceneManifest {
     objects,
     navigation,
     spawns,
-    decor_anchors
+    decor_anchors,
+    lighting_profile,
+    ambience_profile,
+    fx_anchors
   };
 
   validateManifest(parsed);
@@ -471,6 +605,9 @@ export async function loadSceneFromManifest(
     navigationGrid: manifest.navigation.grid,
     spawns: manifest.spawns ?? { agents: {} },
     decorAnchors: manifest.decor_anchors ?? {},
+    lightingProfile: manifest.lighting_profile,
+    ambienceProfile: manifest.ambience_profile,
+    fxAnchors: manifest.fx_anchors,
     issues
   };
 }

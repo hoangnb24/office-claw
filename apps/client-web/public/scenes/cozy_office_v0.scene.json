@@ -1,6 +1,59 @@
 {
   "scene_id": "cozy_office_v0",
   "version": 1,
+  "lighting_profile": {
+    "mood": "cozy_evening",
+    "ambient_intensity": 0.86,
+    "key_intensity": 1.34,
+    "fill_intensity": 0.46,
+    "key_color": "#ffd4a4",
+    "fill_color": "#9fc2e7",
+    "fog_near_scale": 1,
+    "fog_far_scale": 1.05
+  },
+  "ambience_profile": {
+    "motion_intensity": 0.9,
+    "cue_duration_ms": 3200,
+    "cue_pulse_hz": 2.4
+  },
+  "fx_anchors": {
+    "task_flow": [
+      {
+        "id": "fx_task_board_primary",
+        "pos": [
+          1.2,
+          1.15,
+          1.55
+        ],
+        "kind": "task_board",
+        "radius_m": 0.7
+      }
+    ],
+    "delivery_flow": [
+      {
+        "id": "fx_delivery_shelf_primary",
+        "pos": [
+          -1.8,
+          1.05,
+          1.75
+        ],
+        "kind": "delivery_shelf",
+        "radius_m": 0.7
+      }
+    ],
+    "inbox_flow": [
+      {
+        "id": "fx_inbox_primary",
+        "pos": [
+          2.05,
+          1.05,
+          -1.15
+        ],
+        "kind": "inbox",
+        "radius_m": 0.65
+      }
+    ]
+  },
   "office_shell": {
     "url": "/assets/office_shell.glb",
     "transform": {
@@ -184,6 +237,58 @@
           1.75
         ],
         "zoom": 1.03
+      }
+    },
+    {
+      "poi_id": "poi_dev_desk_1",
+      "type": "dev_desk",
+      "nav_anchors": [
+        {
+          "id": "sit_work",
+          "pos": [
+            0.125,
+            0,
+            -0.375
+          ],
+          "facing": [
+            0.03,
+            0,
+            1
+          ]
+        }
+      ],
+      "interaction_radius_m": 1.15,
+      "capacity": 1,
+      "highlight_nodes": [
+        "Mesh0"
+      ],
+      "interaction": {
+        "type": "focus_only"
+      },
+      "ui_anchor": {
+        "pos": [
+          0.2,
+          1,
+          0.45
+        ],
+        "facing": [
+          -0.75,
+          0,
+          0.66
+        ],
+        "size": [
+          1.2,
+          0.8
+        ]
+      },
+      "camera_framing": {
+        "kind": "poi",
+        "offset": [
+          0,
+          1.05,
+          1.6
+        ],
+        "zoom": 1.08
       }
     }
   ],
@@ -375,7 +480,8 @@
       "tags": [
         "prop",
         "workspace",
-        "zone-divider"
+        "zone-divider",
+        "poi-zone"
       ],
       "collider": {
         "type": "box",
@@ -394,7 +500,12 @@
         "cast_shadow": false,
         "receive_shadow": true,
         "cull_distance_m": 14
-      }
+      },
+      "poi_id": "poi_dev_desk_1",
+      "interaction_radius_m": 1.15,
+      "highlight_nodes": [
+        "Mesh0"
+      ]
     },
     {
       "id": "delivery_cone_marker",

@@ -86,6 +86,30 @@ export interface SceneManifest {
     player: Vector3;
     agents: Record<string, Vector3>;
   };
+  lighting_profile?: {
+    mood?: "cozy_day" | "cozy_evening" | "focused_night" | "neutral";
+    ambient_intensity?: number;
+    key_intensity?: number;
+    fill_intensity?: number;
+    key_color?: string;
+    fill_color?: string;
+    fog_near_scale?: number;
+    fog_far_scale?: number;
+  };
+  ambience_profile?: {
+    motion_intensity?: number;
+    cue_duration_ms?: number;
+    cue_pulse_hz?: number;
+  };
+  fx_anchors?: Record<
+    string,
+    {
+      id: string;
+      pos: Vector3;
+      kind?: string;
+      radius_m?: number;
+    }[]
+  >;
   decor_anchors?: Record<
     string,
     {

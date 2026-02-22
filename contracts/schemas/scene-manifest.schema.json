@@ -19,6 +19,9 @@
       "items": {"$ref": "#/$defs/object"}
     },
     "navigation": {"$ref": "#/$defs/navigation"},
+    "lighting_profile": {"$ref": "#/$defs/lighting_profile"},
+    "ambience_profile": {"$ref": "#/$defs/ambience_profile"},
+    "fx_anchors": {"$ref": "#/$defs/fx_anchors"},
     "spawns": {"$ref": "#/$defs/spawns"},
     "decor_anchors": {"$ref": "#/$defs/decor_anchors"}
   },
@@ -253,6 +256,52 @@
             }
           }
         }
+      }
+    },
+    "lighting_profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "mood": {
+          "type": "string",
+          "enum": ["cozy_day", "cozy_evening", "focused_night", "neutral"]
+        },
+        "ambient_intensity": {"type": "number"},
+        "key_intensity": {"type": "number"},
+        "fill_intensity": {"type": "number"},
+        "key_color": {"type": "string", "minLength": 1},
+        "fill_color": {"type": "string", "minLength": 1},
+        "fog_near_scale": {"type": "number", "exclusiveMinimum": 0},
+        "fog_far_scale": {"type": "number", "exclusiveMinimum": 0}
+      }
+    },
+    "ambience_profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "motion_intensity": {"type": "number", "exclusiveMinimum": 0},
+        "cue_duration_ms": {"type": "number", "exclusiveMinimum": 0},
+        "cue_pulse_hz": {"type": "number", "exclusiveMinimum": 0}
+      }
+    },
+    "fx_anchor": {
+      "type": "object",
+      "required": ["id", "pos"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "pos": {"$ref": "#/$defs/number3"},
+        "kind": {"type": "string", "minLength": 1},
+        "radius_m": {"type": "number", "exclusiveMinimum": 0}
+      }
+    },
+    "fx_anchors": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "array",
+        "minItems": 1,
+        "items": {"$ref": "#/$defs/fx_anchor"}
       }
     },
     "spawns": {
