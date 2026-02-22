@@ -4,3 +4,19 @@ contracts/node_modules/
 .venv-meshy
 *node_modules
 __pycache__
+
+# Local machine/editor artifacts
+.DS_Store
+*.tsbuildinfo
+
+# One-off local exports
+repomix-codebase.xml
+repomix-output.xml
+
+# Generated local test output
+test-results/
+
+# Local investigation reports (non-source artifacts)
+reports/perf/
+reports/finding/
+reports/nav-preflight-report.current.md
