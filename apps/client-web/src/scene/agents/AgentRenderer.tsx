@@ -27,6 +27,9 @@ const SNAP_TELEPORT_THRESHOLD = 1.5;
 const SNAP_EASE_DEBUG_THRESHOLD = 0.35;
 const SNAP_DEBUG_EVENT_INTERVAL_MS = 600;
 const MIN_SEGMENT_DISTANCE = 0.001;
+const CLIP_FADE_IN_S = 0.12;
+const CLIP_FADE_OUT_S = 0.12;
+const CLIP_FADE_CLEANUP_S = 0.08;
 type CorrectionMode = "none" | "ease" | "teleport";
 
 interface ActiveTraversal {
@@ -183,6 +186,28 @@ function fallbackColorByState(state: AgentState) {
   }
 }
 
+function hashAgentSeed(agentId: string): number {
+  let hash = 0;
+  for (let index = 0; index < agentId.length; index += 1) {
+    hash = (hash * 31 + agentId.charCodeAt(index)) | 0;
+  }
+  return Math.abs(hash % 9973) / 9973;
+}
+
+function actionTimeScale(baseState: AgentState, seed: number): number {
+  const jitter = (seed - 0.5) * 0.14;
+  if (baseState === "walking") {
+    return 1 + jitter * 0.6;
+  }
+  if (baseState === "working") {
+    return 1 + jitter * 0.45;
+  }
+  if (baseState === "meeting" || baseState === "blocked") {
+    return 1 + jitter * 0.35;
+  }
+  return 1 + jitter * 0.5;
+}
+
 export function AgentRenderer({
   agentId,
   state,
@@ -196,6 +221,7 @@ export function AgentRenderer({
 }: AgentRendererProps) {
   const warnedKeysRef = useRef<Set<string>>(new Set());
   const currentActionRef = useRef<AnimationAction | null>(null);
+  const currentActionNameRef = useRef<string | null>(null);
   const groupRef = useRef<Group>(null);
   const currentPosRef = useRef(new Vector3(position[0], position[1], position[2]));
   const snapshotTargetRef = useRef(new Vector3(position[0], position[1], position[2]));
@@ -204,6 +230,7 @@ export function AgentRenderer({
   const correctionModeRef = useRef<CorrectionMode>("none");
   const lastCorrectionEventTsRef = useRef(0);
   const [isMoving, setIsMoving] = useState(false);
+  const animationSeed = useMemo(() => hashAgentSeed(agentId), [agentId]);
 
   const setMovingFlag = (next: boolean) => {
     if (movingRef.current === next) {
@@ -267,6 +294,7 @@ export function AgentRenderer({
   useEffect(() => {
     if (!mixer) {
       currentActionRef.current = null;
+      currentActionNameRef.current = null;
       return;
     }
 
@@ -300,17 +328,28 @@ export function AgentRenderer({
     }
 
     const current = currentActionRef.current;
-    if (current && current !== nextAction) {
-      current.fadeOut(0.2);
+    const nextPlaybackScale = actionTimeScale(effectiveState, animationSeed);
+    nextAction.timeScale = nextPlaybackScale;
+
+    if (current !== nextAction || currentActionNameRef.current !== nextName) {
+      if (current && current !== nextAction) {
+        current.fadeOut(CLIP_FADE_OUT_S);
+      }
+
+      nextAction.reset();
+      const clipDuration = nextAction.getClip().duration;
+      if (clipDuration > 0) {
+        nextAction.time = (animationSeed * clipDuration) % clipDuration;
+      }
+      nextAction.fadeIn(CLIP_FADE_IN_S).play();
+      currentActionRef.current = nextAction;
+      currentActionNameRef.current = nextName ?? null;
     }
 
-    nextAction.reset().fadeIn(0.2).play();
-    currentActionRef.current = nextAction;
-
     return () => {
-      currentActionRef.current?.fadeOut(0.1);
+      currentActionRef.current?.fadeOut(CLIP_FADE_CLEANUP_S);
     };
-  }, [actions, agentId, effectiveState, isCarrying, mixer, onMissingClip]);
+  }, [actions, agentId, animationSeed, effectiveState, isCarrying, mixer, onMissingClip]);
 
   useEffect(
     () => () => {

@@ -8,6 +8,7 @@ import { useWorldSocket } from "./network/useWorldSocket";
 import {
   isDebugDiagnosticsProfileEnabled,
   isOfflineMockWorldEnabled,
+  runtimeRenderQualityProfile,
   runtimeSceneId
 } from "./config/runtimeProfile";
 import { useScriptedDemoFlowHotkey } from "./demo/useScriptedDemoFlowHotkey";
@@ -15,6 +16,7 @@ import { useScriptedDemoFlowHotkey } from "./demo/useScriptedDemoFlowHotkey";
 export function WorkspaceRoute() {
   const offlineMode = isOfflineMockWorldEnabled();
   const debugDiagnosticsProfile = isDebugDiagnosticsProfileEnabled();
+  const renderQuality = runtimeRenderQualityProfile();
   const sceneId = runtimeSceneId();
   const manifestUrl = `/scenes/${sceneId}.scene.json`;
 
@@ -27,9 +29,10 @@ export function WorkspaceRoute() {
         <div className="scene-shell">
           <Canvas
             orthographic
-            dpr={0.85}
+            dpr={[renderQuality.dprMin, renderQuality.dprMax]}
+            shadows={renderQuality.shadows}
             gl={{
-              antialias: false,
+              antialias: renderQuality.antialias,
               powerPreference: "high-performance"
             }}
             camera={{

@@ -16,6 +16,10 @@ import {
 } from "../state/worldStore";
 import { useInteractionStore } from "../state/interactionStore";
 import { usePlayerStore } from "../state/playerStore";
+import {
+  normalizeEditorDraft,
+  useSceneEditorStore
+} from "../state/sceneEditorStore";
 import { dispatchSubmitRequest } from "../network/inboxCommands";
 import { dispatchAssignTask, dispatchAutoAssign } from "../network/taskBoardCommands";
 import { dispatchResolveDecision } from "../network/decisionCommands";
@@ -536,6 +540,14 @@ function fmt(value: number | null | undefined, digits = 1): string {
   return value.toFixed(digits);
 }
 
+function roundTransformValue(value: number): number {
+  return Math.round(value * 1000) / 1000;
+}
+
+function formatTransformTuple(tuple: [number, number, number]): string {
+  return `[${roundTransformValue(tuple[0]).toFixed(3)}, ${roundTransformValue(tuple[1]).toFixed(3)}, ${roundTransformValue(tuple[2]).toFixed(3)}]`;
+}
+
 interface SceneLoadPolicySummary {
   criticalTotal: number;
   criticalLoaded: number;
@@ -684,9 +696,20 @@ export function OverlayRoot() {
   const sceneRuntime = useSceneRuntimeProvider();
   const [sceneRuntimeReloadPending, setSceneRuntimeReloadPending] = useState(false);
   const [sceneRuntimeNotice, setSceneRuntimeNotice] = useState<string | null>(null);
+  const [sceneEditorNotice, setSceneEditorNotice] = useState<string | null>(null);
   const world = useWorldStore();
   const interaction = useInteractionStore();
   const player = usePlayerStore();
+  const sceneEditorEnabled = useSceneEditorStore((state) => state.enabled);
+  const setSceneEditorEnabled = useSceneEditorStore((state) => state.setEnabled);
+  const sceneEditorActiveObjectId = useSceneEditorStore((state) => state.activeObjectId);
+  const setSceneEditorActiveObjectId = useSceneEditorStore((state) => state.setActiveObjectId);
+  const sceneEditorDraftsByObjectId = useSceneEditorStore((state) => state.draftsByObjectId);
+  const ensureSceneEditorDraft = useSceneEditorStore((state) => state.ensureDraft);
+  const replaceSceneEditorDraft = useSceneEditorStore((state) => state.replaceDraft);
+  const nudgeSceneEditorActive = useSceneEditorStore((state) => state.nudgeActive);
+  const clearSceneEditorDraft = useSceneEditorStore((state) => state.clearDraft);
+  const clearAllSceneEditorDrafts = useSceneEditorStore((state) => state.clearAllDrafts);
   const manifestPois = sceneRuntime.snapshot.manifest?.pois ?? [];
   const manifestObjects = sceneRuntime.snapshot.manifest?.objects ?? [];
   const loadedRuntimeObjectIds = useMemo(
@@ -703,6 +726,37 @@ export function OverlayRoot() {
   );
   const sceneRuntimeIssues = sceneRuntime.snapshot.issues;
   const visibleSceneRuntimeIssues = sceneRuntimeIssues.slice(0, 3);
+  const selectedManifestObjectForEditor = useMemo(() => {
+    if (!interaction.selectedId) {
+      return null;
+    }
+    if (interaction.selectedType === "object") {
+      return manifestObjects.find((object) => object.id === interaction.selectedId) ?? null;
+    }
+    if (interaction.selectedType === "poi" || interaction.selectedType === "artifact") {
+      return manifestObjects.find((object) => object.poi_id === interaction.selectedId) ?? null;
+    }
+    return null;
+  }, [interaction.selectedId, interaction.selectedType, manifestObjects]);
+  const hoveredManifestObjectForEditor = useMemo(() => {
+    if (!interaction.hoveredId) {
+      return null;
+    }
+    if (interaction.hoveredType === "object") {
+      return manifestObjects.find((object) => object.id === interaction.hoveredId) ?? null;
+    }
+    if (interaction.hoveredType === "poi" || interaction.hoveredType === "artifact") {
+      return manifestObjects.find((object) => object.poi_id === interaction.hoveredId) ?? null;
+    }
+    return null;
+  }, [interaction.hoveredId, interaction.hoveredType, manifestObjects]);
+  const sceneEditorCandidateObject = selectedManifestObjectForEditor ?? hoveredManifestObjectForEditor;
+  const sceneEditorActiveObject =
+    sceneEditorActiveObjectId
+      ? manifestObjects.find((object) => object.id === sceneEditorActiveObjectId) ?? null
+      : null;
+  const sceneEditorActiveDraft =
+    sceneEditorActiveObjectId ? sceneEditorDraftsByObjectId[sceneEditorActiveObjectId] ?? null : null;
   const reloadSceneRuntime = useCallback(async () => {
     setSceneRuntimeReloadPending(true);
     setSceneRuntimeNotice(null);
@@ -716,6 +770,76 @@ export function OverlayRoot() {
       setSceneRuntimeReloadPending(false);
     }
   }, [sceneRuntime]);
+  const selectSceneEditorObject = useCallback(
+    (object: SceneObjectSpec | null) => {
+      if (!object) {
+        return;
+      }
+      ensureSceneEditorDraft(object.id, normalizeEditorDraft(object.transform));
+      setSceneEditorActiveObjectId(object.id);
+      setSceneEditorNotice(`Editing ${object.id}`);
+    },
+    [ensureSceneEditorDraft, setSceneEditorActiveObjectId]
+  );
+  const copySceneEditorPatch = useCallback(async () => {
+    if (!sceneEditorActiveObject || !sceneEditorActiveDraft) {
+      setSceneEditorNotice("No active object draft to copy.");
+      return;
+    }
+
+    const snippet = JSON.stringify(
+      {
+        id: sceneEditorActiveObject.id,
+        transform: {
+          pos: sceneEditorActiveDraft.pos.map(roundTransformValue),
+          rot: sceneEditorActiveDraft.rot.map(roundTransformValue),
+          scale: sceneEditorActiveDraft.scale.map(roundTransformValue)
+        }
+      },
+      null,
+      2
+    );
+
+    try {
+      if (typeof navigator !== "undefined" && navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(snippet);
+        setSceneEditorNotice(`Copied transform patch for ${sceneEditorActiveObject.id}.`);
+        return;
+      }
+      setSceneEditorNotice("Clipboard API unavailable. Copy from the JSON preview.");
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "clipboard error";
+      setSceneEditorNotice(`Copy failed: ${message}`);
+    }
+  }, [sceneEditorActiveDraft, sceneEditorActiveObject]);
+  const placeSceneEditorObjectAtPointerXZ = useCallback(() => {
+    if (!sceneEditorActiveObject || !sceneEditorActiveDraft || !interaction.pointerWorldPos) {
+      setSceneEditorNotice("Need an active object and a scene pointer location.");
+      return;
+    }
+    replaceSceneEditorDraft(sceneEditorActiveObject.id, {
+      ...sceneEditorActiveDraft,
+      pos: [
+        interaction.pointerWorldPos[0],
+        sceneEditorActiveDraft.pos[1],
+        interaction.pointerWorldPos[2]
+      ]
+    });
+    setSceneEditorNotice(`Placed ${sceneEditorActiveObject.id} to pointer X/Z.`);
+  }, [
+    interaction.pointerWorldPos,
+    replaceSceneEditorDraft,
+    sceneEditorActiveDraft,
+    sceneEditorActiveObject
+  ]);
+  const resetSceneEditorActiveToManifest = useCallback(() => {
+    if (!sceneEditorActiveObject) {
+      setSceneEditorNotice("No active object selected.");
+      return;
+    }
+    replaceSceneEditorDraft(sceneEditorActiveObject.id, normalizeEditorDraft(sceneEditorActiveObject.transform));
+    setSceneEditorNotice(`Reset ${sceneEditorActiveObject.id} to manifest transform.`);
+  }, [replaceSceneEditorDraft, sceneEditorActiveObject]);
   const hoveredPoi =
     interaction.hoveredType === "poi" || interaction.hoveredType === "artifact"
       ? manifestPois.find((poi) => poi.poi_id === interaction.hoveredId) ?? null
@@ -1477,6 +1601,233 @@ export function OverlayRoot() {
                     {player.navDebug.lastCaptureSnippet}
                   </pre>
                 ) : null}
+                <section className="scene-editor">
+                  <h3>Scene Editor (Placement)</h3>
+                  <label className="debug-toggle">
+                    <input
+                      type="checkbox"
+                      checked={sceneEditorEnabled}
+                      onChange={(event) => setSceneEditorEnabled(event.target.checked)}
+                    />
+                    <span>Enable placement editor</span>
+                  </label>
+                  <p>Selected candidate: {sceneEditorCandidateObject?.id ?? "none"}</p>
+                  <p>Active object: {sceneEditorActiveObject?.id ?? "none"}</p>
+                  <div className="scene-editor-actions">
+                    <button
+                      type="button"
+                      disabled={!sceneEditorEnabled || !sceneEditorCandidateObject}
+                      onClick={() => selectSceneEditorObject(sceneEditorCandidateObject)}
+                    >
+                      Edit Selected Object
+                    </button>
+                    <button
+                      type="button"
+                      disabled={!sceneEditorEnabled || !sceneEditorActiveObject}
+                      onClick={resetSceneEditorActiveToManifest}
+                    >
+                      Reset to Manifest
+                    </button>
+                    <button
+                      type="button"
+                      disabled={!sceneEditorEnabled || !sceneEditorActiveObject || !sceneEditorActiveDraft}
+                      onClick={placeSceneEditorObjectAtPointerXZ}
+                    >
+                      Place at Pointer X/Z
+                    </button>
+                    <button
+                      type="button"
+                      disabled={!sceneEditorEnabled || !sceneEditorActiveObject || !sceneEditorActiveDraft}
+                      onClick={() => {
+                        if (!sceneEditorActiveObject || !sceneEditorActiveDraft) {
+                          return;
+                        }
+                        replaceSceneEditorDraft(sceneEditorActiveObject.id, {
+                          ...sceneEditorActiveDraft,
+                          pos: [sceneEditorActiveDraft.pos[0], 0, sceneEditorActiveDraft.pos[2]]
+                        });
+                        setSceneEditorNotice(`Snapped ${sceneEditorActiveObject.id} to floor (Y=0).`);
+                      }}
+                    >
+                      Snap Y=0
+                    </button>
+                    <button
+                      type="button"
+                      disabled={!sceneEditorEnabled || !sceneEditorActiveObject || !sceneEditorActiveDraft}
+                      onClick={() => {
+                        if (!sceneEditorActiveObject) {
+                          return;
+                        }
+                        void copySceneEditorPatch();
+                      }}
+                    >
+                      Copy Transform Patch
+                    </button>
+                    <button
+                      type="button"
+                      disabled={!sceneEditorEnabled || !sceneEditorActiveObject}
+                      onClick={() => {
+                        if (!sceneEditorActiveObject) {
+                          return;
+                        }
+                        clearSceneEditorDraft(sceneEditorActiveObject.id);
+                        setSceneEditorNotice(`Cleared draft for ${sceneEditorActiveObject.id}.`);
+                      }}
+                    >
+                      Clear Active Draft
+                    </button>
+                    <button
+                      type="button"
+                      disabled={!sceneEditorEnabled}
+                      onClick={() => {
+                        clearAllSceneEditorDrafts();
+                        setSceneEditorNotice("Cleared all scene editor drafts.");
+                      }}
+                    >
+                      Clear All Drafts
+                    </button>
+                  </div>
+                  <div className="scene-editor-grid">
+                    <p>Move step: 0.05m</p>
+                    <div className="scene-editor-axis-row">
+                      <span>X</span>
+                      <button
+                        type="button"
+                        disabled={!sceneEditorEnabled || !sceneEditorActiveDraft}
+                        onClick={() => nudgeSceneEditorActive("pos", 0, -0.05)}
+                      >
+                        -0.05
+                      </button>
+                      <button
+                        type="button"
+                        disabled={!sceneEditorEnabled || !sceneEditorActiveDraft}
+                        onClick={() => nudgeSceneEditorActive("pos", 0, 0.05)}
+                      >
+                        +0.05
+                      </button>
+                    </div>
+                    <div className="scene-editor-axis-row">
+                      <span>Y</span>
+                      <button
+                        type="button"
+                        disabled={!sceneEditorEnabled || !sceneEditorActiveDraft}
+                        onClick={() => nudgeSceneEditorActive("pos", 1, -0.05)}
+                      >
+                        -0.05
+                      </button>
+                      <button
+                        type="button"
+                        disabled={!sceneEditorEnabled || !sceneEditorActiveDraft}
+                        onClick={() => nudgeSceneEditorActive("pos", 1, 0.05)}
+                      >
+                        +0.05
+                      </button>
+                    </div>
+                    <div className="scene-editor-axis-row">
+                      <span>Z</span>
+                      <button
+                        type="button"
+                        disabled={!sceneEditorEnabled || !sceneEditorActiveDraft}
+                        onClick={() => nudgeSceneEditorActive("pos", 2, -0.05)}
+                      >
+                        -0.05
+                      </button>
+                      <button
+                        type="button"
+                        disabled={!sceneEditorEnabled || !sceneEditorActiveDraft}
+                        onClick={() => nudgeSceneEditorActive("pos", 2, 0.05)}
+                      >
+                        +0.05
+                      </button>
+                    </div>
+                    <p>Rotate step: 0.05 rad</p>
+                    <div className="scene-editor-axis-row">
+                      <span>Yaw</span>
+                      <button
+                        type="button"
+                        disabled={!sceneEditorEnabled || !sceneEditorActiveDraft}
+                        onClick={() => nudgeSceneEditorActive("rot", 1, -0.05)}
+                      >
+                        -0.05
+                      </button>
+                      <button
+                        type="button"
+                        disabled={!sceneEditorEnabled || !sceneEditorActiveDraft}
+                        onClick={() => nudgeSceneEditorActive("rot", 1, 0.05)}
+                      >
+                        +0.05
+                      </button>
+                    </div>
+                    <p>Scale step: 0.05</p>
+                    <div className="scene-editor-axis-row">
+                      <span>Scale</span>
+                      <button
+                        type="button"
+                        disabled={!sceneEditorEnabled || !sceneEditorActiveDraft}
+                        onClick={() => nudgeSceneEditorActive("scale", 0, -0.05)}
+                      >
+                        X-
+                      </button>
+                      <button
+                        type="button"
+                        disabled={!sceneEditorEnabled || !sceneEditorActiveDraft}
+                        onClick={() => nudgeSceneEditorActive("scale", 0, 0.05)}
+                      >
+                        X+
+                      </button>
+                      <button
+                        type="button"
+                        disabled={!sceneEditorEnabled || !sceneEditorActiveDraft}
+                        onClick={() => nudgeSceneEditorActive("scale", 1, -0.05)}
+                      >
+                        Y-
+                      </button>
+                      <button
+                        type="button"
+                        disabled={!sceneEditorEnabled || !sceneEditorActiveDraft}
+                        onClick={() => nudgeSceneEditorActive("scale", 1, 0.05)}
+                      >
+                        Y+
+                      </button>
+                      <button
+                        type="button"
+                        disabled={!sceneEditorEnabled || !sceneEditorActiveDraft}
+                        onClick={() => nudgeSceneEditorActive("scale", 2, -0.05)}
+                      >
+                        Z-
+                      </button>
+                      <button
+                        type="button"
+                        disabled={!sceneEditorEnabled || !sceneEditorActiveDraft}
+                        onClick={() => nudgeSceneEditorActive("scale", 2, 0.05)}
+                      >
+                        Z+
+                      </button>
+                    </div>
+                  </div>
+                  {sceneEditorActiveDraft ? (
+                    <>
+                      <p>pos: {formatTransformTuple(sceneEditorActiveDraft.pos)}</p>
+                      <p>rot: {formatTransformTuple(sceneEditorActiveDraft.rot)}</p>
+                      <p>scale: {formatTransformTuple(sceneEditorActiveDraft.scale)}</p>
+                      <pre className="scene-editor-patch-preview">
+{JSON.stringify(
+  {
+    id: sceneEditorActiveObject?.id,
+    transform: {
+      pos: sceneEditorActiveDraft.pos.map(roundTransformValue),
+      rot: sceneEditorActiveDraft.rot.map(roundTransformValue),
+      scale: sceneEditorActiveDraft.scale.map(roundTransformValue)
+    }
+  },
+  null,
+  2
+)}
+                      </pre>
+                    </>
+                  ) : null}
+                  {sceneEditorNotice ? <p className="status-ok">{sceneEditorNotice}</p> : null}
+                </section>
               </>
             ) : null}
           </section>

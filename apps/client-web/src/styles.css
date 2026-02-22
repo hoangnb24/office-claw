@@ -258,6 +258,56 @@ html,
   margin: 0;
 }
 
+.scene-editor {
+  margin-top: 10px;
+  border: 1px solid #364f75;
+  border-radius: 8px;
+  padding: 8px;
+  background: #102034;
+  display: grid;
+  gap: 6px;
+}
+
+.scene-editor h3 {
+  margin: 0;
+  font-size: 13px;
+}
+
+.scene-editor-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.scene-editor-grid {
+  display: grid;
+  gap: 6px;
+}
+
+.scene-editor-axis-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.scene-editor-axis-row span {
+  min-width: 40px;
+  font-size: 12px;
+  color: #c7d6f2;
+}
+
+.scene-editor-patch-preview {
+  margin: 0;
+  white-space: pre-wrap;
+  font-size: 11px;
+  line-height: 1.35;
+  border: 1px solid #365075;
+  border-radius: 6px;
+  padding: 8px;
+  background: #0e192b;
+}
+
 .panel-actions {
   margin-top: 10px;
   display: flex;

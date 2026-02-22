@@ -25,8 +25,8 @@ interface InteractionTargetMeta {
 
 const POI_STYLE: HighlightStyle = {
   color: new Color("#ffd166"),
-  emissiveIntensity: 0.95,
-  colorMix: 0.2
+  emissiveIntensity: 0.2,
+  colorMix: 0.05
 };
 
 const PARTICIPANT_STYLE: HighlightStyle = {

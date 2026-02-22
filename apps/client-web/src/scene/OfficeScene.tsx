@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import {
   type AnimationClip,
+  Group,
   GridHelper,
   InstancedMesh,
   Matrix4,
@@ -10,6 +11,11 @@ import {
   Object3D,
   Vector3
 } from "three";
+import { runtimeRenderQualityProfile } from "../config/runtimeProfile";
+import {
+  type SceneEditorTransformDraft,
+  useSceneEditorStore
+} from "../state/sceneEditorStore";
 import { useWorldStore } from "../state/worldStore";
 import { AgentRenderer } from "./agents";
 import { assetManager } from "./assets/assetManagerSingleton";
@@ -100,6 +106,28 @@ function resolveRenderPolicy(spec: SceneObjectSpec): RenderPolicyState {
     receiveShadow: policy?.receive_shadow ?? true,
     cullDistanceM: policy?.cull_distance_m ?? null
   };
+}
+
+function resolveTransformFromSpec(
+  spec: SceneObjectSpec,
+  draft: SceneEditorTransformDraft | undefined
+): { pos: [number, number, number]; rot: [number, number, number]; scale: [number, number, number] } {
+  return {
+    pos: draft?.pos ?? spec.transform.pos,
+    rot: draft?.rot ?? spec.transform.rot ?? [0, 0, 0],
+    scale: draft?.scale ?? spec.transform.scale ?? [1, 1, 1]
+  };
+}
+
+function applyTransformDraft(
+  root: Object3D,
+  spec: SceneObjectSpec,
+  draft: SceneEditorTransformDraft | undefined
+): void {
+  const transform = resolveTransformFromSpec(spec, draft);
+  root.position.set(...transform.pos);
+  root.rotation.set(...transform.rot);
+  root.scale.set(...transform.scale);
 }
 
 function applyShadowPolicy(root: Object3D, castShadow: boolean, receiveShadow: boolean) {
@@ -282,7 +310,26 @@ function InstancedObjectBatch({ group }: { group: InstancedObjectGroup }) {
   );
 }
 
-const LIGHTING_BUDGET = Object.freeze({
+type LightingBudget = {
+  backgroundColor: string;
+  fogColor: string;
+  fogNear: number;
+  fogFar: number;
+  groundColor: string;
+  ambientIntensity: number;
+  hemisphereSkyColor: string;
+  hemisphereGroundColor: string;
+  hemisphereIntensity: number;
+  keyColor: string;
+  keyIntensity: number;
+  keyPosition: [number, number, number];
+  fillColor: string;
+  fillIntensity: number;
+  fillPosition: [number, number, number];
+  keyShadowMapSize: number;
+};
+
+const BASE_LIGHTING_BUDGET: LightingBudget = Object.freeze({
   backgroundColor: "#263241",
   fogColor: "#2a3442",
   fogNear: 14,
@@ -301,9 +348,210 @@ const LIGHTING_BUDGET = Object.freeze({
   keyShadowMapSize: 512
 });
 
+type EventCueKind = "kickoff" | "task" | "decision" | "artifact";
+
+type ResolvedEventCue = {
+  id: string;
+  kind: EventCueKind;
+  position: [number, number, number];
+  startedAtTs: number;
+  durationMs: number;
+  pulseHz: number;
+};
+
+function cueKindFromEventName(eventName: string): EventCueKind | null {
+  if (eventName === "kickoff_started") {
+    return "kickoff";
+  }
+  if (eventName === "decision_requested" || eventName === "decision_resolved") {
+    return "decision";
+  }
+  if (eventName === "review_approved" || eventName === "review_changes_requested") {
+    return "artifact";
+  }
+  if (eventName === "task_assigned" || eventName === "tasks_created" || eventName === "task_done") {
+    return "task";
+  }
+  return null;
+}
+
+function cueColor(kind: EventCueKind): string {
+  switch (kind) {
+    case "kickoff":
+      return "#ffcf72";
+    case "decision":
+      return "#b49bff";
+    case "artifact":
+      return "#7de39d";
+    case "task":
+    default:
+      return "#73d0ff";
+  }
+}
+
+function cueAnchorGroup(kind: EventCueKind): string {
+  if (kind === "kickoff") {
+    return "inbox_flow";
+  }
+  if (kind === "artifact") {
+    return "delivery_flow";
+  }
+  return "task_flow";
+}
+
+function resolveLightingBudget(
+  runtimeData: SceneRuntimeData | null,
+  renderQuality: ReturnType<typeof runtimeRenderQualityProfile>
+): LightingBudget {
+  const manifestLighting = runtimeData?.lightingProfile;
+  const mood = manifestLighting?.mood ?? "neutral";
+  const moodDelta =
+    mood === "cozy_evening"
+      ? { ambient: 0.04, key: 0.08, fill: 0.02 }
+      : mood === "focused_night"
+        ? { ambient: -0.08, key: 0.12, fill: -0.05 }
+        : mood === "cozy_day"
+          ? { ambient: -0.03, key: 0.05, fill: 0.06 }
+          : { ambient: 0, key: 0, fill: 0 };
+
+  return {
+    ...BASE_LIGHTING_BUDGET,
+    ambientIntensity:
+      manifestLighting?.ambient_intensity ??
+      Math.max(0.2, BASE_LIGHTING_BUDGET.ambientIntensity + moodDelta.ambient),
+    keyIntensity:
+      manifestLighting?.key_intensity ??
+      Math.max(0.2, BASE_LIGHTING_BUDGET.keyIntensity + moodDelta.key),
+    fillIntensity:
+      manifestLighting?.fill_intensity ??
+      Math.max(0.1, BASE_LIGHTING_BUDGET.fillIntensity + moodDelta.fill),
+    keyColor: manifestLighting?.key_color ?? BASE_LIGHTING_BUDGET.keyColor,
+    fillColor: manifestLighting?.fill_color ?? BASE_LIGHTING_BUDGET.fillColor,
+    fogNear:
+      BASE_LIGHTING_BUDGET.fogNear *
+      (manifestLighting?.fog_near_scale ?? 1) *
+      renderQuality.fogNearScale,
+    fogFar:
+      BASE_LIGHTING_BUDGET.fogFar *
+      (manifestLighting?.fog_far_scale ?? 1) *
+      renderQuality.fogFarScale,
+    keyShadowMapSize: renderQuality.keyShadowMapSize
+  };
+}
+
+function resolveEventCue(
+  events: ReturnType<typeof useWorldStore.getState>["events"],
+  agents: Array<{ id: string; pos: [number, number, number] }>,
+  runtimeData: SceneRuntimeData | null,
+  renderQuality: ReturnType<typeof runtimeRenderQualityProfile>
+): ResolvedEventCue | null {
+  const event = [...events].reverse().find((candidate) => {
+    const kind = cueKindFromEventName(candidate.name);
+    if (!kind) {
+      return false;
+    }
+    return Date.now() - candidate.ts <= 6000;
+  });
+
+  if (!event) {
+    return null;
+  }
+
+  const kind = cueKindFromEventName(event.name);
+  if (!kind) {
+    return null;
+  }
+
+  const fxAnchor = runtimeData?.fxAnchors?.[cueAnchorGroup(kind)]?.[0];
+  const poiAnchor = event.poiId ? runtimeData?.poisById[event.poiId]?.nav_anchors?.[0] : null;
+  const agent = event.agentId ? agents.find((candidate) => candidate.id === event.agentId) : null;
+
+  const position: [number, number, number] = fxAnchor
+    ? [fxAnchor.pos[0], fxAnchor.pos[1], fxAnchor.pos[2]]
+    : poiAnchor
+      ? [poiAnchor.pos[0], poiAnchor.pos[1] + 1.15, poiAnchor.pos[2]]
+      : agent
+        ? [agent.pos[0], agent.pos[1] + 1.35, agent.pos[2]]
+        : [0, 1.2, 0];
+
+  const cueDurationMs = runtimeData?.ambienceProfile?.cue_duration_ms ?? renderQuality.eventCueDurationMs;
+  const cuePulseHz = runtimeData?.ambienceProfile?.cue_pulse_hz ?? 2.2;
+
+  return {
+    id: event.id,
+    kind,
+    position,
+    startedAtTs: event.ts,
+    durationMs: cueDurationMs,
+    pulseHz: cuePulseHz
+  };
+}
+
+function RecentWorldEventCue({ cue }: { cue: ResolvedEventCue | null }) {
+  const groupRef = useRef<Group>(null);
+  const ringRef = useRef<Mesh>(null);
+  const beaconRef = useRef<Mesh>(null);
+
+  useFrame((state) => {
+    if (!cue || !groupRef.current) {
+      if (groupRef.current) {
+        groupRef.current.visible = false;
+      }
+      return;
+    }
+
+    const ageMs = Date.now() - cue.startedAtTs;
+    const progress = Math.min(1, Math.max(0, ageMs / cue.durationMs));
+    if (progress >= 1) {
+      groupRef.current.visible = false;
+      return;
+    }
+
+    groupRef.current.visible = true;
+    const pulse = 0.5 + Math.sin(state.clock.elapsedTime * cue.pulseHz * Math.PI * 2) * 0.5;
+    const fade = 1 - progress;
+    const baseScale = 0.85 + pulse * 0.45;
+    groupRef.current.scale.setScalar(baseScale);
+
+    const ringMaterial = ringRef.current?.material as MeshStandardMaterial | undefined;
+    if (ringMaterial) {
+      ringMaterial.opacity = 0.1 + fade * (0.22 + pulse * 0.22);
+      ringMaterial.emissiveIntensity = 0.4 + fade * (0.7 + pulse * 0.5);
+    }
+    const beaconMaterial = beaconRef.current?.material as MeshStandardMaterial | undefined;
+    if (beaconMaterial) {
+      beaconMaterial.opacity = 0.2 + fade * (0.28 + pulse * 0.15);
+      beaconMaterial.emissiveIntensity = 0.55 + fade * (0.85 + pulse * 0.35);
+    }
+  });
+
+  if (!cue) {
+    return null;
+  }
+
+  const color = cueColor(cue.kind);
+  return (
+    <group ref={groupRef} position={cue.position}>
+      <mesh ref={ringRef} rotation={[-Math.PI / 2, 0, 0]}>
+        <torusGeometry args={[0.42, 0.04, 12, 36]} />
+        <meshStandardMaterial color={color} emissive={color} transparent opacity={0.28} />
+      </mesh>
+      <mesh ref={beaconRef} position={[0, 0.18, 0]}>
+        <sphereGeometry args={[0.08, 12, 12]} />
+        <meshStandardMaterial color={color} emissive={color} transparent opacity={0.35} />
+      </mesh>
+    </group>
+  );
+}
+
 export function OfficeScene() {
+  const renderQuality = runtimeRenderQualityProfile();
   const sceneRuntime = useSceneRuntimeProvider();
   const runtimeData = sceneRuntime.snapshot.runtimeData;
+  const lightingBudget = useMemo(
+    () => resolveLightingBudget(runtimeData, renderQuality),
+    [renderQuality, runtimeData]
+  );
 
   const poiHighlightNodesById = sceneRuntime.snapshot.derived?.poiHighlightNodesById ?? {};
 
@@ -353,6 +601,7 @@ export function OfficeScene() {
   const grid = useMemo(() => new GridHelper(20, 20, "#5f6c7b", "#273240"), []);
   const [agentModel, setAgentModel] = useState<Object3D | null>(null);
   const [agentAnimations, setAgentAnimations] = useState<AnimationClip[] | null>(null);
+  const worldEvents = useWorldStore((state) => state.events);
   const agents = useWorldStore((state) => Object.values(state.agents));
   const agentGoals = useWorldStore((state) => state.agentGoals);
   const blockedTaskCount = useWorldStore(
@@ -360,7 +609,12 @@ export function OfficeScene() {
   );
   const interactionHandlers = useInteractionManager();
   const highlightState = useHighlightManager();
+  const editorDraftsByObjectId = useSceneEditorStore((state) => state.draftsByObjectId);
   const cullProbeWorldPos = useMemo(() => new Vector3(), []);
+  const recentEventCue = useMemo(
+    () => resolveEventCue(worldEvents, agents, runtimeData, renderQuality),
+    [agents, renderQuality, runtimeData, worldEvents]
+  );
 
   useEffect(() => {
     let active = true;
@@ -392,9 +646,17 @@ export function OfficeScene() {
     }
   }, [fallbackLoadedObjectEntries]);
 
+  useEffect(() => {
+    for (const { loaded, spec } of fallbackLoadedObjectEntries) {
+      applyTransformDraft(loaded.root, spec, editorDraftsByObjectId[loaded.id]);
+    }
+  }, [editorDraftsByObjectId, fallbackLoadedObjectEntries]);
+
   useFrame((state) => {
+    const disableDistanceCulling =
+      "isOrthographicCamera" in state.camera && state.camera.isOrthographicCamera === true;
     for (const { loaded, renderPolicy } of fallbackLoadedObjectEntries) {
-      if (renderPolicy.cullDistanceM === null) {
+      if (disableDistanceCulling || renderPolicy.cullDistanceM === null) {
         loaded.root.visible = true;
         continue;
       }
@@ -406,22 +668,22 @@ export function OfficeScene() {
   return (
     <>
       <IsometricCameraRig />
-      <color attach="background" args={[LIGHTING_BUDGET.backgroundColor]} />
-      <fog attach="fog" args={[LIGHTING_BUDGET.fogColor, LIGHTING_BUDGET.fogNear, LIGHTING_BUDGET.fogFar]} />
-      <ambientLight intensity={LIGHTING_BUDGET.ambientIntensity} />
+      <color attach="background" args={[lightingBudget.backgroundColor]} />
+      <fog attach="fog" args={[lightingBudget.fogColor, lightingBudget.fogNear, lightingBudget.fogFar]} />
+      <ambientLight intensity={lightingBudget.ambientIntensity} />
       <hemisphereLight
         args={[
-          LIGHTING_BUDGET.hemisphereSkyColor,
-          LIGHTING_BUDGET.hemisphereGroundColor,
-          LIGHTING_BUDGET.hemisphereIntensity
+          lightingBudget.hemisphereSkyColor,
+          lightingBudget.hemisphereGroundColor,
+          lightingBudget.hemisphereIntensity
         ]}
       />
       <directionalLight
-        castShadow
-        color={LIGHTING_BUDGET.keyColor}
-        intensity={LIGHTING_BUDGET.keyIntensity}
-        position={LIGHTING_BUDGET.keyPosition}
-        shadow-mapSize={[LIGHTING_BUDGET.keyShadowMapSize, LIGHTING_BUDGET.keyShadowMapSize]}
+        castShadow={renderQuality.shadows}
+        color={lightingBudget.keyColor}
+        intensity={lightingBudget.keyIntensity}
+        position={lightingBudget.keyPosition}
+        shadow-mapSize={[lightingBudget.keyShadowMapSize, lightingBudget.keyShadowMapSize]}
         shadow-camera-near={0.5}
         shadow-camera-far={18}
         shadow-camera-left={-7}
@@ -431,9 +693,9 @@ export function OfficeScene() {
         shadow-normalBias={0.03}
       />
       <directionalLight
-        color={LIGHTING_BUDGET.fillColor}
-        intensity={LIGHTING_BUDGET.fillIntensity}
-        position={LIGHTING_BUDGET.fillPosition}
+        color={lightingBudget.fillColor}
+        intensity={lightingBudget.fillIntensity}
+        position={lightingBudget.fillPosition}
       />
       <group
         onPointerMove={interactionHandlers.onPointerMove}
@@ -452,7 +714,7 @@ export function OfficeScene() {
           }}
         >
           <planeGeometry args={[20, 20]} />
-          <meshStandardMaterial color={LIGHTING_BUDGET.groundColor} />
+          <meshStandardMaterial color={lightingBudget.groundColor} />
         </mesh>
 
         {runtimeShell ? (
@@ -495,11 +757,14 @@ export function OfficeScene() {
           const renderPolicy = resolveRenderPolicy(spec);
           const isPoiHighlighted =
             target.type !== "object" && highlightState.highlightedPoiId === target.id;
+          const transform = resolveTransformFromSpec(spec, editorDraftsByObjectId[spec.id]);
           const size = fallbackSizeForObject(spec);
           return (
             <group key={`${spec.id}-fallback`} userData={{ interactionTarget: target }}>
               <mesh
-                position={spec.transform.pos}
+                position={transform.pos}
+                rotation={transform.rot}
+                scale={transform.scale}
                 castShadow={renderPolicy.castShadow}
                 receiveShadow={renderPolicy.receiveShadow}
               >
@@ -507,7 +772,7 @@ export function OfficeScene() {
                 <meshStandardMaterial color={fallbackColorForObject(spec)} />
               </mesh>
               {isPoiHighlighted ? (
-                <mesh position={spec.transform.pos}>
+                <mesh position={transform.pos}>
                   <sphereGeometry args={[0.35, 18, 18]} />
                   <meshStandardMaterial
                     color="#ffd86b"
@@ -519,7 +784,7 @@ export function OfficeScene() {
                 </mesh>
               ) : null}
               {spec.id === "delivery_cone_marker" ? (
-                <group position={spec.transform.pos}>
+                <group position={transform.pos}>
                   <BlockerConeSignal active={blockedTaskCount > 0} />
                 </group>
               ) : null}
@@ -556,6 +821,7 @@ export function OfficeScene() {
             />
           </group>
         ))}
+        <RecentWorldEventCue cue={recentEventCue} />
       </group>
     </>
   );

@@ -6,6 +6,7 @@ import { useSceneRuntimeProvider } from "../runtime";
 
 const DEFAULT_CAMERA_POSITION = new Vector3(12, 12, 12);
 const DEFAULT_LOOK_AT = new Vector3(0, 0, 0);
+const DEFAULT_VIEW_VECTOR = DEFAULT_CAMERA_POSITION.clone().sub(DEFAULT_LOOK_AT);
 const FRUSTUM_HEIGHT = 24;
 const MIN_ZOOM = 0.7;
 const MAX_ZOOM = 2.2;
@@ -100,9 +101,9 @@ export function IsometricCameraRig() {
       }
 
       targetLookAtRef.current.set(...focusConfig.focusPoint);
-      targetPositionRef.current
-        .copy(targetLookAtRef.current)
-        .add(new Vector3(...focusConfig.cameraOffset));
+      // Keep the orthographic isometric angle fixed during POI focus. We only pan + zoom
+      // instead of orbiting toward a POI-local offset, which can push the camera inside the shell.
+      targetPositionRef.current.copy(targetLookAtRef.current).add(DEFAULT_VIEW_VECTOR);
 
       const baseZoom = preFocusZoomRef.current ?? targetZoomRef.current;
       targetZoomRef.current = clamp(
