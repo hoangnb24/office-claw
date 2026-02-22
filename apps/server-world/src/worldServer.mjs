@@ -518,6 +518,16 @@ export function createWorldServer({
 
   function publishSnapshotsToSubscribers() {
     maybeEmitPerformanceAlerts();
+    const snapshotPayloadByScene = new Map();
+
+    function getSnapshotPayload(sceneId) {
+      const key = typeof sceneId === "string" && sceneId.length > 0 ? sceneId : "__default__";
+      if (!snapshotPayloadByScene.has(key)) {
+        snapshotPayloadByScene.set(key, buildPublishedSnapshot(sceneId));
+      }
+      return snapshotPayloadByScene.get(key);
+    }
+
     for (const session of sessions.values()) {
       if (!session.subscribed || !session.channels?.snapshots) {
         continue;
@@ -525,7 +535,10 @@ export function createWorldServer({
       if (session.ws.readyState !== session.ws.OPEN) {
         continue;
       }
-      const payload = buildPublishedSnapshot(session.sceneId || undefined);
+      const sceneId = typeof session.sceneId === "string" && session.sceneId.length > 0
+        ? session.sceneId
+        : undefined;
+      const payload = getSnapshotPayload(sceneId);
       sendEnvelope(session, "snapshot", payload);
       snapshotPublishCount += 1;
       observability.pipeline.snapshots_published += 1;
